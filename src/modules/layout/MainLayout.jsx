@@ -1,28 +1,29 @@
 import React from 'react';
+
 const MainLayout = () => {
-    return (
-      <div className="layout bg-gray-100">
-        <header className="bg-white shadow">
-          <div className="container mx-auto py-4 px-4">
-            
-            <h1 className="text-2xl font-bold">Seattle</h1>
+
+  return (
+    <div className="flex h-screen bg-gray-200 ">
+      <div className="fixed bg-white text-white w-64 h-screen">
+        <div className="flex items-center justify-between p-4">
+          <img src="src/assets/seattleLogo.png" alt="Logo" className="h-[6 0px]" />
+        </div>
+        <nav className="mt-4 px-[25px]">
+          <section className="text-sm block px-4 py-2 font-bold text-[#A7B9D1]">Overview</section>
+          <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white text-left">Dashboard</button>
+          <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white text-left">Guru</button>
+          <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white text-left">Siswa</button>
+          <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white text-left">Rekap</button>
+          <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white my-[270px] text-left">Log Out</button>
+          </nav>
+
+            <div className="flex flex-col flex-1">
+            </div>
+
           </div>
-        </header>
-        <main className="container mx-auto py-4 px-4">
-          <section className="mb-4">
-            <p className="text-xl font-poppins mb-2">Overview</p>
-          </section>
-          <section className="mb-4">
-            <h2 className="text-xl font-bold mb-2">Guru</h2>
-          </section>
-          <section className="mb-4">
-            <h2 className="text-xl font-bold mb-2">Siswa</h2>
-          </section>
-          <section className="mb-4">
-            <h2 className="text-xl font-bold mb-2">Rekap</h2>
-          </section>
-        </main>
       </div>
-    );
-};
-export default MainLayout;
+
+      )
+ }
+
+export default MainLayout

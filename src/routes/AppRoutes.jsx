@@ -8,10 +8,10 @@ const AppRoutes = () => {
       <Routes>
         <Route path='/' element={<Navigate to="/login"/>} />
         <Route path='/login' element={<Login/>} />
-        <Route path='/dashboard' element={<h1>dashboard</h1>} />
+        <Route path='/dashboard' element={<MainLayout/>} />
       </Routes>
     </BrowserRouter>
   )
 }
 
-export default AppRoutes
+export default AppRoutes;

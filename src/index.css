@@ -7,9 +7,9 @@
 }
 
 .input{
-    @apply rounded-lg bg-[#FFFFEC] p-2 mb-4;
+    @apply rounded-lg bg-[#FFFF] p-2 mb-4;
 }
 
 .textarea{
-    @apply rounded-lg bg-[#FFFFEC] p-2;
+    @apply rounded-lg bg-[#FFFF] p-2;
 }
