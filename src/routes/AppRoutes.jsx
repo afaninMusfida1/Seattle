@@ -8,6 +8,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path='/' element={<Navigate to="/login"/>} />
         <Route path='/login' element={<Login/>} />
+        <Route path='/dashboard' element={<h1>dashboard</h1>} />
       </Routes>
     </BrowserRouter>
   )
