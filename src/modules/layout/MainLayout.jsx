@@ -14,7 +14,7 @@ const MainLayout = () => {
           <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white text-left">Guru</button>
           <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white text-left">Siswa</button>
           <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white text-left">Rekap</button>
-          <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white my-[270px] text-left">Log Out</button>
+          <button className="bg-white w-[200px] hover:bg-[#078DCC] hover:rounded-[5px]  block px-4 py-2 text-sm text-black hover:text-white my-[200px] text-left">Log Out</button>
           </nav>
 
             <div className="flex flex-col flex-1">
