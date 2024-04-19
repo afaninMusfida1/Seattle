@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleClick = async () => {
     // doLogin(username, password)
-    navigate('/dashboard')
+    navigate('/app')
   }
   return (
     <>
@@ -19,7 +19,7 @@ const Login = () => {
         <div className="logo">
           <img className="mx-10 pt-5 w-30 h-20" src="src/assets/seattleLogo.png" alt="" />
         </div>
-        <h1 className="text-center text-[#06357A] font-poppins font-bold text-[40px] p-5 mt-[80px] my-[35px]">Welcome, Admin</h1>
+        <h1 className="text-center text-[#06357A] font-poppins font-bold text-[40px] p-5 mt-[50px] my-[25px]">Welcome, Admin</h1>
         <div className="container flex flex-col">
         <input  placeholder="Username" className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "></input>
         <input placeholder="Password" className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] mt-[10px] outline-none focus:border-[#2B3758]"></input>
