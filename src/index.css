@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: #DCE5F1 ;
+.container{
+    @apply  w-[300pt] mx-auto;
+}
+
+.input{
+    @apply rounded-lg bg-[#FFFF] p-2 mb-4;
+}
+
+.textarea{
+    @apply rounded-lg bg-[#FFFF] p-2;
 }
