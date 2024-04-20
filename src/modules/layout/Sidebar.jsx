@@ -1,6 +1,5 @@
 import React from 'react';
-import Dashboard from '../Dasboard/Dashboard';
-
+import TambahGuru from '../admin/TambahGuru.jsx';
 
 const Sidebar = () => {
 
@@ -8,9 +7,11 @@ const Sidebar = () => {
     <Dashboard/> 
   }
 
-  return ( 
-    <div className="flex bg-gray-200  ">
+  return (
+    <div className="flex h-screen bg-gray-200 ">
+      <TambahGuru/>
       <div className="fixed bg-white text-white w-64 h-screen">
+        
         <div className="flex items-center justify-between p-4">
           <img src="src/assets/seattleLogo.png" alt="Logo" className="mx-[25px] h-[60px] w-[120px]" />
         </div>
