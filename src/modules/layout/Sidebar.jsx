@@ -1,44 +1,40 @@
-import React, { useState } from 'react';
-import TambahSiswa from '../admin/TambahSiswa.jsx';
 import Rekap from '../admin/Rekap/Rekap.jsx';
-import TambahGuru from '../admin/TambahGuru.jsx';
+import React from 'react';
 import Dashboard from '../Dasboard/Dashboard.jsx';
-import GuruPage from '../admin/GuruPage.jsx';
 
 const Sidebar = () => {
 
-  const nav = () => { 
-  const [showDashboard, setShowDashboard] = useState (true);
-  const [showGuruPage, setShowGuruPage] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(true);
+  const [showPlusGuruPage, setShowPlusGuruPage] = useState(false);
   // const [showSiswaPage, setShowSiswaPage] = useState(false);
   // const [showRekapPage, setShowRekapPage] = useState(false);
 
   const navDashboard = () => {
     setShowDashboard(true);
-    setShowGuruPage(false);
-    setShowSiswaPage(false);
-    setShowRekapPage(false);
+    setShowPlusGuruPage(false);
+    // setShowSiswaPage(false);
+    // setShowRekapPage(false);
   }
 
   const navGuruPage = () => {
     setShowDashboard(false);
-    setShowGuruPage(true);
-    setShowSiswaPage(false);
-    setShowRekapPage(false);
+    setShowPlusGuruPage(true);
+    // setShowSiswaPage(false);
+    // setShowRekapPage(false);
   }
 
   const navSiswaPage = () => {
     setShowDashboard(false);
-    setShowGuruPage(false);
-    setShowSiswaPage(true);
-    setShowRekapPage(false);
+    setShowPlusGuruPage(false);
+    // setShowSiswaPage(true);
+    // setShowRekapPage(false);
   }
 
   const navRekapPage = () => {
     setShowDashboard(false);
-    setShowGuruPage(false);
-    setShowSiswaPage(false);
-    setShowRekapPage(true);
+    setShowPlusGuruPage(false);
+    // setShowSiswaPage(false);
+    // setShowRekapPage(true);
   }
 
   const logout = () => {
@@ -46,7 +42,6 @@ const Sidebar = () => {
   }
   return (
     <div className="flex h-screen bg-gray-200 ">
-    <Rekap/>
       <div className="fixed bg-white text-white w-64 h-screen">
         <div className="flex items-center justify-between p-4">
           <img src="src/assets/seattleLogo.png" alt="Logo" className="mx-[25px] h-[60px] w-[120px]" />
@@ -61,12 +56,13 @@ const Sidebar = () => {
         </nav>
       </div>
       {showDashboard && <Dashboard />}
-      {showGuruPage && <GuruPage/>}
+      {showPlusGuruPage && <TambahGuru/>}
+      
       {/* {showSiswaPage && <SiswaPage />}
       {showRekapPage && <RekapPage />} */}
     </div>
   );
 }
-}
+
 
 export default Sidebar;
