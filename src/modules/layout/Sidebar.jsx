@@ -1,5 +1,7 @@
 import React from 'react';
 import TambahGuru from '../admin/TambahGuru.jsx';
+import SiswaTerdaftar from '../admin/SiswaTerdaftar.jsx';
+
 
 const Sidebar = () => {
 
@@ -9,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <div className="flex h-screen bg-gray-200 ">
-      <TambahGuru/>
+      <SiswaTerdaftar/>
       <div className="fixed bg-white text-white w-64 h-screen">
         
         <div className="flex items-center justify-between p-4">
