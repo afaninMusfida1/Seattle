@@ -1,8 +1,6 @@
-import React from 'react';
-import TambahGuru from '../admin/TambahGuru.jsx';
+import React, { useState } from 'react';
 import TambahSiswa from '../admin/TambahSiswa.jsx';
 import Rekap from '../admin/Rekap/Rekap.jsx';
-import React, { useState } from 'react';
 import TambahGuru from '../admin/TambahGuru.jsx';
 import Dashboard from '../Dasboard/Dashboard.jsx';
 import GuruPage from '../admin/GuruPage.jsx';
@@ -10,7 +8,7 @@ import GuruPage from '../admin/GuruPage.jsx';
 const Sidebar = () => {
 
   const nav = () => { 
-  const [showDashboard, setShowDashboard] = useState(true);
+  const [showDashboard, setShowDashboard] = useState (true);
   const [showGuruPage, setShowGuruPage] = useState(false);
   // const [showSiswaPage, setShowSiswaPage] = useState(false);
   // const [showRekapPage, setShowRekapPage] = useState(false);
@@ -68,6 +66,7 @@ const Sidebar = () => {
       {showRekapPage && <RekapPage />} */}
     </div>
   );
+}
 }
 
 export default Sidebar;
