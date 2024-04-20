@@ -1,15 +1,15 @@
 import React from 'react';
 import TambahGuru from '../admin/TambahGuru.jsx';
+import TambahSiswa from '../admin/TambahSiswa.jsx';
+import Rekap from '../admin/Rekap/Rekap.jsx';
 
 const Sidebar = () => {
 
-  const nav = () => {
-    <Dashboard/> 
+  const nav = () => { 
   }
-
   return (
     <div className="flex h-screen bg-gray-200 ">
-      <TambahGuru/>
+    <Rekap/>
       <div className="fixed bg-white text-white w-64 h-screen">
         
         <div className="flex items-center justify-between p-4">
