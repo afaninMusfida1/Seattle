@@ -1,5 +1,4 @@
 import React from 'react';
-import TambahGuru from '../admin/TambahGuru.jsx';
 import DaftarGuru from '../admin/DaftarGuru.jsx';
 
 const Sidebar = () => {
