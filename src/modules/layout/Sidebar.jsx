@@ -1,15 +1,10 @@
-import React from 'react';
-import TambahGuru from '../admin/TambahGuru.jsx';
-import TambahSiswa from '../admin/TambahSiswa.jsx';
 import Rekap from '../admin/Rekap/Rekap.jsx';
 import React, { useState } from 'react';
 import TambahGuru from '../admin/TambahGuru.jsx';
 import Dashboard from '../Dasboard/Dashboard.jsx';
-import DaftarGuru from '../admin/DaftarGuru.jsx';
 
 const Sidebar = () => {
 
-  const nav = () => { 
   const [showDashboard, setShowDashboard] = useState(true);
   const [showPlusGuruPage, setShowPlusGuruPage] = useState(false);
   // const [showSiswaPage, setShowSiswaPage] = useState(false);
@@ -48,7 +43,6 @@ const Sidebar = () => {
   }
   return (
     <div className="flex h-screen bg-gray-200 ">
-    <Rekap/>
       <div className="fixed bg-white text-white w-64 h-screen">
         <div className="flex items-center justify-between p-4">
           <img src="src/assets/seattleLogo.png" alt="Logo" className="mx-[25px] h-[60px] w-[120px]" />
@@ -70,5 +64,6 @@ const Sidebar = () => {
     </div>
   );
 }
+
 
 export default Sidebar;
