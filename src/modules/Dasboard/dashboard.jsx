@@ -1,7 +1,6 @@
 function Dashboard() {
     return (
         <div className="justify-self-center mt-[100px] ml-[300px] max-w-screen max-h-screen">
-
             <div className="flex justify-around pt-[8px] ">
                 <div className=" bg-[#078DCC] size-[220px] w-[500px] rounded-[30px]">
                     <h1 className="font-poppins text-[#FBFBFB] pt-28 text-4xl ml-7">Pengumuman</h1>
@@ -21,4 +20,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default Dashboard;
