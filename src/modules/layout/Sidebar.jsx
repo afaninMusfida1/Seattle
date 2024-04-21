@@ -1,5 +1,3 @@
-import React from 'react';
-import TambahSiswa from '../admin/TambahSiswa.jsx';
 import Rekap from '../admin/Rekap/Rekap.jsx';
 import {React, useState} from 'react';
 import Dashboard from '../Dasboard/Dashboard.jsx';
