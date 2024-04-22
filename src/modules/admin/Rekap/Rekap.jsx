@@ -1,4 +1,16 @@
+import { useNavigate, Outlet } from 'react-router-dom';
+import React, { useState } from 'react';
+
 const Rekap = () => {
+    const navigate = useNavigate();
+    const [showRekapAbsen, setShowRekapAbsen] = useState(false);
+
+    const rekapAbsen = () => {
+        setShowRekapAbsen(true); 
+    }
+    if (showRekapAbsen) {
+        navigate('/app/rekap/rekap-absen');
+    }
 
     return (
         <div>
@@ -7,7 +19,7 @@ const Rekap = () => {
                     <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Rekap Absen</h2>
                 </div>
                 <div className="mt-[20px]">
-                    <button className="bg-white font-poppins text-[16px] text-left border-2 py-2 pr-[140px] pl-[15px] rounded-[10px] hover:bg-[#DCE5F1] hover:border-[#078DCC]">
+                    <button onClick={rekapAbsen} className="bg-white font-poppins text-[16px] text-left border-2 py-2 pr-[140px] pl-[15px] rounded-[10px] hover:bg-[#DCE5F1] hover:border-[#078DCC]">
                         <h1 className="font-bold text-[#6A6D76]">Kelas A</h1>
                         <p className="text-[#6A6D76] mt-[10px]">English beginner</p>
                     </button>
@@ -98,7 +110,7 @@ const Rekap = () => {
                 </div>
             </div>
 
-
+            <Outlet />
         </div>
 
 

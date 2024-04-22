@@ -8,6 +8,7 @@ import SiswaTerdaftar from '../modules/admin/SiswaTerdaftar';
 import Rekap from '../modules/admin/Rekap/Rekap';
 import TambahSiswa from '../modules/admin/TambahSiswa';
 import DaftarGuru from '../modules/admin/DaftarGuru';
+import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
 
 const AppRoutes = () => {
   return (
@@ -23,7 +24,9 @@ const AppRoutes = () => {
           <Route path='tambah-siswa' element={<TambahSiswa />}>
             <Route path='daftar-siswa' element={<SiswaTerdaftar />} />
           </Route>
-          <Route path='rekap' element={<Rekap />} />
+          <Route path='rekap' element={<Rekap />}>
+            <Route path='rekap-absen' element={<RekapAbsen />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter >
