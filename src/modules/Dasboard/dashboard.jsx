@@ -10,7 +10,7 @@ function Dashboard() {
 
                 <div className=" bg-[#FFFFFF] pt-[28px] mx-10 size-[220px] w-[312px] rounded-[30px]">
                 </div> 
-            </div>
+   /         </div>
 
             <div className="flex justify-around pt-8">
                 <div className=" bg-[#FFFFFF] size-80 w-[400px] h-[400px] p-[50px] rounded-[30px]"></div>
