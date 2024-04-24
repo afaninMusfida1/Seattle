@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const TambahSiswa = () => {
     const navigate = useNavigate();
     const [showDafSiswa, setShowDafSiswa] = useState(false);
 
-    const daftarSiswa = () => {
-        setShowDafSiswa(true);
+    function handleChange(){
+        navigate('/daftar-siswa')
     }
 
     return (
@@ -25,15 +25,14 @@ const TambahSiswa = () => {
                     <option value="option2">English Menengah</option>
                     <option value="option3">English Sepuh</option>
                 </select>
-                <button onClick={daftarSiswa} className="w-[400px] h-[40px] mt-[80px] font-poppins text-[16px] border-2 bg-[#07CCB5] text-white rounded-[10px] outline-none ">Tambahkan</button>
+                <button onClick={handleChange} className="w-[400px] h-[40px] mt-[80px] font-poppins text-[16px] border-2 bg-[#07CCB5] text-white rounded-[10px] outline-none ">Tambahkan</button>
 
             </div>
             <div>
                 <input placeholder="Email" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <input placeholder="Asal Negara" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
-                <button onClick={() => navigate('/app/tambah-siswa/daftar-siswa')} className="text-[#078DCC] text-[14px] ml-[300px] mt-[210px] hover:underline">Lihat data siswa</button>
+                <button onClick={handleChange} className="text-[#078DCC] text-[14px] ml-[300px] mt-[210px] hover:underline">Lihat data siswa</button>
             </div>
-            <Outlet />
         </div>
     )
 }
