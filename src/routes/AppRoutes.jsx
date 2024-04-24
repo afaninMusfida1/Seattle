@@ -12,6 +12,8 @@ import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
 import GuruItem from '../modules/gurug/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import SiswaLayout from '../modules/layout/SiswaLayout';
+import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
+import RekapLayout from '../modules/layout/RekapLayout';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,8 +41,10 @@ const AppRoutes = () => {
             <Route path='tambah-siswa' element={<TambahSiswa />}/>
               <Route path='daftar-siswa' element={<SiswaTerdaftar />} />
             </Route>
-            <Route path='rekap' element={<Rekap />}>
+            <Route element={<RekapLayout />}>
+            <Route path='rekap' element={<Rekap />} />
               <Route path='rekap-absen' element={<RekapAbsen />} />
+              <Route path='rekap-jurnal' element={<RekapJurnal />} />
             </Route>
             <Route path='*' element={<Navigate to={"/dashboard"}/>}/>
           </>
