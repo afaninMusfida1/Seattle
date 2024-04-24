@@ -12,6 +12,7 @@ import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
 import GuruItem from '../modules/gurug/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import SiswaLayout from '../modules/layout/SiswaLayout';
+import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,7 +48,7 @@ const AppRoutes = () => {
     </Route>
             :
             <>
-              <Route path='siswa' element={<h1 className='text-[10rem] ml-[30rem]'>Siswa</h1>} />
+              <Route path='siswa' element={<HalamanSiswa/>} />
               <Route path='*' element={<Navigate to={"/siswa"}/>} />
             </>
             :
