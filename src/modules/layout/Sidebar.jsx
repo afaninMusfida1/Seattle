@@ -16,7 +16,7 @@ const Sidebar = () => {
 
 
   const navDashboard = () => {
-    navigate('/app/dashboard');
+    navigate('/app/Dashboard');
     setShowDashboard(true);
     setShowPlusGuruPage(false);
     setShowSiswaPage(false);
