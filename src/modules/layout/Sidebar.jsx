@@ -15,7 +15,7 @@ const Sidebar = () => {
     setShowPlusGuruPage(false);
     // setShowSiswaPage(false);
     // setShowRekapPage(false);
-  }
+  }      
 
   const navGuruPage = () => {
     setShowDashboard(false);
