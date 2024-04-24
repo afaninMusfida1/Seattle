@@ -1,15 +1,12 @@
-import { useNavigate, Outlet } from 'react-router-dom';
 import React, { useState } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
 
-const TambahGuru = () => {
+const TambahSiswa = () => {
     const navigate = useNavigate();
-    const [showDafGuru, setShowDafGuru] = useState(false);
+    const [showDafSiswa, setShowDafSiswa] = useState(false);
 
-    const daftarGuru = () => {
-        setShowDafGuru(true); 
-    }
-    if (showDafGuru) {
-        navigate('/app/tambah-guru/daftar-guru');
+    const daftarSiswa = () => {
+        setShowDafSiswa(true);
     }
 
     return (
@@ -17,24 +14,28 @@ const TambahGuru = () => {
             <div>
                 <input placeholder="Nama" className="input w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <select className="border rounded px-4 py-2 outline-none text-[#6A6D76] w-[400px] h-[40px] mb-[15px]">
-                    <option value="" >Jenis Kelamin</option>
+                    <option value="">Jenis Kelamin</option>
                     <option value="option1">Laki-Laki</option>
                     <option value="option2">Perempuan</option>
                 </select>
                 <input placeholder="No.telp" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
-                <button onClick={daftarGuru} className="w-[400px] h-[40px] mt-[130px] font-poppins text-[16px] border-2 bg-[#07CCB5] text-white rounded-[10px] outline-none ">Tambahkan</button>
+                <select className="border rounded px-4 py-2 outline-none text-[#6A6D76] w-[200px] h-[40px] mb-[15px]">
+                    <option value="">Kelas</option>
+                    <option value="option1">English Pemula</option>
+                    <option value="option2">English Menengah</option>
+                    <option value="option3">English Sepuh</option>
+                </select>
+                <button onClick={daftarSiswa} className="w-[400px] h-[40px] mt-[80px] font-poppins text-[16px] border-2 bg-[#07CCB5] text-white rounded-[10px] outline-none ">Tambahkan</button>
+
             </div>
             <div>
                 <input placeholder="Email" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <input placeholder="Asal Negara" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
-                <div className="py-[200px]">
-                    <button onClick={daftarGuru} className="text-[#078DCC] text-[14px] ml-[300px] mt-[0px] hover:underline">Lihat data guru</button>
-                </div>
+                <button onClick={() => navigate('/app/tambah-siswa/daftar-siswa')} className="text-[#078DCC] text-[14px] ml-[300px] mt-[210px] hover:underline">Lihat data siswa</button>
             </div>
-
             <Outlet />
         </div>
     )
 }
 
-export default TambahGuru;
+export default TambahSiswa;

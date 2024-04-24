@@ -13,3 +13,7 @@
 .textarea{
     @apply rounded-lg bg-[#FFFF] p-2;
 }
+
+body{
+    @apply bg-[#DCE5F1];
+}

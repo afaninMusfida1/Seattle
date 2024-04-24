@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleClick = async () => {
     // doLogin(username, password)
-    navigate('/app')
+    navigate('/app/dashboard')
   }
   return (
     <>
