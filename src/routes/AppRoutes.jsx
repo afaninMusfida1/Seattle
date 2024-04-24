@@ -12,7 +12,9 @@ import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
 import GuruItem from '../modules/gurug/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import SiswaLayout from '../modules/layout/SiswaLayout';
-import JadwalMapel from '../modules/siswa/JadwalMapel';
+import LoginGuruSiswa from '../modules/auth/LoginGuruSiswa';
+import HalamanSiswa from '../modules/siswa/HalamanSiswa';
+import JadwalKelas from '../modules/siswa/JadwalKelas';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,7 +50,7 @@ const AppRoutes = () => {
     </Route>
             :
             <>
-              <Route path='siswa' element={<JadwalMapel/>} />
+              <Route path='siswa' element={<JadwalKelas/>} />
               <Route path='*' element={<Navigate to={"/siswa"}/>} />
             </>
             :
