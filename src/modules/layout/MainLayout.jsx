@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { Outlet } from 'react-router-dom';
+import GuruItem from '../gurug/GuruItem';
 
 const MainLayout = () => {
 
