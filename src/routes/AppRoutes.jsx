@@ -9,6 +9,7 @@ import Rekap from '../modules/admin/Rekap/Rekap';
 import TambahSiswa from '../modules/admin/TambahSiswa';
 import DaftarGuru from '../modules/admin/DaftarGuru';
 import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
+import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
 
 const AppRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AppRoutes = () => {
           </Route>
           <Route path='rekap' element={<Rekap />}>
             <Route path='rekap-absen' element={<RekapAbsen />} />
+            <Route path='rekap-jurnal' element={<RekapJurnal />} />
           </Route>
         </Route>
       </Routes>
