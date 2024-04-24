@@ -1,17 +1,23 @@
 // import { useState } from "react";
 // import { useAuth } from "./Auth";
 
+import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom"
 
-const Login = () => {
+const Login = ({onLogin}) => {
   const navigate = useNavigate()
   // const { doLogin } = useAuth()
-  // const [username, setUsername] = useState("")
-  // const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleClick = async () => {
     // doLogin(username, password)
+    if(username === 'admin' && password === 'admin'){
+     return onLogin(1,true);
+    }
+    onLogin(0,true);
     navigate('/app/dashboard')
+    return;
   }
   return (
     <>
@@ -21,8 +27,8 @@ const Login = () => {
         </div>
         <h1 className="text-center text-[#06357A] font-poppins font-bold text-[40px] p-5 mt-[50px] my-[25px]">Welcome, Admin</h1>
         <div className="container flex flex-col">
-        <input  placeholder="Username" className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "></input>
-        <input placeholder="Password" className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] mt-[10px] outline-none focus:border-[#2B3758]"></input>
+        <input onChange={(e) => setUsername(e.target.value)} value={username}  placeholder="Username" className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "></input>
+        <input onChange={(e) => setPassword(e.target.value)} value={password}  placeholder="Password" className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] mt-[10px] outline-none focus:border-[#2B3758]"></input>
 
           <button onClick={handleClick} className="bg-[#06357A] text-center font-poppins text-[#fbfbfb] text-[20px] rounded-[16px] px-5 py-3 mt-[35px]" >Sign In</button>
 
@@ -32,4 +38,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
