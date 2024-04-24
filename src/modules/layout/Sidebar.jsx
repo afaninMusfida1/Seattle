@@ -4,6 +4,8 @@ import Dashboard from '../Dasboard/Dashboard.jsx';
 import { useNavigate } from 'react-router-dom';
 import TambahSiswa from '../admin/TambahSiswa.jsx';
 import DaftarGuru from '../admin/DaftarGuru.jsx';
+import GuruItem from '../gurug/GuruItem.jsx';
+import SiswaTerdaftar from '../admin/SiswaTerdaftar.jsx';
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const Sidebar = () => {
   }
 
   const navTambahGuru = () => {
-    navigate('/app/tambah-guru');
+    navigate('/tambah-guru');
     <DaftarGuru/>;
     setShowDashboard(false);
     setShowPlusGuruPage(true);
@@ -31,7 +33,8 @@ const Sidebar = () => {
   }
 
   const navSiswaPage = () => {
-    navigate('/app/tambah-siswa');
+    navigate('/tambah-siswa');
+    <SiswaTerdaftar/>;
     setShowDashboard(false);
     setShowPlusGuruPage(false);
     setShowSiswaPage(true);
@@ -39,7 +42,7 @@ const Sidebar = () => {
   }
 
   const navRekapPage = () => {
-    navigate('/app/rekap');
+    navigate('/rekap');
     setShowDashboard(false);
     setShowPlusGuruPage(false);
     setShowSiswaPage(false);
