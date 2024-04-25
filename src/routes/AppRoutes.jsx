@@ -15,6 +15,7 @@ import SiswaLayout from '../modules/layout/SiswaLayout';
 import LoginGuruSiswa from '../modules/auth/LoginGuruSiswa';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import JadwalKelas from '../modules/siswa/JadwalKelas';
+import AbsenSiswa from '../modules/gurug/AbsenSiswa';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,7 +52,7 @@ const AppRoutes = () => {
             :
             <>
               <Route path='siswa' element={<JadwalKelas/>} />
-              <Route path='*' element={<Navigate to={"/siswa"}/>} />
+              <Route path='*' element={<AbsenSiswa/>} />
             </>
             :
             <>
