@@ -1,10 +1,10 @@
 // import axios from "axios";
-// import { http } from "./http";
+// import { http } from "./Url";
 
-// export const handleLogin = async (username, password) => {
+// export const handleLogin = async (email, password) => {
 //   const apiLogin = await axios
 //     .post(http + "auth/login", {
-//       username: username,
+//       email: email,
 //       password: password,
 //     })
 //     .then((response) => {

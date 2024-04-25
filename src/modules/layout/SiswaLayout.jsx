@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
 
 export default function SiswaLayout(){
-
-    return(
+    return(    
         <>
-        <Outlet/>
+            <Outlet/>
         </>
     )
 }

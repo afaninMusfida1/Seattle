@@ -1,64 +1,35 @@
-// import {createContext, useContext, useEffect, useState } from "react"
-// import { handleLogin } from "../config/Api"
+// // AuthProvider.js
+// import React, { createContext, useContext, useEffect, useState } from 'react';
 
-// //nilai default
-// const initialAuthState = {
-//     isLoggedin: false,
-//     doLogin: () => { },
-//     doLogout: () => { }
-// }
+// const AuthContext = createContext();
 
-// //context
-// const AuthContext = createContext(initialAuthState)
+// export const useAuth = () => {
+//   return useContext(AuthContext);
+// };
 
-// //custom hooks
-// const useAuth = () => {
-//     return useContext(AuthContext)
-// }
+// export const AuthProvider = ({ children }) => {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-// //provider
-// const AuthProvider = ({children}) =>  {
-//     //state 
-//     const [isLoggedin, setIsLoggedin] = useState(false)
-
-//     useEffect(() => {
-//         const token = getToken()
-//         if (token != null) {
-//             setIsLoggedin(true)
-//         }
-//     },[])
-
-//     //function
-//     const doLogin = async (username, password) => {
-//     //memanggil api dengan data email & password
-//     console.log(username, password)
-
-//     //memanggil menggunakan axios
-//     const apiresult = await handleLogin(username, password)
-//     console.log(apiresult)
-//     console.log(apiresult.data.data.accessToken)
-
-//     //jika berhasil setisloggedin (true)
-//     setIsLoggedin(true)
-//     setTokens(apiresult.data.data.accessToken)
-//     //simpan token kedalam local storage
-
-//     //jika gagal tampilkan peringatan
-    
+//   useEffect(() => {
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//       setIsLoggedIn(true);
 //     }
+//   }, []);
 
-//     const doLogout = () => {
-//         setIsLoggedin(false)
-//         removeToken()
-//     }
+//   const login = (token) => {
+//     localStorage.setItem('token', token);
+//     setIsLoggedIn(true);
+//   };
 
-// //return
-// return (
-//     <AuthContext.Provider value={{ isLoggedin, doLogin, doLogout }}>
-//         {children}
+//   const logout = () => {
+//     localStorage.removeItem('token');
+//     setIsLoggedIn(false);
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+//       {children}
 //     </AuthContext.Provider>
-// )
-// }
-
-// //export provider & hooks
-// export {AuthProvider, useAuth}
+//   );
+// };

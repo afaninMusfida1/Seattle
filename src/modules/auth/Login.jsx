@@ -1,6 +1,3 @@
-// import { useState } from "react";
-// import { useAuth } from "./Auth";
-
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom"
 
@@ -12,13 +9,14 @@ const Login = ({onLogin}) => {
 
   const handleClick = async () => {
     // doLogin(username, password)
-    if(username === 'admin' && password === 'admin'){
-     return onLogin(1,true);
+    if(username === 'admin' && password === 'admin123'){
+     return onLogin(1, true);
     }
     onLogin(0,true);
     navigate('/app/dashboard')
     return;
   }
+  
   return (
     <>
       <div className="bg-[#FBFBFB] h-full min-h-screen">
