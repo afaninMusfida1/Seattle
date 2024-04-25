@@ -2,7 +2,7 @@ import React, { useState } from 'react'; // Sertakan useState dari 'react'
 import { BrowserRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom'; // Sertakan useNavigate dari 'react-router-dom'
 import MainLayout from '../modules/layout/MainLayout';
 import Login from '../modules/auth/Login';
-import Dashboard from '../modules/Dasboard/Dashboard';
+import Dashboard from '../modules/Dashboard/Dashboard';
 import TambahGuru from '../modules/admin/TambahGuru';
 import SiswaTerdaftar from '../modules/admin/SiswaTerdaftar';
 import Rekap from '../modules/admin/Rekap/Rekap';
@@ -12,10 +12,10 @@ import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
 import GuruItem from '../modules/gurug/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import SiswaLayout from '../modules/layout/SiswaLayout';
-import LoginGuruSiswa from '../modules/auth/LoginGuruSiswa';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import JadwalKelas from '../modules/siswa/JadwalKelas';
-import Jurnal from '../modules/gurug/Jurnal';
+import JurnalGuru from '../modules/gurug/JurnalGuru';
+import SidebarGuru from '../modules/layout/SidebarGuru';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,13 +51,14 @@ const AppRoutes = () => {
     </Route>
             :
             <>
-              <Route path='siswa' element={<Jurnal/>} />
+              <Route path='siswa' element={<SidebarGuru/>} />
               <Route path='*' element={<Navigate to={"/siswa"}/>} />
             </>
             :
             <>
               <Route path='/' element={<Login onLogin={handleAdmin} />} />
               <Route path='*' element={<Navigate to={"/"}/>} />
+              
             </>
         }
       </Routes>
