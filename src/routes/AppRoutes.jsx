@@ -13,7 +13,9 @@ import GuruItem from '../modules/gurug/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
-import JurnalAbsen from '../modules/gurug/JurnalAbsen';
+import JadwalKelas from '../modules/siswa/JadwalKelas';
+import JurnalGuru from '../modules/gurug/JurnalGuru';
+import SidebarGuru from '../modules/layout/SidebarGuru';
 
 const AppRoutes = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,13 +51,14 @@ const AppRoutes = () => {
     </Route>
             :
             <>
-              <Route path='siswa' element={<HalamanSiswa/>} />
+              <Route path='siswa' element={<SidebarGuru/>} />
               <Route path='*' element={<Navigate to={"/siswa"}/>} />
             </>
             :
             <>
               <Route path='/' element={<Login onLogin={handleAdmin} />} />
               <Route path='*' element={<Navigate to={"/"}/>} />
+              
             </>
         }
       </Routes>
