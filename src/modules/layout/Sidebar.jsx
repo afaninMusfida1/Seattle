@@ -1,6 +1,6 @@
 import Rekap from '../admin/Rekap/Rekap.jsx';
 import { React, useState } from 'react';
-import Dashboard from '../Dasboard/Dashboard.jsx';
+import Dashboard from '../Dashboard/Dashboard.jsx';
 import { useNavigate } from 'react-router-dom';
 import TambahSiswa from '../admin/TambahSiswa.jsx';
 import DaftarGuru from '../admin/DaftarGuru.jsx';
