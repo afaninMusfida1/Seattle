@@ -1,1 +1,1 @@
-export const http = ((''))
+export const http = (('https://apiseattle.ndamelweb.com'))

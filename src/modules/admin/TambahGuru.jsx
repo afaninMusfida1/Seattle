@@ -24,9 +24,6 @@ const TambahGuru = () => {
             <div>
                 <input placeholder="Email" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <input placeholder="Asal Negara" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
-                <div className="py-[200px]">
-                    <button onClick={handleChange} className="text-[#078DCC] text-[14px] ml-[300px] mt-[0px] hover:underline">Lihat data guru</button>
-                </div>
             </div>
         </div>
     )
