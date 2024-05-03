@@ -33,8 +33,8 @@ const AppRoutes = () => {
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route element={<GuruLayout />}>
-              <Route path="/tambah-guru" element={<TambahGuru />} />
               <Route path="/list-guru" element={<DaftarGuru />} />
+              <Route path="/tambah-guru" element={<TambahGuru />} />
             </Route>
             <Route element={<SiswaLayout />}>
               <Route path="/tambah-siswa" element={<TambahSiswa />} />
