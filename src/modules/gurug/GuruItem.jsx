@@ -4,7 +4,7 @@ const GuruItem = () => {
 
     return(
     <div className="flex mt-[5px]  ">
-      <div className="flex flex-col mt-[20px] w-[200px] h-[220px] bg-[#FBFBFB] rounded-lg shadow-xl items-center space-y-1 py-3">
+      <div className="flex flex-col mt-[20px] w-[180px] h-[220px] bg-[#FBFBFB] rounded-lg shadow-xl items-center space-y-1 py-3">
         <div className="flex flex-col w-16 h-16 relative overflow-hidden rounded-full">
           <img src="src/assets/imgGuru.jpg" className="w-full h-full rounded-full shadow-md"/>
         </div>

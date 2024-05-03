@@ -34,7 +34,7 @@ const DaftarGuru = () => {
         // </div>
         <div className="bg-white w-[940px] h-[400px] rounded-[10px] ml-[300px] mt-28 p-8">
             <div className="flex">
-            <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Daftar Siswa</h2>
+            <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Daftar Guru</h2>
             <div className="ml-[400px]">
                 <select className="border mr-[15px] rounded-[10px] px-4 py-2 outline-none text-[#6A6D76] w-[180px] h-[40px]">
                     <option value="" >Pilih Kelas</option>

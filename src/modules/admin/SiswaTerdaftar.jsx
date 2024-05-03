@@ -25,6 +25,45 @@ const SiswaTerdaftar = () => {
                 </select>
             </div>
             </div>
+            <table className="table-fixed text-center m-[25px]">
+                <thead>
+                    <tr>
+                        <th style={{ border: '2px solid #A7B9D2', padding: '2px 40px ', color:'#3F3F3F' }}>Nama</th>
+                        <th style={{ border: '2px solid #A7B9D2', padding: '2px 20px ', color:'#3F3F3F'  }}>Kelas</th>
+                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 40px ', color:'#3F3F3F'  }}>No.HP</th>
+                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 50px ', color:'#3F3F3F'  }}>Email</th>
+                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 80px ', color:'#3F3F3F'  }}>Alamat</th>
+                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 10px ', color:'#3F3F3F'  }}>Jenis Kelamin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>Ahmat</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>5</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>08123456</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>@gmail.com</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>Desa Kandeman</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>L</td>
+                    </tr>
+                    <tr>
+                    <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Aina</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>4</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>08123456</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>@gmail.com</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Desa Kandeman</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>P</td>
+                    </tr>
+                    <tr>
+                    <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Putri</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>4</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>08123456</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>@gmail.com</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Desa Kandeman</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>P</td>
+                    </tr>
+                </tbody>
+            </table>
+
             <button onClick={handleChange} className="text-[#078DCC] text-[14px] ml-[750px] mt-[300px] hover:underline ">Tambahkan Siswa</button>
         </div>
     )
