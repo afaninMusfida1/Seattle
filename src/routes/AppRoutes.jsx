@@ -18,6 +18,7 @@ import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import JadwalKelas from '../modules/siswa/JadwalKelas';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
+import SidebarGuru from '../modules/layout/SidebarGuru';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -45,7 +46,7 @@ const AppRoutes = () => {
               <Route path="/rekap-absen" element={<RekapAbsen />} />
               <Route path="/rekap-jurnal" element={<RekapJurnal />} />
             </Route>
-            <Route path="/guru" element={<GuruItem/>}>
+            <Route path="/guru" element={<SidebarGuru/>}>
             </Route>
             <Route path="/siswa" element={< HalamanSiswa/>}>
             </Route>
