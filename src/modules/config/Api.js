@@ -1,17 +1,29 @@
 import axios from "axios";
-import { http } from "./http";
+import { http } from "./Url";
 
-export const handleLogin = async (username, password) => {
-  const apiLogin = await axios
-    .post(http + "auth/login", {
-      username: username,
+export const handleLogin = async (email, password) => {
+  const apilogin = await axios
+    .post(http + "/auth/admin", {
+      username: email,
       password: password,
     })
     .then((response) => {
-      return response;
+      console.log('test', response)
+      return response.data;
     })
-    .catch((err) => {
-      return err.response;
+    .catch((error) => {
+      return error.response.data;
     });
-  return apiLogin;
+  return apilogin
 };
+
+export const setTokens = (token) => {
+  localStorage.setItem("token", token);
+};
+
+export const getToken = () => {
+  return localStorage.getItem("token") ?? null;
+};
+
+export const removeToken = () => {
+  localStorage.removeItem('token')}

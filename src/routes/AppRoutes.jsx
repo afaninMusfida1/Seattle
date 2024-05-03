@@ -1,7 +1,8 @@
-import React, { useState } from 'react'; // Sertakan useState dari 'react'
-import { BrowserRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom'; // Sertakan useNavigate dari 'react-router-dom'
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from '../modules/layout/MainLayout';
 import Login from '../modules/auth/Login';
+import LoginGuruSiswa from '../modules/auth/LoginGuruSiswa';
 import Dashboard from '../modules/Dashboard/Dashboard';
 import TambahGuru from '../modules/admin/TambahGuru';
 import SiswaTerdaftar from '../modules/admin/SiswaTerdaftar';
@@ -11,59 +12,48 @@ import DaftarGuru from '../modules/admin/DaftarGuru';
 import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
 import GuruItem from '../modules/gurug/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
-import SiswaLayout from '../modules/layout/SiswaLayout';
+import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
+import RekapLayout from '../modules/layout/RekapLayout';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import JadwalKelas from '../modules/siswa/JadwalKelas';
-import JurnalGuru from '../modules/gurug/JurnalGuru';
-import SidebarGuru from '../modules/layout/SidebarGuru';
+import SiswaLayout from '../modules/layout/SiswaLayout';
+import { useAuth } from '../context/AuthContext';
 
 const AppRoutes = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(0);
+  const isLoggedIn = useAuth();
 
-
-  function handleAdmin(value,login) {
-    setIsLoggedIn(login)
-    setIsAdmin(value)
-  }
   return (
     <BrowserRouter>
       <Routes>
-        {
-          isLoggedIn ?
-          isAdmin > 0 ? 
+        <Route path="/auth/admin" element={<Login />} />
+        <Route path="/auth" element={<LoginGuruSiswa />} />
+        <Route path="*" element={<Navigate to="/auth" />} />
+
+        {isLoggedIn && (
           <Route element={<MainLayout />}>
-          <>
-            <Route path='dashboard' element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route element={<GuruLayout />}>
-              <Route path='tambah-guru' element={<TambahGuru />} />
-              <Route path='list-guru' element={<DaftarGuru />} />
+              <Route path="/list-guru" element={<DaftarGuru />} />
+              <Route path="/tambah-guru" element={<TambahGuru />} />
             </Route>
             <Route element={<SiswaLayout />}>
-            <Route path='tambah-siswa' element={<TambahSiswa />}/>
-              <Route path='daftar-siswa' element={<SiswaTerdaftar />} />
+              <Route path="/tambah-siswa" element={<TambahSiswa />} />
+              <Route path="/daftar-siswa" element={<SiswaTerdaftar />} />
             </Route>
-            <Route path='rekap' element={<Rekap />}>
-              <Route path='rekap-absen' element={<RekapAbsen />} />
+            <Route element={<RekapLayout />}>
+              <Route path="/rekap" element={<Rekap />} />
+              <Route path="/rekap-absen" element={<RekapAbsen />} />
+              <Route path="/rekap-jurnal" element={<RekapJurnal />} />
             </Route>
-            <Route path='*' element={<Navigate to={"/dashboard"}/>}/>
-          </>
-    </Route>
-            :
-            <>
-              <Route path='siswa' element={<SidebarGuru/>} />
-              <Route path='*' element={<Navigate to={"/siswa"}/>} />
-            </>
-            :
-            <>
-              <Route path='/' element={<Login onLogin={handleAdmin} />} />
-              <Route path='*' element={<Navigate to={"/"}/>} />
-              
-            </>
-        }
+            <Route path="/guru" element={<GuruItem/>}>
+            </Route>
+            <Route path="/siswa" element={< HalamanSiswa/>}>
+            </Route>
+          </Route>
+        )}
       </Routes>
-    </BrowserRouter >
+    </BrowserRouter>
   );
-}
+};
 
 export default AppRoutes;
