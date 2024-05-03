@@ -1,5 +1,4 @@
-// AppRoutes.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from '../modules/layout/MainLayout';
 import Login from '../modules/auth/Login';
@@ -18,57 +17,40 @@ import RekapLayout from '../modules/layout/RekapLayout';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import JadwalKelas from '../modules/siswa/JadwalKelas';
 import SiswaLayout from '../modules/layout/SiswaLayout';
+import { useAuth } from '../context/AuthContext';
 
 const AppRoutes = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  function handleAdmin(value, login) {
-    setIsLoggedIn(login);
-    setIsAdmin(value);
-  }
+  const isLoggedIn = useAuth();
 
   return (
     <BrowserRouter>
       <Routes>
-        {isLoggedIn ? (
-          isAdmin ? (
-            <Route element={<MainLayout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route element={<GuruLayout />}>
-                <Route path="/tambah-guru" element={<TambahGuru />} />
-                <Route path="/list-guru" element={<DaftarGuru />} />
-              </Route>
-              <Route element={<SiswaLayout />}>
-                <Route path="/tambah-siswa" element={<TambahSiswa />} />
-                <Route path="/daftar-siswa" element={<SiswaTerdaftar />} />
-              </Route>
-              <Route element={<RekapLayout />}>
-                <Route path="/rekap" element={<Rekap />} />
-                <Route path="/rekap-absen" element={<RekapAbsen />} />
-                <Route path="/rekap-jurnal" element={<RekapJurnal />} />
-              </Route>
-              <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="/auth/admin" element={<Login />} />
+        <Route path="/auth" element={<LoginGuruSiswa />} />
+        <Route path="*" element={<Navigate to="/auth" />} />
+
+        {isLoggedIn && (
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route element={<GuruLayout />}>
+              <Route path="/tambah-guru" element={<TambahGuru />} />
+              <Route path="/list-guru" element={<DaftarGuru />} />
             </Route>
-          ) : (
             <Route element={<SiswaLayout />}>
-              <Route path="/siswa" element={<HalamanSiswa />} />
-              <Route path="/jadwal-kelas" element={<JadwalKelas />} />
-              <Route path="/rekap-absen" element={<RekapAbsen />} />
-              <Route path="/rekap-jadwal" element={<RekapJurnal />} />
-              <Route path="*" element={<Navigate to="/siswa" />} />
+              <Route path="/tambah-siswa" element={<TambahSiswa />} />
+              <Route path="/daftar-siswa" element={<SiswaTerdaftar />} />
             </Route>
-          )
-        ) : (
-          <Route element={<GuruLayout />}>
-            <Route path="/guru" element={<GuruItem />} />
-            <Route path="*" element={<Navigate to="/guru" />} />
+            <Route element={<RekapLayout />}>
+              <Route path="/rekap" element={<Rekap />} />
+              <Route path="/rekap-absen" element={<RekapAbsen />} />
+              <Route path="/rekap-jurnal" element={<RekapJurnal />} />
+            </Route>
+            <Route path="/guru" element={<GuruItem/>}>
+            </Route>
+            <Route path="/siswa" element={< HalamanSiswa/>}>
+            </Route>
           </Route>
         )}
-        <Route path="/auth/admin" element={<Login onLogin={handleAdmin} isAdmin={true} />} />
-        <Route path="/auth" element={<LoginGuruSiswa onLogin={handleAdmin} />} />
-        <Route path="*" element={<Navigate to="/auth" />} />
-        <Route path="/" element={<Navigate to="/auth" />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,17 +1,14 @@
-// LoginGuruSiswa.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LoginGuruSiswa = ({ onLogin }) => {
+const LoginGuruSiswa = () => {
   const navigate = useNavigate();
 
   const handleClickGuru = () => {
-    onLogin(true, false); 
     navigate('/guru');
   };
 
   const handleClickSiswa = () => {
-    onLogin(false, true); 
     navigate('/siswa');
   };
 
@@ -26,7 +23,7 @@ const LoginGuruSiswa = ({ onLogin }) => {
           <button onClick={handleClickGuru} className="bg-[#078DCC] text-center font-poppins text-[#fbfbfb] text-[20px] rounded-[16px] px-5 py-3 mt-[35px]" >Guru</button>
           <button onClick={handleClickSiswa} className="bg-[#078DCC] text-center font-poppins text-[#fbfbfb] text-[20px] rounded-[16px] px-5 py-3 mt-[35px]" >Siswa</button>
         </div>
-      </div>  
+      </div>
     </>
   );
 };
