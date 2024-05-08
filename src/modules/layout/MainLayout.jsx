@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { Outlet } from 'react-router-dom';
 import GuruItem from '../gurug/GuruItem';
+import { AuthProvider } from '../../context/AuthContext';
 
 const MainLayout = () => {
 
@@ -14,7 +15,6 @@ const MainLayout = () => {
         <Outlet/>
       </div>
     </div>
-
   )
 }
 
