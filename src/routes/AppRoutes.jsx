@@ -19,6 +19,7 @@ import JadwalKelas from '../modules/siswa/JadwalKelas';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
 import SidebarGuru from '../modules/layout/SidebarGuru';
+import AbsenSiswa from '../modules/gurug/AbsenSiswa';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -43,10 +44,12 @@ const AppRoutes = () => {
             </Route>
             <Route element={<RekapLayout />}>
               <Route path="/rekap" element={<Rekap />} />
-              <Route path="/rekap-absen" element={<RekapAbsen />} />
+              <Route path="/rekap-absen" element={<RekapAbsen/>} />
               <Route path="/rekap-jurnal" element={<RekapJurnal />} />
             </Route>
             <Route path="/guru" element={<SidebarGuru/>}>
+            <Route path="absen-siswa" element={<AbsenSiswa/>} />
+            <Route path="jurnal-siswa" element={<RekapJurnal/>} />
             </Route>
             <Route path="/siswa" element={< HalamanSiswa/>}>
             </Route>

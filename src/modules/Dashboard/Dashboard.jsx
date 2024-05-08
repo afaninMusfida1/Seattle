@@ -1,3 +1,5 @@
+import Clock from './Clock';
+
 function Dashboard() {
     return (
         <div className="justify-self-center mt-[100px] ml-[300px] max-w-screen max-h-screen">
@@ -8,6 +10,7 @@ function Dashboard() {
                 </div>
 
                 <div className=" bg-[#FFFFFF] pt-[28px] mx-10 size-[220px] w-[312px] rounded-[30px]">
+                <Clock />
                 </div> 
            </div>
 
