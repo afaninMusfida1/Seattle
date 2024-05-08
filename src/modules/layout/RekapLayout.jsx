@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-export default function SiswaLayout(){
+export default function RekapLayout(){
     return(    
         <>
             <Outlet/>
