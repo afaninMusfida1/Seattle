@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLayout } from '../layout/LayoutContext';
 
 const SiswaTerdaftar = () => {
+    const {actionSetPageTitle} = useLayout()
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        actionSetPageTitle('Daftar Siswa')
+    }, [])
 
     function handleChange(){
         navigate('/tambah-siswa')
     }
     return (
-        <div className="bg-white w-[940px] h-auto rounded-[10px] ml-[300px] mt-28 p-8">
+        <div className="bg-white h-auto rounded-[10px] ml-[300px] mt-28 p-8">
             <div className="flex">
             <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Daftar Siswa</h2>
             <div className="ml-[400px]">
