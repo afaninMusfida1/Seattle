@@ -15,7 +15,6 @@ import GuruLayout from '../modules/layout/GuruLayout';
 import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
 import RekapLayout from '../modules/layout/RekapLayout';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
-import JadwalKelas from '../modules/siswa/JadwalKelas';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
 
