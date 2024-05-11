@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLayout } from '../layout/LayoutContext';
 
 const TambahSiswa = () => {
     const navigate = useNavigate();
     const [showDafSiswa, setShowDafSiswa] = useState(false);
+    const {actionSetPageTitle} = useLayout()
+
+
+    useEffect(() => {
+        actionSetPageTitle('Tambah Siswa')
+    }, [])
+    
 
     function handleChange(){
         navigate('/daftar-siswa')

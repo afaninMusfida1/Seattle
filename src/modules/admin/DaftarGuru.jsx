@@ -8,7 +8,7 @@ const DaftarGuru = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        actionSetPageTitle('Daftar Guru --- Test')
+        actionSetPageTitle('Daftar Guru')
     }, [])
 
     function handleChange() {
@@ -16,11 +16,11 @@ const DaftarGuru = () => {
     }
 
     return (
-        <div className="h-[400px] rounded-[10px] ml-[300px] mt-28 p-8">
-            <div className="flex">
+        <div className="h-[400px] rounded-[10px] ml-[300px] mt-20 p-8">
+            {/* <div className="flex">
                 <h2 className="font-poppins text-[20pt] font-bold text-[#078DCC]">Daftar Guru</h2>
 
-            </div>
+            </div> */}
             <div className='flex gap-10 flex-wrap'>
                 <GuruItem />
                 <GuruItem />

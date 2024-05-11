@@ -17,9 +17,9 @@ const Sidebar = () => {
     <div className="bg-gray-200 flex">
       <div className="fixed bg-white text-white w-64 h-screen">
         <div className="flex items-center justify-between p-4">
-          <img src="src/assets/seattleLogo.png" className="mx-[25px] h-[60px] w-[120px]" />
+          <img src="src/assets/logo - Copy.png" className="mx-[40px] h-[60px] w-[130px]" />
         </div>
-        <nav className="mt-4 px-[25px]">
+        <nav className="px-[25px]">
           <section className="text-sm block px-4 py-2 font-bold text-[#A7B9D1]">Overview</section>
 
           <NavLink to={"/dashboard"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "

@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLayout } from '../layout/LayoutContext';
 
 const TambahGuru = () => {
     const navigate = useNavigate();
     const [showDafGuru, setShowDafGuru] = useState(false);
     const refNama = useRef()
+    const {actionSetPageTitle} = useLayout()
+
+    useEffect(() => {
+        actionSetPageTitle('Tambah Guru')
+    }, [])
+
 
     function handleSubmit(){
         // navigate('/list-guru')
