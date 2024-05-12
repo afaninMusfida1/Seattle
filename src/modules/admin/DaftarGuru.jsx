@@ -16,12 +16,12 @@ const DaftarGuru = () => {
     }
 
     return (
-        <div className="h-[400px] rounded-[10px] ml-[300px] mt-20 p-8">
+        <div className="h rounded-[10px] ml-[350px] mt-[100px] ">
             {/* <div className="flex">
                 <h2 className="font-poppins text-[20pt] font-bold text-[#078DCC]">Daftar Guru</h2>
 
             </div> */}
-            <div className='flex gap-10 flex-wrap'>
+            <div className='flex gap-x-14 gap-y-6 flex-wrap overflow-y-scroll max-h-[460px]'>
                 <GuruItem />
                 <GuruItem />
                 <GuruItem />
