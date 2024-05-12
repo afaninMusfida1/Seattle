@@ -24,7 +24,7 @@ const TambahGuru = () => {
     }
 
     return (
-        <div className="bg-white max-w-[500px] rounded-[10px] ml-[300px] mt-28 flex flex-col p-8 ">
+        <div className="bg-white max-w-[500px] rounded-[10px] ml-[350px] mt-[100px] flex flex-col p-8 ">
             <input placeholder="Nama" ref={refNama} className="input w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
             <button onClick={handleSubmit} className="w-[400px] h-[40px] font-poppins text-[16px] border-2 bg-[#07CCB5] text-white rounded-[10px] outline-none ">Tambahkan</button>
         </div>

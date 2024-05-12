@@ -17,6 +17,7 @@ import RekapLayout from '../modules/layout/RekapLayout';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
+import DaftarKelas from '../modules/admin/DaftarKelas';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -36,6 +37,7 @@ const AppRoutes = () => {
               <Route path="/tambah-guru" element={<TambahGuru />} />
             </Route>
             <Route element={<SiswaLayout />}>
+              <Route path="/kelas" element={<DaftarKelas />} />
               <Route path="/tambah-siswa" element={<TambahSiswa />} />
               <Route path="/daftar-siswa" element={<SiswaTerdaftar />} />
             </Route>
@@ -44,9 +46,9 @@ const AppRoutes = () => {
               <Route path="/rekap-absen" element={<RekapAbsen />} />
               <Route path="/rekap-jurnal" element={<RekapJurnal />} />
             </Route>
-            <Route path="/guru" element={<GuruItem/>}>
+            <Route path="/guru" element={<GuruItem />}>
             </Route>
-            <Route path="/siswa" element={< HalamanSiswa/>}>
+            <Route path="/siswa" element={< HalamanSiswa />}>
             </Route>
           </Route>
         )}
