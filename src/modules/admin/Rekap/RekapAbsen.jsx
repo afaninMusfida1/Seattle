@@ -5,7 +5,7 @@ const RekapAbsen = () => {
     return(
         <>
         <Button/>
-        <div className="bg-white w-[940px] h-[400px] rounded-[10px] ml-[300px] mt-28 flex p-8 mb-10">
+        <div className="bg-white w-[940px] h-[400px] rounded-[10px] ml-[350px] mt-[100px] flex p-8">
             <h2 className="font-poppins text-20 font-bold text-[#078DCC]">Rekap absen</h2>
             <div className="ml-[570px]">
                 <select className="border w-[160px] h-[40px] px-6 py-2 rounded outline-none text-[#6A6D76]">
