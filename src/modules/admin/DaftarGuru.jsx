@@ -12,7 +12,7 @@ const DaftarGuru = () => {
     }, [])
 
     function handleChange() {
-        navigate('/tambah-guru')
+        navigate('/admin-tambah-guru')
     }
 
     return (

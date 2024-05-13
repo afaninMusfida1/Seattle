@@ -12,7 +12,7 @@ const SiswaTerdaftar = () => {
     }, [])
 
     function handleChange(){
-        navigate('/tambah-siswa')
+        navigate('/admin-tambah-siswa')
     }
     return (
         <div className="bg-white h-auto rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">

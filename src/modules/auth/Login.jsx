@@ -16,7 +16,7 @@ const Login = () => {
     if (apiResult && apiResult.token) {
       localStorage.setItem("adminToken", apiResult.token);
       setIsLoggedIn(true);
-      navigate('/dashboard')
+      navigate('/admin-dashboard')
     } else if (apiResult && apiResult.message) {
       console.error("Login failed:", apiResult.message);
       setLoginError(apiResult.message);

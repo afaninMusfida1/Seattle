@@ -18,6 +18,12 @@ import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
 import DaftarKelas from '../modules/admin/DaftarKelas';
+import KelasSiswa from '../modules/gurug/KelasSiswa';
+import PresensiSiswa from '../modules/gurug/PresensiSiswa';
+import Jurnal from '../modules/gurug/Jurnal';
+import RekapGuru from '../modules/gurug/RekapGuru';
+import JadwalMapel from '../modules/siswa/JadwalMapel';
+import RekapSiswa from '../modules/siswa/RekapSiswa';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -31,10 +37,18 @@ const AppRoutes = () => {
 
         {isLoggedIn && (
           <Route element={<MainLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin-dashboard" element={<Dashboard />} />
+            <Route path="/admin-guru" element={<DaftarGuru />} />
+            <Route path="/admin-siswa" element={<SiswaTerdaftar />} />
+            <Route path="/admin-rekap" element={<Rekap />} />
+            <Route path="/admin-tambah-guru" element={<TambahGuru />} />
+            <Route path="/admin-tambah-siswa" element={<TambahSiswa />} />
             <Route element={<GuruLayout />}>
-              <Route path="/list-guru" element={<DaftarGuru />} />
-              <Route path="/tambah-guru" element={<TambahGuru />} />
+              <Route path="/guru" element={<KelasSiswa />} />
+              <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
+              <Route path="/guru-jurnal" element={<Jurnal />} />
+              <Route path="/guru-rekap" element={<RekapGuru />} />
+              <Route path="/guru-rekap-absen" element={<RekapAbsen />} />
             </Route>
             <Route element={<SiswaLayout />}>
               <Route path="/kelas" element={<DaftarKelas />} />
@@ -46,9 +60,10 @@ const AppRoutes = () => {
               <Route path="/rekap-absen" element={<RekapAbsen />} />
               <Route path="/rekap-jurnal" element={<RekapJurnal />} />
             </Route>
-            <Route path="/guru" element={<GuruItem />}>
-            </Route>
+
             <Route path="/siswa" element={< HalamanSiswa />}>
+              <Route path="/siswa-rekap" element={<RekapSiswa />} />
+              <Route path="/siswa-jadwal" element={<JadwalMapel />} />
             </Route>
           </Route>
         )}
