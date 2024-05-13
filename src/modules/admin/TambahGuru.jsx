@@ -1,16 +1,25 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLayout } from '../layout/LayoutContext';
 import { useAdmin } from './adminContext';
 
 const TambahGuru = () => {
     const { handleAddGuru } = useAdmin();
-    const refNama = useRef();
     const navigate = useNavigate();
+    const [showDafGuru, setShowDafGuru] = useState(false);
+    const refNama = useRef()
+    const {actionSetPageTitle} = useLayout()
 
-    function handleSubmit() {
-        if (refNama.current.value === '') {
-            alert('Mohon input nama dengan benar');
-            return;
+    useEffect(() => {
+        actionSetPageTitle('Tambah Guru')
+    }, [])
+
+
+    function handleSubmit(){
+        // navigate('/list-guru')
+        if (refNama.current.value == '') {
+            alert('Mohon input nama dengan benar')
+            return
         }
 
         handleAddGuru(refNama.current.value);

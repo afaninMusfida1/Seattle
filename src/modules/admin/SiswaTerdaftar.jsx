@@ -15,7 +15,7 @@ const SiswaTerdaftar = () => {
         navigate('/tambah-siswa')
     }
     return (
-        <div className="bg-white w-[940px] h-auto rounded-[10px] ml-[300px] mt-28 p-8">
+        <div className="bg-white h-auto rounded-[10px] ml-[300px] mt-28 p-8">
             <div className="flex">
             <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Daftar Siswa</h2>
             <div className="ml-[400px]">

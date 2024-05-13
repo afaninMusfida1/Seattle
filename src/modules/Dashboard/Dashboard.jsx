@@ -1,6 +1,17 @@
-import Clock from './Clock';
+import { useNavigate } from "react-router-dom";
+import { useLayout } from "../layout/LayoutContext";
+import { useEffect } from "react";
+import Clock from "./Clock";
 
 function Dashboard() {
+    const {actionSetPageTitle} = useLayout()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        actionSetPageTitle('Dashboard')
+    }, [])
+
+
     return (
         <div className="justify-self-center mt-[100px] ml-[300px] max-w-screen max-h-screen">
             <div className="flex justify-around pt-[8px] ">
@@ -10,7 +21,7 @@ function Dashboard() {
                 </div>
 
                 <div className=" bg-[#FFFFFF] pt-[28px] mx-10 size-[220px] w-[312px] rounded-[30px]">
-                <Clock />
+                <Clock/>
                 </div> 
            </div>
 

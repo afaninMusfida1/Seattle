@@ -1,8 +1,14 @@
 import { useNavigate, Outlet } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLayout } from '../../layout/LayoutContext';
 
 const Rekap = () => {
     const navigate = useNavigate();
+    const {actionSetPageTitle} = useLayout()
+
+    useEffect(() => {
+        actionSetPageTitle('Rekap')
+    }, [])
 
     function handleChangeAbsen(){
         navigate('/rekap-absen')
