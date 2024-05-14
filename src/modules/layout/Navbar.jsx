@@ -22,8 +22,10 @@ const Navbar = () => {
     // }, [location]);
 
     return (
-        <div className="flex absolute top-0 w-screen justify-around bg-transparent mt-[20px]">
-            <nav className=" grid grid-cols-2 gap-[400px] w-screen mx-[280px]">
+        // <div className="flex absolute top-0 w-screen justify-around bg-transparent mt-[20px]">
+        //     <nav className=" grid grid-cols-2 gap-[400px] w-screen mx-[280px]">
+        <div className="flex  absolute top-0 left-[350px] bg-transparent mt-[20px]">
+        <nav className="">
                 <div>
                     {/* <h1 className="text-poppins font-bold text-[24px] text-[#06357A]">
                         {pageTitle === "Dashboard" ? "Welcome, Admin" : pageTitle === "Tambahkan Guru" ? "Tambahkan Guru" : pageTitle === "Tambahkan Siswa" ? "Tambahkan Siswa" : "Lihat Rekap"}

@@ -40,7 +40,7 @@ const Sidebar = () => {
             Guru
           </NavLink>
 
-          <NavLink to={"/daftar-siswa"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
+          <NavLink to={"/kelas"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
             style={({ isActive }) => ({
               background: isActive ? "#078DCC" : "transparent",
               color: isActive ? "white" : "#004684"

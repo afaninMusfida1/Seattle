@@ -13,35 +13,29 @@ const useAdmin = () => {
     return useContext(AdminContext);
 };
 
-const LayoutProvider = ({ children }) => {
+const AdminProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
 
     const handleFetchData = () => {
-        const token = getToken();
-        axios.get(`${http}/guru`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setGuruList(response.guruList.data.data);
-          console.log(guruList.data)
-        })
-        .catch((error) => {
-          console.error('Error fetching guru data:', error);
-        });
-      };
-
-      const handleAddGuru = async (name, no_telp, no_telp_ortu, email, password) => {
-        await addGuru(name, no_telp, no_telp_ortu, email, password)
-            .then(() => {
-                handleFetchData(); 
+        tampilkan()
+            .then(data => {
+                setGuruList(data);
+                console.log("Fetched guruList: ", data); // Verify data
             })
-            .catch((error) => {
-                console.error('Error adding guru:', error);
+            .catch(error => {
+                console.error("Error fetching guru data: ", error);
             });
     };
     
+    const handleAddGuru = async (name, no_telp, no_telp_ortu, email, password) => {
+        try {
+            await addGuru(name, no_telp, no_telp_ortu, email, password);
+            // Refresh guru list after adding a new guru
+            handleFetchData();
+        } catch (error) {
+            console.error("Error adding guru: ", error);
+        }
+    };
 
     return (
         <AdminContext.Provider value={{ handleAddGuru, handleFetchData, guruList }}>
@@ -50,4 +44,4 @@ const LayoutProvider = ({ children }) => {
     );
 };
 
-export { useAdmin, LayoutProvider };
+export { useAdmin, AdminProvider };

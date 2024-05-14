@@ -4,7 +4,6 @@ import MainLayout from '../modules/layout/MainLayout';
 import Login from '../modules/auth/Login';
 import LoginGuruSiswa from '../modules/auth/LoginGuruSiswa';
 import Dashboard from '../modules/Dashboard/Dashboard';
-import TambahGuru from '../modules/admin/TambahGuru';
 import SiswaTerdaftar from '../modules/admin/SiswaTerdaftar';
 import Rekap from '../modules/admin/Rekap/Rekap';
 import TambahSiswa from '../modules/admin/TambahSiswa';
@@ -15,11 +14,12 @@ import GuruLayout from '../modules/layout/GuruLayout';
 import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
 import RekapLayout from '../modules/layout/RekapLayout';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
-import JadwalKelas from '../modules/siswa/JadwalKelas';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
 import SidebarGuru from '../modules/layout/SidebarGuru';
 import AbsenSiswa from '../modules/gurug/AbsenSiswa';
+import DaftarKelas from '../modules/admin/DaftarKelas';
+import TambahGuru from '../modules/admin/TambahGuru';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -39,6 +39,7 @@ const AppRoutes = () => {
               <Route path="/tambah-guru" element={<TambahGuru />} />
             </Route>
             <Route element={<SiswaLayout />}>
+              <Route path="/kelas" element={<DaftarKelas/>} />
               <Route path="/tambah-siswa" element={<TambahSiswa />} />
               <Route path="/daftar-siswa" element={<SiswaTerdaftar />} />
             </Route>
@@ -51,7 +52,7 @@ const AppRoutes = () => {
             <Route path="absen-siswa" element={<AbsenSiswa/>} />
             <Route path="jurnal-siswa" element={<RekapJurnal/>} />
             </Route>
-            <Route path="/siswa" element={< HalamanSiswa/>}>
+            <Route path="/siswa" element={< HalamanSiswa />}>
             </Route>
           </Route>
         )}

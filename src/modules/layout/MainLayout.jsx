@@ -1,21 +1,22 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import { Outlet } from 'react-router-dom';
-import GuruItem from '../gurug/GuruItem';
-import { AuthProvider } from '../../context/AuthContext';
+import { Outlet, useLocation } from 'react-router-dom';
 
 const MainLayout = () => {
+  const location = useLocation();
+
+  const isDashboardPage = ['/dashboard', '/list-guru', '/tambah-guru', '/tambah-siswa','/kelas', '/daftar-siswa', '/rekap', '/rekap-absen', '/rekap-jurnal'].includes(location.pathname);
 
   return (
     <div>
-      <Sidebar/>
+      {isDashboardPage && <Sidebar />}
       <div>
-        <Navbar/>
-        <Outlet/>
+        <Navbar />
+        <Outlet />
       </div>
     </div>
   )
 }
 
-export default MainLayout
+export default MainLayout;

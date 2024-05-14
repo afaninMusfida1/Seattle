@@ -17,10 +17,10 @@ const Button = () => {
 
     return (
         <div>
-            <div className="flex ml-[300px] pt-[30px]">
-                <button onClick={handleChangeJadKel} className="size-[60px] w-[300px] rounded-[10px] bg-gradient-to-r from-[#8970C8] font-poppins text-left text-white pl-[20px]">Jadwal</button>
-                <button onClick={handleChangeRekAb} className="size-[60px] w-[300px] rounded-[10px] bg-gradient-to-r from-[#DA9053] font-poppins text-left text-white pl-[20px] mx-[15px]">Rekap Absen</button>
-                <button onClick={handleChangeRekJur} className="size-[60px] w-[300px] rounded-[10px] bg-gradient-to-r from-[#1679A8]  font-poppins text-left text-white pl-[20px]">Rekap Jadwal</button>
+            <div className="flex gap-6 py-[20px]">
+                <button onClick={handleChangeJadKel} className="grow py-[20px] rounded-[10px] bg-[#8970C8] font-poppins text-left text-white px-[20px]">Jadwal</button>
+                <button onClick={handleChangeRekAb} className="grow py-[20px] rounded-[10px] bg-[#DA9053] font-poppins text-left text-white px-[20px]">Rekap</button>
+                
             </div>
         </div>
     )

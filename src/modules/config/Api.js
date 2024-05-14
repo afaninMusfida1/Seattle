@@ -32,9 +32,6 @@ export const removeToken = () => {
 export const tampilkan = async () => {
   const token = getToken();
   return axios.get(`${http}/guru`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   })
   .then((response) => {
     return response.data;
@@ -55,8 +52,5 @@ export const addGuru = async (name, no_telp, no_telp_ortu, email, password) => {
   };
 
   return axios.post(`${http}/guru`, newGuru, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   });
 };
