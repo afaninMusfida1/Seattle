@@ -32,7 +32,9 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/auth/admin" element={<Login />} />
-        <Route path="/auth" element={<LoginGuruSiswa />} />
+        <Route path="/auth" element={<LoginGuruSiswa />} >
+          <Route path="/auth/guru" element={<Login/>} />
+        </Route>
         <Route path="*" element={<Navigate to="/auth" />} />
 
         {isLoggedIn && (
