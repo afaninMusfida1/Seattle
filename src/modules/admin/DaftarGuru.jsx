@@ -12,7 +12,7 @@ const DaftarGuru = () => {
     }, [])
 
     function handleChange() {
-        navigate('/tambah-guru')
+        navigate('/admin-tambah-guru')
     }
 
     return (
@@ -43,4 +43,4 @@ const DaftarGuru = () => {
     )
 }
 
-export default DaftarGuru;
+export default DaftarGuru;
