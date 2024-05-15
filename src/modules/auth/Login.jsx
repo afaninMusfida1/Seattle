@@ -35,7 +35,7 @@ const Login = () => {
           alt=""
         />
       </div>
-      <h1 className="text-center text-[#06357A] font-poppins font-bold text-[40px] p-5 mt-[50px] my-[25px]">
+      <h1 className="text-center text-[#06357A] font-poppins font-bold sm:text-[40px] text-[16px] p-5 mt-[50px] my-[25px]">
         Welcome, Admin
       </h1>
       <div className="container flex flex-col">
@@ -47,7 +47,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               placeholder="Username"
-              className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "
+              className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-md rounded-[16px] sm:rounded-[10px] outline-none focus:border-[#2B3758] "
             />
             <input
               onChange={(e) => setPassword(e.target.value)}
