@@ -4,13 +4,11 @@ import MainLayout from '../modules/layout/MainLayout';
 import Login from '../modules/auth/Login';
 import LoginGuruSiswa from '../modules/auth/LoginGuruSiswa';
 import Dashboard from '../modules/Dashboard/Dashboard';
-import TambahGuru from '../modules/admin/TambahGuru';
 import SiswaTerdaftar from '../modules/admin/SiswaTerdaftar';
 import Rekap from '../modules/admin/Rekap/Rekap';
 import TambahSiswa from '../modules/admin/TambahSiswa';
 import DaftarGuru from '../modules/admin/DaftarGuru';
 import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
-import GuruItem from '../modules/gurug/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
 import RekapLayout from '../modules/layout/RekapLayout';
@@ -24,6 +22,7 @@ import Jurnal from '../modules/gurug/Jurnal';
 import RekapGuru from '../modules/gurug/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
 import RekapSiswa from '../modules/siswa/RekapSiswa';
+import TambahGuru from '../modules/admin/TambahGuru';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -32,7 +31,9 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/auth/admin" element={<Login />} />
-        <Route path="/auth" element={<LoginGuruSiswa />} />
+        <Route path="/auth" element={<LoginGuruSiswa />} >
+          <Route path="/auth/guru" element={<Login/>} />
+        </Route>
         <Route path="*" element={<Navigate to="/auth" />} />
 
         {isLoggedIn && (
