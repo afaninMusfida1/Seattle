@@ -1,40 +1,45 @@
-import { useNavigate } from "react-router-dom";
-import GuruItem from "../gurug/GuruItem";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import GuruItem from '../gurug/GuruItem';
 import { useLayout } from '../layout/LayoutContext';
-import { useEffect } from 'react';
-import { useAdmin } from "./adminContext";
+import { tampilkan } from '../config/Api';
+import { useGuru } from './GuruContext';
 
 const DaftarGuru = () => {
     const { actionSetPageTitle } = useLayout();
+    const { guruList, setGuruList } = useGuru();
     const navigate = useNavigate();
-    const { guruList, handleFetchData } = useAdmin();
 
     useEffect(() => {
         actionSetPageTitle('Daftar Guru');
-        handleFetchData();
-    }, [actionSetPageTitle, handleFetchData]);
+        const fetchData = async () => {
+            const data = await tampilkan();
+            setGuruList(data);
+        };
+        fetchData();
+    }, [actionSetPageTitle, setGuruList]);
 
     const handleChange = () => {
-        navigate('/tambah-guru');
+        navigate('/admin-tambah-guru');
     };
 
     return (
         <div className="h-[400px] rounded-[10px] ml-[300px] mt-20 p-8">
-            <h2 className="font-poppins text-[20pt] font-bold text-[#078DCC] mb-4">Daftar Guru</h2>
+            <div className='flex gap-x-14 gap-y-6 flex-wrap overflow-y-scroll max-h-[460px]'>
             {guruList.length > 0 ? (
-                guruList.map((guru, index) => (
+                guruList.map(guru => (
                     <GuruItem 
-                        key={index} 
-                        name={guru.name} 
-                        no_telp={guru.no_telp} 
-                        no_telp_ortu={guru.no_telp_ortu} 
-                        email={guru.email} 
-                        password={guru.password} 
+                        key={guru.id} 
+                        id={guru.id} 
+                        nama={guru.nama} 
+                        email={guru.email}
+                        password={guru.password}
                     />
                 ))
             ) : (
                 <p>Tidak ada data Guru</p>
             )}
+            </div>
             <button 
                 onClick={handleChange} 
                 className="text-[#078DCC] text-[20px] font-bold hover:underline absolute right-[100px] bottom-[50px]"

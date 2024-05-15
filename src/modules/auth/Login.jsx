@@ -16,7 +16,7 @@ const Login = () => {
     if (apiResult && apiResult.token) {
       localStorage.setItem("adminToken", apiResult.token);
       setIsLoggedIn(true);
-      navigate('/dashboard')
+      navigate('/admin-dashboard')
     } else if (apiResult && apiResult.message) {
       console.error("Login failed:", apiResult.message);
       setLoginError(apiResult.message);
@@ -49,7 +49,7 @@ const Login = () => {
               placeholder="Username"
               className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "
             />
-            <input
+            <input type="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               placeholder="Password"
