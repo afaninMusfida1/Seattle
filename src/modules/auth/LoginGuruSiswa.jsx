@@ -5,7 +5,7 @@ const LoginGuruSiswa = () => {
   const navigate = useNavigate();
 
   const handleClickGuru = () => {
-    navigate('/auth/guru');
+    navigate('/guru');
   };
 
   const handleClickSiswa = () => {

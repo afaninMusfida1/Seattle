@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLayout } from '../layout/LayoutContext';
+import SiswaItem from "./SiswaItem";
 
 const SiswaTerdaftar = () => {
     const {actionSetPageTitle} = useLayout()
@@ -15,7 +16,7 @@ const SiswaTerdaftar = () => {
         navigate('/admin-tambah-siswa')
     }
     return (
-        <div className="bg-white h-auto rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
+        <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
             <div className="flex">
             <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Kelas English Beginner</h2>
             {/* <div className="ml-[400px]">
@@ -31,18 +32,18 @@ const SiswaTerdaftar = () => {
                 </select>
             </div> */}
             </div>
-            <table className="table-fixed text-center mt-[25px]">
-                <thead>
-                    <tr>
-                        <th style={{ border: '2px solid #A7B9D2', padding: '2px 40px ', color:'#3F3F3F' }}>Nama</th>
-                        <th style={{ border: '2px solid #A7B9D2', padding: '2px 20px ', color:'#3F3F3F'  }}>Level</th>
-                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 40px ', color:'#3F3F3F'  }}>NIS</th>
-                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 50px ', color:'#3F3F3F'  }}>No.Telp Orang Tua</th>
-                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 80px ', color:'#3F3F3F'  }}>Kelas</th>
+            <table className="table-fixed text-center mt-[25px] w-full">
+                <thead className=" text-white bg-[#078DCC]">
+                    <tr >
+                        <th style={{  padding: '2px 40px ' }}>Nama</th>
+                        <th style={{  padding: '2px 20px '  }}>Level</th>
+                        <th style={{  padding: '2px 40px '  }}>NIS</th>
+                        <th style={{  padding: '2px 50px '  }}>No.Telp Ortu</th>
+                        <th style={{  padding: '2px 80px '  }}>Kelas</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {/* <tr>
                         <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>Ahmat</td>
                         <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>3</td>
                         <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>63623782</td>
@@ -62,7 +63,10 @@ const SiswaTerdaftar = () => {
                         <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>2291820</td>
                         <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>086464849847</td>
                         <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>English elementary</td>
-                    </tr>
+                    </tr> */}
+                    <SiswaItem/>
+                    <SiswaItem/>
+
                 </tbody>
             </table>
 
