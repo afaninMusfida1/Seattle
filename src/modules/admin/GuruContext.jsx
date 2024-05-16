@@ -6,6 +6,7 @@ const GuruContext = createContext();
 
 export const GuruProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
+    const [siswaList, setSiswaList] = useState([])
 
     const handleDelete = (id) => {
         const token = localStorage.getItem('adminToken');
@@ -53,8 +54,9 @@ export const GuruProvider = ({ children }) => {
         });
     };
 
+
     return (
-        <GuruContext.Provider value={{ guruList, setGuruList, handleDelete, handleUpdate }}>
+        <GuruContext.Provider value={{siswaList, guruList, setGuruList, handleDelete, handleUpdate }}>
             {children}
         </GuruContext.Provider>
     );

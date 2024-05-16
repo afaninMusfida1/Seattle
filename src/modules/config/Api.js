@@ -6,14 +6,14 @@ export const handleLogin = (email, password) => {
     username: email,
     password: password,
   })
-  .then((response) => {
-    console.log("Login response data:", response.data);
-    return response.data;
-  })
-  .catch((error) => {
-    console.error("Login failed:", error);
-    return error.response?.data ?? { message: "Unknown error" };
-  });
+    .then((response) => {
+      console.log("Login response data:", response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Login failed:", error);
+      return error.response?.data ?? { message: "Unknown error" };
+    });
 };
 
 export const setTokens = (token) => {
@@ -28,8 +28,8 @@ export const getToken = () => {
 };
 
 export const removeToken = () => {
-  console.log("Removing token"); 
-  localStorage.removeItem('adminToken'); 
+  console.log("Removing token");
+  localStorage.removeItem('adminToken');
 };
 
 export const tampilkan = () => {
@@ -38,43 +38,43 @@ export const tampilkan = () => {
     console.error("Token not found. Please login again.");
     return { message: "Token not found. Please login again." };
   }
-  
+
   return axios.get(`${http}/guru`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-  .then((response) => {
-    console.log(response);
-    return response.data.data.dataGuru;
-  })
-  .catch((error) => {
-    console.error("Error fetching data: ", error);
-    return error.response?.data ?? { message: "Unknown error" };
-  });
+    .then((response) => {
+      console.log(response);
+      return response.data.data.dataGuru;
+    })
+    .catch((error) => {
+      console.error("Error fetching data: ", error);
+      return error.response?.data ?? { message: "Unknown error" };
+    });
 };
 
 export const addGuru = (nama, email, password) => {
   const token = localStorage.getItem('adminToken');
   if (!token) {
-      console.error("Token not found. Please login again.");
-      return Promise.resolve({ success: false, message: "Token not found. Please login again." });
+    console.error("Token not found. Please login again.");
+    return Promise.resolve({ success: false, message: "Token not found. Please login again." });
   }
 
   const newGuru = { nama, email, password };
 
   return axios.post(`${http}/guru`, newGuru, {
-      headers: {
-          Authorization: `Bearer ${token}`
-      }
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
-  .then(response => {
+    .then(response => {
       return response.data;
-  })
-  .catch(error => {
+    })
+    .catch(error => {
       console.error("Error adding guru:", error.response ? error.response.data : error.message);
       return { success: false, message: error.response ? error.response.data.message : error.message };
-  });
+    });
 };
 
 export const deleteGuru = async (id) => {
@@ -116,3 +116,54 @@ export const editGuru = async (id, nama, email, password) => {
 };
 
 
+export const addSiswa = async (nama, level, kelas_id, no_telp_ortu, email, password) => {
+  const token = localStorage.getItem('adminToken');
+
+  const newSiswa = {nama, level, kelas_id, no_telp_ortu, email, password};
+
+  return axios.post(`${http}/siswa`, newSiswa, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error("Error adding siswa:", error.response ? error.response.data : error.message);
+      return { success: false, message: error.response ? error.response.data.message : error.message };
+    });
+}
+
+export const fetchSiswaData = async () => {
+  const token = localStorage.getItem("adminToken");
+  if (!token) {
+    console.error("Token not found. Please login again.");
+    return null;
+  }
+
+  return axios.get(`${http}/siswa`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then((response) => {
+    const siswaData = response.data?.data?.dataSiswa ?? null;
+    console.log("Data siswa:", siswaData);
+    return siswaData;
+  })
+  .catch((error) => {
+    console.error("Error fetching siswa data:", error);
+    return null;
+  });
+};
+
+
+export const fetchData = async () => {
+  const data = await fetchSiswaData(); 
+  if (data) {
+      setSiswaList(data); 
+  } else {
+      console.error("Error fetching data: Data siswa tidak tersedia");
+  }
+};
