@@ -93,3 +93,26 @@ export const deleteGuru = async (id) => {
     });
   return deletes;
 };
+
+export const editGuru = async (id, nama, email, password) => {
+  const token = getToken();
+  const edits = await axios
+    .put(
+      http + "/guru/2" + id,
+      { nama, email, password },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((response) => {
+      return response;
+    })
+    .catch((eror) => {
+      return eror.response
+    });
+  return edits;
+};
+
+
