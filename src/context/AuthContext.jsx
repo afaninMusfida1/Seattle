@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react"
 import { handleLogin } from "../modules/config/Api";
 
 const initContext = {
-    doLogin: () => { },
     doLoginAdmin: () => { },
     doLogout: () => { },
     error: ""
@@ -17,11 +16,6 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [error, setError] = useState("")
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const doLogin = () => {
-
-    }
-
 
     const doLoginAdmin = async (email, password) => {
         // Call the login API
@@ -56,7 +50,6 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <authContext.Provider value={{
-            doLogin,
             doLoginAdmin,
             doLogout,
             error

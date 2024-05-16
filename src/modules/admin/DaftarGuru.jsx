@@ -1,46 +1,53 @@
-import { useNavigate } from "react-router-dom";
-import GuruItem from "../gurug/GuruItem";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import GuruItem from '../gurug/GuruItem';
 import { useLayout } from '../layout/LayoutContext';
-import { useEffect } from 'react';
+import { tampilkan } from '../config/Api';
+import { useGuru } from './GuruContext';
 
 const DaftarGuru = () => {
-    const {actionSetPageTitle} = useLayout()
+    const { actionSetPageTitle } = useLayout();
+    const { guruList, setGuruList } = useGuru();
     const navigate = useNavigate();
 
     useEffect(() => {
-        actionSetPageTitle('Daftar Guru --- Test')
-    }, [])
+        actionSetPageTitle('Daftar Guru');
+        const fetchData = async () => {
+            const data = await tampilkan();
+            setGuruList(data);
+        };
+        fetchData();
+    }, [actionSetPageTitle, setGuruList]);
 
-    function handleChange() {
-        navigate('/tambah-guru')
-    }
+    const handleChange = () => {
+        navigate('/admin-tambah-guru');
+    };
 
     return (
-        <div className="h-[400px] rounded-[10px] ml-[300px] mt-28 p-8">
-            <div className="flex">
-                <h2 className="font-poppins text-[20pt] font-bold text-[#078DCC]">Daftar Guru</h2>
-
+        <div className="h-[400px] rounded-[10px] ml-[300px] mt-20 p-8">
+            <div className='flex gap-x-14 gap-y-6 flex-wrap overflow-y-scroll max-h-[460px]'>
+            {guruList.length > 0 ? (
+                guruList.map(guru => (
+                    <GuruItem 
+                        key={guru.id} 
+                        id={guru.id} 
+                        nama={guru.nama} 
+                        email={guru.email}
+                        password={guru.password}
+                    />
+                ))
+            ) : (
+                <p>Tidak ada data Guru</p>
+            )}
             </div>
-            <div className='flex gap-10 flex-wrap'>
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-                <GuruItem />
-            </div>
-            <button onClick={handleChange} className="text-[#078DCC] text-[20px] font-bold ml-[750px] hover:underline fixed right-[100px] bottom-[50px] ">Tambahkan Guru</button>
+            <button 
+                onClick={handleChange} 
+                className="text-[#078DCC] text-[20px] font-bold hover:underline absolute right-[100px] bottom-[50px]"
+            >
+                Tambahkan Guru
+            </button>
         </div>
-    )
-}
+    );
+};
 
 export default DaftarGuru;

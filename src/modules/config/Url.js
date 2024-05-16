@@ -1,1 +1,1 @@
-export const http = (('http://localhost:2000'))
+export const http = (('https://apiseattle.ndamelweb.com'))

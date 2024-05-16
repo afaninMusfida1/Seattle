@@ -13,39 +13,30 @@ const SidebarGuru = () => {
       </div>
       <nav className="mt-4 px-[25px]">
         <section className="text-sm block px-4 py-2 font-bold text-[#A7B9D1]">Overview</section>
-        <NavLink to={"/dashboard"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
+        <NavLink to={"/guru"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
             style={({ isActive }) => ({
               background: isActive ? "#078DCC" : "transparent",
               color: isActive ? "white" : "#004684"
             })}>
             <FontAwesomeIcon icon={faGraduationCap} className="mr-[10px]" />
-            Absen Guru
+            Presensi Siswa
           </NavLink>
 
-          <NavLink to={"/tambah-guru"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
+          <NavLink to={"/guru-jurnal"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
             style={({ isActive }) => ({
               background: isActive ? "#078DCC" : "transparent",
               color: isActive ? "white" : "#004684"
             })}>
             <FontAwesomeIcon icon={faPersonChalkboard} className="mr-[10px]" />
-            Absen Siswa
-          </NavLink>
-
-          <NavLink to={"/tambah-siswa"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
-            style={({ isActive }) => ({
-              background: isActive ? "#078DCC" : "transparent",
-              color: isActive ? "white" : "#004684"
-            })}>
-            <FontAwesomeIcon icon={faList} className="mr-[10px]" />
             Jurnal
           </NavLink>
 
-          <NavLink to={"/rekap"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
+          <NavLink to={"/guru-rekap"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
             style={({ isActive }) => ({
               background: isActive ? "#078DCC" : "transparent",
               color: isActive ? "white" : "#004684",
             })}>
-            <FontAwesomeIcon icon={faGraduationCap} className="mr-[10px]" />
+            <FontAwesomeIcon icon={faList} className="mr-[10px]" />
             Rekap
           </NavLink>
 

@@ -1,7 +1,7 @@
 import { useNavigate, Outlet } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { useLayout } from '../../layout/LayoutContext';
-import KelasItem from '../../kelas/KelasItem';
+import KelasItem from '../kelas/KelasItem';
+import { useLayout } from '../layout/LayoutContext';
 
 const Rekap = () => {
     const navigate = useNavigate();
@@ -12,11 +12,7 @@ const Rekap = () => {
     }, [])
 
     function handleChangeAbsen() {
-        navigate('/rekap-absen')
-    }
-
-    function handleChangeJurnal() {
-        navigate('/rekap-jurnal')
+        navigate('/guru-rekap-absen')
     }
 
     return (
