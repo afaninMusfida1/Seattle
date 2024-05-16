@@ -14,37 +14,41 @@ const RekapAbsen = () => {
     return (
         <>
             <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px]  p-8 ">
-                <table aria-rowspan={2} className="table-fixed w-full text-left overflow-hidden ">
-                    <thead className="h-[60px] rounded-xl text-white bg-[#06357A]">
+                <div>
+                    
+                </div>
+                <table aria-rowspan={2} className="text-center table-fixed w-full overflow-hidden ">
+                    <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
                         <tr>
-                            <th>Tanggal</th>
+                            <th className="">Tanggal</th >
                             <th>Kehadiran</th>
                             <th>Pengajar</th>
                             <th>Chapter</th>
                             <th>Materi</th>
                         </tr>
                     </thead>
-                    <tbody  className=" ">
-                        <tr  className="border-2">
+                    <tbody className="max-h-[300px] ">
+                        <tr className="border-2">
                             <td>22/05/2024</td>
                             <td>15 siswa</td>
                             <td>Dewi Setya</td>
                             <td>2</td>
                             <td className="">english conversation</td>
                         </tr>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
-                        <RekapItem/>
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
+                        <RekapItem />
                     </tbody>
                 </table>
                 {/* <div className="header w-full flex justify-between rounded-lg py-3 px-9 text-white bg-[#06357A]">

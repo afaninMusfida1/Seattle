@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLayout } from '../layout/LayoutContext';
+import SiswaItem from "./SiswaItem";
 
 const SiswaTerdaftar = () => {
     const {actionSetPageTitle} = useLayout()
@@ -15,7 +16,7 @@ const SiswaTerdaftar = () => {
         navigate('/admin-tambah-siswa')
     }
     return (
-        <div className="bg-white h-auto rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
+        <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
             <div className="flex">
             <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Kelas English Beginner</h2>
             {/* <div className="ml-[400px]">
@@ -31,42 +32,41 @@ const SiswaTerdaftar = () => {
                 </select>
             </div> */}
             </div>
-            <table className="table-fixed text-center mt-[25px]">
-                <thead>
-                    <tr>
-                        <th style={{ border: '2px solid #A7B9D2', padding: '2px 40px ', color:'#3F3F3F' }}>Nama</th>
-                        <th style={{ border: '2px solid #A7B9D2', padding: '2px 20px ', color:'#3F3F3F'  }}>Kelas</th>
-                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 40px ', color:'#3F3F3F'  }}>No.HP</th>
-                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 50px ', color:'#3F3F3F'  }}>Email</th>
-                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 80px ', color:'#3F3F3F'  }}>Alamat</th>
-                        <th style={{ border: '2px solid #A7B9D1', padding: '2px 10px ', color:'#3F3F3F'  }}>Jenis Kelamin</th>
+            <table className="table-fixed text-center mt-[25px] w-full">
+                <thead className=" text-white bg-[#078DCC]">
+                    <tr >
+                        <th style={{  padding: '2px 40px ' }}>Nama</th>
+                        <th style={{  padding: '2px 20px '  }}>Level</th>
+                        <th style={{  padding: '2px 40px '  }}>NIS</th>
+                        <th style={{  padding: '2px 50px '  }}>No.Telp Ortu</th>
+                        <th style={{  padding: '2px 80px '  }}>Kelas</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {/* <tr>
                         <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>Ahmat</td>
-                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>5</td>
-                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>08123456</td>
-                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>@gmail.com</td>
-                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>Desa Kandeman</td>
-                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>L</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>3</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>63623782</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>08425618654</td>
+                        <td style={{ border: '2px solid #A7B9D1', padding: '5px' }}>English starters</td>
                     </tr>
                     <tr>
                     <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Aina</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>4</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>08123456</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>@gmail.com</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Desa Kandeman</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>P</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>6</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>874648239</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>0885478292893</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>English for kids</td>
                     </tr>
                     <tr>
                     <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Putri</td>
                         <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>4</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>08123456</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>@gmail.com</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>Desa Kandeman</td>
-                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>P</td>
-                    </tr>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>2291820</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>086464849847</td>
+                        <td style={{ border: '2px solid #A7B9D2', padding: '5px' }}>English elementary</td>
+                    </tr> */}
+                    <SiswaItem/>
+                    <SiswaItem/>
+
                 </tbody>
             </table>
 
