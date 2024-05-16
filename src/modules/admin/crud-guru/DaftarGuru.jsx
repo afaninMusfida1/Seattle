@@ -1,26 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import GuruItem from '../gurug/GuruItem';
-import { useLayout } from '../layout/LayoutContext';
-import { tampilkan } from '../config/Api';
-import { useGuru } from './GuruContext';
+import GuruItem from './GuruItem';
+import { useLayout } from '../../layout/LayoutContext';
+import { useGuru } from './GuruProvider';
+import { editGuru, tampilkan } from '../../config/Api';
+
 
 const DaftarGuru = () => {
     const { actionSetPageTitle } = useLayout();
-    const { guruList, setGuruList } = useGuru();
+    const { guruList, setGuruList, handleFetch } = useGuru();
     const navigate = useNavigate();
 
     useEffect(() => {
         actionSetPageTitle('Daftar Guru');
-        const fetchData = async () => {
-            const data = await tampilkan();
-            setGuruList(data);
-        };
-        fetchData();
-    }, [actionSetPageTitle, setGuruList]);
+        handleFetch(); // Panggil fungsi fetchData untuk mengambil data guru
+    }, []);
 
     const handleChange = () => {
-        navigate('/admin-tambah-guru');
+        navigate('/admin/guru/tambah');
     };
 
     return (
@@ -34,6 +31,7 @@ const DaftarGuru = () => {
                         nama={guru.nama} 
                         email={guru.email}
                         password={guru.password}
+                        handleEditGuru={editGuru} // Teruskan fungsi handleEditGuru ke komponen GuruItem
                     />
                 ))
             ) : (
@@ -50,4 +48,4 @@ const DaftarGuru = () => {
     );
 };
 
-export default DaftarGuru;
+export default DaftarGuru;

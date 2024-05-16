@@ -23,17 +23,15 @@ const RekapAbsen = () => {
                             <th className="">Tanggal</th >
                             <th>Kehadiran</th>
                             <th>Pengajar</th>
-                            <th>Chapter</th>
                             <th>Materi</th>
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
                         <tr className="border-2">
                             <td>22/05/2024</td>
-                            <td>15 siswa</td>
+                            <td><button className="bg-green-200 py-1 px-2 rounded">15 siswa</button></td>
                             <td>Dewi Setya</td>
-                            <td>2</td>
-                            <td className="">english conversation</td>
+                            <td className="">english conversation chapter 2</td>
                         </tr>
                         <RekapItem />
                         <RekapItem />
