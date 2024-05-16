@@ -40,6 +40,15 @@ const Sidebar = () => {
             Guru
           </NavLink>
 
+          <NavLink to={"/admin-kelas"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
+            style={({ isActive }) => ({
+              background: isActive ? "#078DCC" : "transparent",
+              color: isActive ? "white" : "#004684"
+            })}>
+            <FontAwesomeIcon icon={faPersonChalkboard} className="mr-[10px]" />
+            Kelas
+          </NavLink>
+
           <NavLink to={"/admin-siswa"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
             style={({ isActive }) => ({
               background: isActive ? "#078DCC" : "transparent",

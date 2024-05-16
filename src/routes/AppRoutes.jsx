@@ -24,6 +24,7 @@ import Jurnal from '../modules/gurug/Jurnal';
 import RekapGuru from '../modules/gurug/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
 import RekapSiswa from '../modules/siswa/RekapSiswa';
+import TambahKelas from '../modules/admin/TambahKelas';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -41,6 +42,7 @@ const AppRoutes = () => {
           <Route element={<MainLayout />}>
             <Route path="/admin-dashboard" element={<Dashboard />} />
             <Route path="/admin-guru" element={<DaftarGuru />} />
+            <Route path="/admin-kelas" element={<TambahKelas />} />
             <Route path="/admin-siswa" element={<SiswaTerdaftar />} />
             <Route path="/admin-rekap" element={<Rekap />} />
             <Route path="/admin-tambah-guru" element={<TambahGuru />} />

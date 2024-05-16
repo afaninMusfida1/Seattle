@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import GuruItem from '../gurug/GuruItem';
 import { useLayout } from '../layout/LayoutContext';
 import { useGuru } from './GuruContext';
+import { editGuru, tampilkan } from '../config/Api';
+
 
 const DaftarGuru = () => {
     const { actionSetPageTitle } = useLayout();
@@ -34,7 +36,7 @@ const DaftarGuru = () => {
                         nama={guru.nama} 
                         email={guru.email}
                         password={guru.password}
-                        handleEditGuru={handleEditGuru} // Teruskan fungsi handleEditGuru ke komponen GuruItem
+                        handleEditGuru={editGuru} // Teruskan fungsi handleEditGuru ke komponen GuruItem
                     />
                 ))
             ) : (
