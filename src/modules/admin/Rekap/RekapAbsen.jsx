@@ -14,7 +14,7 @@ const RekapAbsen = () => {
     return (
         <>
             <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px]  p-8 ">
-                <table aria-rowspan={2} class="table-fixed w-full text-left overflow-hidden ">
+                <table aria-rowspan={2} className="table-fixed w-full text-left overflow-hidden ">
                     <thead className="h-[60px] rounded-xl text-white bg-[#06357A]">
                         <tr>
                             <th>Tanggal</th>

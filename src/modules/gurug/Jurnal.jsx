@@ -7,17 +7,42 @@ const Jurnal = () => {
     const [showDafJurnal, setShowDafJurnal] = useState(false);
     const {actionSetPageTitle} = useLayout()
 
+    const [formData, setFormData] = useState({
+        bulan: '',
+        kelas: '',
+        mataPelajaran: '',
+        hari: '',
+        kehadiran: '',
+        materi: ''
+    });
+
     useEffect(()=>{
         actionSetPageTitle('Isi Jurnal')
     }, [])
 
-    function handleChange(){
-        navigate('/guru-rekap')
-    }
+    const handleSubmit = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    function handleConfirm(){
-        navigate('/guru')
-    }
+        navigate('/guru-rekap')
+};
+
+const handleChange = (e) => {
+    e.preventDefault();
+    axios.post('/api/jurnal', formData)
+        .then(response => {
+            console.log('Journal created:', response.data);
+            navigate('/guru-rekap');
+        })
+        .catch(error => {
+            console.error('Error creating journal:', error);
+        });
+};
+
+
+
+    // function handleConfirm(){
+    //     navigate('/guru')
+    // }
 
     return (
         <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px] flex p-8 ">
@@ -35,7 +60,7 @@ const Jurnal = () => {
                     <option value="option2">English B</option>
                     <option value="option3">English C</option>
                 </select>
-                <button onClick={handleConfirm} className="w-[400px] h-[40px] mt-[130px] font-poppins text-[16px] border-2 bg-[#07CC85] text-white rounded-[10px] outline-none ">Buat Jurnal</button>
+                <button onClick={handleSubmit} className="w-[400px] h-[40px] mt-[130px] font-poppins text-[16px] border-2 bg-[#07CC85] text-white rounded-[10px] outline-none ">Buat Jurnal</button>
             </div>
             <div>
             <input placeholder="Hari" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>

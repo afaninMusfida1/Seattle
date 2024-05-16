@@ -2,15 +2,26 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import KelasItem from '../kelas/KelasItem';
 import { useLayout } from '../layout/LayoutContext';
+import axios from 'axios';
 
 const Rekap = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout()
+    const [rekapData, setRekapData] = useState([]);
 
     useEffect(() => {
-        actionSetPageTitle('Lihat Rekap')
-    }, [])
+        actionSetPageTitle('Lihat Rekap');
+    
+    axios.get('/api/jurnal')
+            .then(response => {
+                setRekapData(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching rekap data:', error);
+            });
+    }, [actionSetPageTitle]);
 
+    
     function handleChangeAbsen() {
         navigate('/guru-rekap-absen')
     }
