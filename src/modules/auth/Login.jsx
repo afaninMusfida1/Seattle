@@ -44,14 +44,14 @@ const Login = () => {
         ) : (
           <>
             <input
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              // onChange={(e) => setEmail(e.target.value)}
+              // value={email}
               placeholder="Username"
               className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "
             />
             <input type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
+              // onChange={(e) => setPassword(e.target.value)}
+              // value={password}
               placeholder="Password"
               className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] mt-[10px] outline-none focus:border-[#2B3758]"
             />

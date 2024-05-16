@@ -115,4 +115,3 @@ export const editGuru = async (id, nama, email, password) => {
   return edits;
 };
 
-

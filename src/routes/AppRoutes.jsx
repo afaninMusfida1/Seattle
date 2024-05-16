@@ -24,6 +24,7 @@ import Jurnal from '../modules/gurug/Jurnal';
 import RekapGuru from '../modules/gurug/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
 import RekapSiswa from '../modules/siswa/RekapSiswa';
+import LoginGuru from '../modules/auth/LoginGuru';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -32,8 +33,9 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/auth/admin" element={<Login />} />
+        <Route path="/auth/guru" element={<LoginGuru/>} />
         <Route path="/auth" element={<LoginGuruSiswa />} >
-          <Route path="/auth/guru" element={<Login/>} />
+          {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         </Route>
         <Route path="*" element={<Navigate to="/auth" />} />
 
