@@ -16,7 +16,7 @@ export const GuruProvider = ({ children }) => {
 
         axios.delete(`${http}/guru/${id}`, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization:` Bearer ${token}`
             }
         })
         .then(() => {

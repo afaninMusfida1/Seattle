@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GuruItem from '../gurug/GuruItem';
 import { useLayout } from '../layout/LayoutContext';
-import { tampilkan } from '../config/Api';
 import { useGuru } from './GuruContext';
 
 const DaftarGuru = () => {
@@ -12,20 +11,21 @@ const DaftarGuru = () => {
 
     useEffect(() => {
         actionSetPageTitle('Daftar Guru');
-        const fetchData = async () => {
-            const data = await tampilkan();
-            setGuruList(data);
-        };
-        fetchData();
+        fetchData(); // Panggil fungsi fetchData untuk mengambil data guru
     }, [actionSetPageTitle, setGuruList]);
+
+    const fetchData = async () => {
+        const data = await tampilkan(); // Ambil data guru dari API
+        setGuruList(data); // Setel data guru ke dalam state
+    };
 
     const handleChange = () => {
         navigate('/admin-tambah-guru');
     };
 
     return (
-        <div className="h-[400px] rounded-[10px] ml-[300px] mt-20 p-8">
-            <div className='flex gap-x-14 gap-y-6 flex-wrap overflow-y-scroll max-h-[460px]'>
+        <div className=" rounded-[10px] ml-[350px] mt-[100px] mr-[100px] ">
+            <div className='flex gap-x-14 gap-y-10 flex-wrap overflow-y-scroll max-h-[560px]'>
             {guruList.length > 0 ? (
                 guruList.map(guru => (
                     <GuruItem 
@@ -34,6 +34,7 @@ const DaftarGuru = () => {
                         nama={guru.nama} 
                         email={guru.email}
                         password={guru.password}
+                        handleEditGuru={handleEditGuru} // Teruskan fungsi handleEditGuru ke komponen GuruItem
                     />
                 ))
             ) : (

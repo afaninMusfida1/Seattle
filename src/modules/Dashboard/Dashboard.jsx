@@ -16,6 +16,7 @@ function Dashboard() {
 
     const handleSubmit = () => {
 
+
         if (title.current.value == '' || content.current.value == '') {
             alert(`mohon isi keduanya`)
             return
@@ -50,8 +51,11 @@ function Dashboard() {
                                     </form>
                                 </div>
                                 <div>
-                                    <button onClick={() => handleSubmit()}
-                                        className="bg-green-400 py-[10px] px-[45px] rounded-xl text-white font-semibold hover:opacity-70 transition-all">Buat
+                                    <button onClick={() => {
+                                        handleSubmit();
+                                        close();
+                                    }}
+                                        className="bg-green-500 py-[10px] px-[45px] rounded-xl text-white font-semibold hover:opacity-70 transition-all">Buat
                                     </button>
                                 </div>
                             </div>
@@ -61,15 +65,15 @@ function Dashboard() {
             </div>
 
             <div className="flex gap-8">
-                <div className=" bg-[#FFFFFF] w-full flex-cols h-48 p-7 rounded-[20px] ">
-                    <div className="icon bg-green-400 w-14 h-14 rounded-full overflow-hidden"></div>
-                    <div className="status flex items-end justify-between justify-self-end">
+                <div className=" bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px] ">
+                    <div className="icon bg-green-400 w-[80px] h-[80px] rounded-full overflow-hidden"></div>
+                    <div className="status flex items-end justify-between ">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Guru terdaftar</h1>
                         <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">4</h1>
                     </div>
                 </div>
-                <div className=" bg-[#FFFFFF] w-full h-48 p-7 rounded-[20px] ">
-                    <div className="icon bg-green-400 w-14 h-14 rounded-full overflow-hidden"></div>
+                <div className=" bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px] ">
+                    <div className="icon bg-green-400 w-[80px] h-[80px] rounded-full overflow-hidden"></div>
                     <div className="status flex items-end justify-between">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Siswa terdaftar</h1>
                         <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">489</h1>

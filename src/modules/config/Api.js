@@ -93,3 +93,5 @@ export const deleteGuru = async (id) => {
     });
   return deletes;
 };
+
+
