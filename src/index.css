@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  font-family: poppins
+}
+
 .container{
     @apply  w-[300pt] mx-auto;
 }
@@ -17,3 +21,5 @@
 body{
     @apply bg-[#DCE5F1];
 }
+
+
