@@ -5,8 +5,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { doLoginAdmin, error } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin");
+  const [password, setPassword] = useState("admin123");
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState(null);
@@ -16,7 +16,7 @@ const Login = () => {
     if (apiResult && apiResult.token) {
       localStorage.setItem("adminToken", apiResult.token);
       setIsLoggedIn(true);
-      navigate('/admin-dashboard')
+      navigate('/admin')
     } else if (apiResult && apiResult.message) {
       console.error("Login failed:", apiResult.message);
       setLoginError(apiResult.message);

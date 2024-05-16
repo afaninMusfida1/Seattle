@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import GuruItem from '../gurug/GuruItem';
-import { useLayout } from '../layout/LayoutContext';
-import { useGuru } from './GuruContext';
-import { editGuru, tampilkan } from '../config/Api';
+import GuruItem from './GuruItem';
+import { useLayout } from '../../layout/LayoutContext';
+import { useGuru } from './GuruProvider';
+import { editGuru, tampilkan } from '../../config/Api';
 
 
 const DaftarGuru = () => {
     const { actionSetPageTitle } = useLayout();
-    const { guruList, setGuruList } = useGuru();
+    const { guruList, setGuruList, handleFetch } = useGuru();
     const navigate = useNavigate();
 
     useEffect(() => {
         actionSetPageTitle('Daftar Guru');
-        fetchData(); // Panggil fungsi fetchData untuk mengambil data guru
-    }, [actionSetPageTitle, setGuruList]);
-
-    const fetchData = async () => {
-        const data = await tampilkan(); // Ambil data guru dari API
-        setGuruList(data); // Setel data guru ke dalam state
-    };
+        handleFetch(); // Panggil fungsi fetchData untuk mengambil data guru
+    }, []);
 
     const handleChange = () => {
-        navigate('/admin-tambah-guru');
+        navigate('/admin/guru/tambah');
     };
 
     return (

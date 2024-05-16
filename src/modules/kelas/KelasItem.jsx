@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const KelasItem = () => {
+const KelasItem = ({navigateTo}) => {
     const navigate = useNavigate()
 
     function handleChange() {
-        navigate('/rekap-absen')
+        navigate(navigateTo)
     }
 
     return (
