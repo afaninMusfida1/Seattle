@@ -4,7 +4,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
-import { addJurnal } from './requestsJurnal';
 
 const Jurnal = () => {
     const navigate = useNavigate();
@@ -29,9 +28,8 @@ const Jurnal = () => {
         //     alert(response.message);
         // }
     };
-
     return (
-        <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px] p-8">
+        <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px] p-8" >
             <div className='grid grid-flow-col'>
                 <div className='flex flex-col'>
                     <form onSubmit={handleSubmit} className='flex flex-col gap-4'>

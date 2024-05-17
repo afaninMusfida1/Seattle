@@ -10,6 +10,7 @@ import Rekap from '../modules/admin/Rekap/Rekap';
 import TambahSiswa from '../modules/admin/TambahSiswa';
 import DaftarGuru from '../modules/admin/crud-guru/DaftarGuru';
 import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
+import GuruItem from '../modules/admin/crud-guru/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
 import RekapLayout from '../modules/layout/RekapLayout';
@@ -23,11 +24,9 @@ import Jurnal from '../modules/gurug/crud-jurnal/Jurnal';
 import RekapGuru from '../modules/gurug/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
 import RekapSiswa from '../modules/siswa/RekapSiswa';
-import TambahKelas from '../modules/admin/crud-kelas/TambahKelas';
+import TambahKelas from '../modules/admin/TambahKelas';
 import GuruWrapper from '../modules/admin/crud-guru/GuruWrapper';
 import RekapWrapper from '../modules/admin/Rekap/RekapWrapper';
-import LoginGuru from '../modules/auth/LoginGuru';
-import { KelasProvider } from '../modules/admin/crud-kelas/KelasProvider';
 import JurnalGuru from '../modules/gurug/crud-jurnal/JurnalGuru';
 import { JurnalProvider } from '../modules/gurug/crud-jurnal/JurnalProvider';
 
@@ -76,7 +75,7 @@ const AppRoutes = () => {
               <Route path="kelas" element={<TambahKelas />} />
               <Route path="siswa" element={<SiswaTerdaftar />} />
 
-              <Route path='rekap' element={<KelasProvider><RekapWrapper /></KelasProvider>} >
+              <Route path='rekap' element={<RekapWrapper />} >
                 <Route path="" element={<Rekap />} />
                 <Route path="absen" element={<RekapAbsen />} />
                 <Route path="jurnal" element={<RekapJurnal />} />
