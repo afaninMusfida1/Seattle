@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLayout } from "../layout/LayoutContext";
-import KelasItem from "../kelas/KelasItem";
+import KelasItem from "../admin/crud-kelas/KelasItem";
 import { useNavigate } from "react-router";
 import PresensiSiswa from "./PresensiSiswa";
 

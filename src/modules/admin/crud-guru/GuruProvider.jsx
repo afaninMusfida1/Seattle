@@ -20,7 +20,7 @@ export const useGuru = () => useContext(GuruContext);
 
 export const GuruProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const handleFetch = async () => {
@@ -39,7 +39,7 @@ export const GuruProvider = ({ children }) => {
         return apiCall
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
 
         if (isLoading) return
         setIsLoading(true)
@@ -68,7 +68,7 @@ export const GuruProvider = ({ children }) => {
         
     };
 
-    const handleUpdate = (id, updatedData) => {
+    const handleUpdate = async (id, updatedData) => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
