@@ -73,7 +73,7 @@ const AppRoutes = () => {
 
             <Route path='/admin' element={<KelasProvider><MainLayout /></KelasProvider>}>
               <Route path="" element={<Dashboard />} />
-              <Route path="/kelas" element={<TambahKelas/>} />
+              <Route path="kelas" element={<TambahKelas/>} />
               <Route path="siswa" element={<SiswaTerdaftar />} />
 
               <Route path='rekap' element={<RekapWrapper />} >
