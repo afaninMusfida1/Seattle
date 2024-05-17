@@ -1,11 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { addKelas, apiGetKelas } from "./request";
 
 const initKelasState = {
     daftarKelas: [],
     handleFetch: () => {},
     handleAdd: () => { },
-    handleEdit: () => { },
     isLoading: false
 };
 
@@ -18,6 +17,7 @@ export const KelasProvider = ({ children }) => {
 
     const handleFetch = async () => {
         const data = await apiGetKelas(); // Ambil data guru dari API
+        console.log(data)
         setDaftarKelas(data); // Setel data guru ke dalam state
     };
 
@@ -33,8 +33,13 @@ export const KelasProvider = ({ children }) => {
     };
 
 
+    useEffect(() => {
+        handleFetch()
+    },[daftarKelas])
+
+
     return (
-        <KelasContext.Provider value={{ daftarKelas, setDaftarKelas, handleFetch, handleAdd }}>
+        <KelasContext.Provider value={{ daftarKelas, handleFetch, handleAdd }}>
             {children}
         </KelasContext.Provider>
     )

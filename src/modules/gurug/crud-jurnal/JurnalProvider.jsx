@@ -19,7 +19,7 @@ export const JurnalProvider = ({ children }) => {
     const [jurnalList, setJurnalList] = useState(initJurnalState.jurnalList);
     const [isLoading, setIsLoading] = useState(initJurnalState.isLoading);
 
-    const fetchJurnal = () => {
+    const fetchJurnal = async () => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
@@ -39,7 +39,7 @@ export const JurnalProvider = ({ children }) => {
         });
     };
 
-    const addJurnal = (newJurnal) => {
+    const addJurnal = async (newJurnal) => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
@@ -79,7 +79,7 @@ export const JurnalProvider = ({ children }) => {
         });
     };
 
-    const editJurnal = (id, updatedData) => {
+    const editJurnal = async (id, updatedData) => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
@@ -98,6 +98,7 @@ export const JurnalProvider = ({ children }) => {
             return { success: false, message: error.response ? error.response.data.message : error.message };
         });
     };
+    
 
     return (
         <JurnalContext.Provider value={{  

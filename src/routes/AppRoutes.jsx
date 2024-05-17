@@ -24,11 +24,12 @@ import Jurnal from '../modules/gurug/crud-jurnal/Jurnal';
 import RekapGuru from '../modules/gurug/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
 import RekapSiswa from '../modules/siswa/RekapSiswa';
-import TambahKelas from '../modules/admin/TambahKelas';
 import GuruWrapper from '../modules/admin/crud-guru/GuruWrapper';
 import RekapWrapper from '../modules/admin/Rekap/RekapWrapper';
 import JurnalGuru from '../modules/gurug/crud-jurnal/JurnalGuru';
 import { JurnalProvider } from '../modules/gurug/crud-jurnal/JurnalProvider';
+import { KelasProvider } from '../modules/admin/crud-kelas/KelasProvider';
+import TambahKelas from '../modules/admin/crud-kelas/TambahKelas';
 
 
 const AppRoutes = () => {
@@ -70,9 +71,9 @@ const AppRoutes = () => {
               <Route path="/siswa-jadwal" element={<JadwalMapel />} />
             </Route>
 
-            <Route path='/admin' element={<MainLayout />}>
+            <Route path='/admin' element={<KelasProvider><MainLayout /></KelasProvider>}>
               <Route path="" element={<Dashboard />} />
-              <Route path="kelas" element={<TambahKelas />} />
+              <Route path="/kelas" element={<TambahKelas/>} />
               <Route path="siswa" element={<SiswaTerdaftar />} />
 
               <Route path='rekap' element={<RekapWrapper />} >

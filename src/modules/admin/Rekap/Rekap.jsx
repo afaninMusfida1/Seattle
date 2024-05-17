@@ -12,7 +12,6 @@ const Rekap = () => {
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap');
-        handleFetch();
     }, [])
 
     function handleChangeAbsen() {
@@ -22,6 +21,7 @@ const Rekap = () => {
     function handleChangeJurnal() {
         navigate('/rekap-jurnal')
     }
+
 
 
     return (

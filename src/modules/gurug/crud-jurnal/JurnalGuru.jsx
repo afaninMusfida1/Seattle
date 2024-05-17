@@ -1,8 +1,9 @@
 import { useNavigate, Outlet } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import KelasItem from '../../kelas/KelasItem';
 import { useLayout } from '../../layout/LayoutContext';
 import GuruLayout from '../../layout/GuruLayout';
+import { useJurnal } from './JurnalProvider';
 
 
 
@@ -10,13 +11,18 @@ const JurnalGuru = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
 
+    const {jurnalList,fetchJurnal} = useJurnal()
+
     useEffect(() => {
+        fetchJurnal()
         actionSetPageTitle('Lihat Jurnal');
     }, []);
 
     function handleChangeAbsen() {
         navigate('/isi-jurnal');
     }
+
+    console.log(jurnalList)
 
     return (
         
