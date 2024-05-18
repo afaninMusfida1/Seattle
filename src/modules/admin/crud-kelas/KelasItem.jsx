@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode }) => {
     const navigate = useNavigate()
@@ -19,6 +21,10 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode }) 
                 <div>
                     <div className="text-[12px] self-end  bg-green-200 text-green-600 font-medium max-w-fit px-2 py-1 rounded ">
                         {jadwal_kelas}
+                    </div>
+                    <div className="">
+                    <button className='absolute mx-6 text-[20px]'><FontAwesomeIcon icon={faPenToSquare} style={{ color: "#6a6d76" }} /></button>
+                    <button className='absolute my-8 mx-6 text-[20px]'><FontAwesomeIcon icon={faTrashAlt} style={{ color: "#6a6d76" }} /></button>
                     </div>
                 </div>
             </button>
