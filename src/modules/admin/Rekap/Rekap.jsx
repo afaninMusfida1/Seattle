@@ -10,7 +10,7 @@ const Rekap = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
     const { daftarKelas, setdDaftarKelas, handleFetch } = useKelas();
-    const [filter, setFilter] = useState(); //ketika useState di set -> ('') maka console akan invinite loop menampilkan array filter
+    const [filter, setFilter] = useState(''); //ketika useState di set -> ('') maka console akan invinite loop menampilkan array filter
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap');

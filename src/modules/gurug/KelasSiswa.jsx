@@ -3,10 +3,12 @@ import { useLayout } from "../layout/LayoutContext";
 import KelasItem from "../admin/crud-kelas/KelasItem";
 import { useNavigate } from "react-router";
 import PresensiSiswa from "./PresensiSiswa";
+import { useKelas } from "../admin/crud-kelas/KelasProvider";
 
 const AbsenSiswa = () => {
     const { actionSetPageTitle } = useLayout();
     const navigate = useNavigate();
+    const { daftarKelas } = useKelas()
 
     useEffect(() => {
         actionSetPageTitle('Presensi Siswa')
@@ -23,21 +25,23 @@ const AbsenSiswa = () => {
                     <h1 className="font-bold text-[#6A6D76]">Kelas A</h1>
                     <p className="text-[#6A6D76] mt-[10px]">English beginner</p>
                 </button>
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
-                
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
-                
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
-                
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
-                
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
-                
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
-                
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
-                
-                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                <KelasItem 
+                navigateTo={'/guru-presensi-siswa'} />
+                {daftarKelas.length > 0 ? (
+                    daftarKelas.map(kelas => (
+                        <KelasItem
+                            key={kelas.id}
+                            id={kelas.id}
+                            nama_kelas={kelas.nama_kelas}
+                            kategori={kelas.kategori}
+                            periode={kelas.periode}
+                            jadwal_kelas={kelas.jadwal_kelas}
+                            navigateTo={'guru-presensi-siswa'}
+                        />
+                    ))
+                ) : (
+                    <p>belum ada kelas</p>
+                )}
             </div>
         </div>
     )

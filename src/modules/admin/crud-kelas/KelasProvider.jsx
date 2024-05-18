@@ -32,10 +32,10 @@ export const KelasProvider = ({ children }) => {
         return apiCall
     };
 
-    // off kan sementara karena terjadi bug infinite loop di console 
-    // useEffect(() => {
-    //     handleFetch()
-    // },[daftarKelas])
+    
+    useEffect(() => {
+        handleFetch()
+    },[]) //dikosongkan untuk menghindari infinte loop pada console
 
 
     return (
