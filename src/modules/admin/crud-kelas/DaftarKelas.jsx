@@ -40,4 +40,4 @@ const DaftarKelas = () => {
         </div>
     )
 }
-export default DaftarKelas
+export default DaftarKelas;

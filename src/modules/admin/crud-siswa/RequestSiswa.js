@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../../config/Api";
 import { API_URL } from "../../config/Url";
 
-export const addSiswa = (nama, kelas_id, level, no_telp_ortu, email, password) => {
+export const addSiswa = async (nama, kelas_id, level, no_telp_ortu, email, password) => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
         console.error("Token not found. Please login again.");
@@ -17,13 +17,49 @@ export const addSiswa = (nama, kelas_id, level, no_telp_ortu, email, password) =
         }
     })
         .then(response => {
-            return response.data.data.dataSiswa;
+            return response.data.data.dataSiswa; // Pastikan bahwa nilai yang diharapkan dikembalikan di sini
         })
         .catch(error => {
             console.error("Error adding guru:", error.response ? error.response.data : error.message);
             return { success: false, message: error.response ? error.response.data.message : error.message };
         });
 };
+
+
+// export const addSiswa = async (nama, kelas_id, level, no_telp_ortu, email, password) => {
+//     setIsLoading(true);
+//     const token = localStorage.getItem('adminToken');
+//     if (!token) {
+//         console.error("Token not found. Please login again.");
+//         setIsLoading(false);
+//         return { success: false, message: "Token not found. Please login again." };
+//     }
+
+//     const response = await axios.post(`${API_URL}/siswa`, {
+//         nama,
+//         kelas_id,
+//         level,
+//         no_telp_ortu,
+//         email,
+//         password
+//     }, {
+//         headers: {
+//             Authorization: `Bearer ${token}`
+//         }
+//     });
+
+//     if (response.status === 201) {
+//         const newData = response.data.data.dataSiswa;
+//         setSiswaList(prevSiswaList => [...prevSiswaList, newData]);
+//         setIsLoading(false);
+//         return { success: true, data: newData };
+//     } else {
+//         console.error("Error adding siswa:", response.data.message);
+//         setIsLoading(false);
+//         return { success: false, message: response.data.message };
+//     }
+// };
+
 
 
 export const apiGetSiswa = () => {

@@ -3,15 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { useLayout } from '../../layout/LayoutContext';
 import SiswaItem from "./SiswaItem";
 import { useSiswa } from "./SiswaProvider";
+import { useKelas } from "../crud-kelas/KelasProvider";
 
 const SiswaTerdaftar = () => {
     const { actionSetPageTitle } = useLayout()
     const navigate = useNavigate();
     const { siswaList, setSiswaList, handleFetch } = useSiswa([]);
+    const { kelasId } = useKelas();
 
     useEffect(() => {
         actionSetPageTitle('Daftar Siswa');
-        handleFetch();
+        // handleFetch();
+        if (kelasId) {
+            handleFetch(kelasId);
+        }
     }, []);
 
     // useEffect(() => {
@@ -28,7 +33,7 @@ const SiswaTerdaftar = () => {
 
 
     const handleChange = () => {
-        navigate('/admin/siswa/tambah');
+        navigate('/admin/tambah');
     }
 
     return (

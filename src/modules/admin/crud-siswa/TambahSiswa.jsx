@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useLayout } from '../../layout/LayoutContext';
 import { useSiswa } from './SiswaProvider';
 
-const TambahSiswa = () => {
+const TambahSiswa = ({ kelasList }) => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd } = useSiswa()
+    const { handleAdd } = useSiswa();
     const refNama = useRef();
     const refKelas = useRef();
     const refLevel = useRef();
@@ -25,23 +25,23 @@ const TambahSiswa = () => {
         }
 
         const nama = refNama.current.value;
-        const kelas = refKelas.current.value;
+        const selectedKelasId = refKelas.current.value;
         const level = refLevel.current.value;
         const noTelpOrtu = refNoTelpOrtu.current.value;
         const email = refEmail.current.value;
         const password = refPassword.current.value;
 
-        console.log("Input values:", { nama, kelas, level, noTelpOrtu, email, password });
+        console.log("Input values:", { nama, selectedKelasId, level, noTelpOrtu, email, password });
 
-        const result = await handleAdd(nama, kelas, level, noTelpOrtu, email, password);
+        const result = await handleAdd(nama, selectedKelasId, level, noTelpOrtu, email, password);
 
         if (result) {
             console.log('Siswa ditambahkan:', result);
             alert('Siswa ditambahkan');
             navigate('/admin/siswa');
         } else {
-            console.error('Error menambahkan siswa:', result.message);
-            alert('Error menambahkan siswa: ' + result.message);
+            console.error('Error');
+            alert('Terjadi kesalahan saat menambahkan siswa');
         }
 
         refNama.current.value = '';
@@ -60,21 +60,21 @@ const TambahSiswa = () => {
                     ref={refNama}
                     className="input block w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC]"
                 />
-                <select
-                    ref={refKelas}
-                    className="block w-[400px] border rounded px-4 py-2 outline-none text-[#6A6D76] h-[40px] mb-[15px]">
+                <select ref={refKelas} className="block w-[400px] border rounded px-4 py-2 outline-none text-[#6A6D76] h-[40px] mb-[15px]">
                     <option value="" hidden>Kelas</option>
-                    <option value="1">English For Kids</option>
-                    <option value="2">English Beginner</option>
-                    <option value="3">English Intermediate</option>
+                    {kelasList && kelasList.length > 0 ? (
+                        kelasList.map((item) => (
+                            <option key={item.id} value={item.id}>{item.nama}</option>
+                        ))
+                    ) : (
+                        <option value="">Tidak ada kelas tersedia</option>
+                    )}
                 </select>
                 <select
                     ref={refLevel}
                     className="block border rounded px-4 py-2 outline-none text-[#6A6D76] w-[400px] h-[40px] mb-[15px]"
                 >
-                    <option value="" hidden>
-                        Level
-                    </option>
+                    <option value="" hidden>Level</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

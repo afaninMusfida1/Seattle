@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useLayout } from "../../layout/LayoutContext"
 import { useEffect, useReducer, useRef } from "react"
-import { addKelas } from "../../config/Api";
+import { addKelas } from "./request";
 
 
 const TambahKelas = () => {

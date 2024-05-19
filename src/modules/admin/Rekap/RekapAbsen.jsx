@@ -27,12 +27,12 @@ const RekapAbsen = () => {
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
-                        <tr className="border-2">
+                        {/* <tr className="border-2">
                             <td>22/05/2024</td>
                             <td><button className="bg-green-200 py-1 px-2 rounded">15 siswa</button></td>
                             <td>Dewi Setya</td>
                             <td className="">english conversation chapter 2</td>
-                        </tr>
+                        </tr> */}
                         <RekapItem />
                         <RekapItem />
                         <RekapItem />
