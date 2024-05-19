@@ -115,13 +115,17 @@ export const editGuru = async (id, nama, email, password) => {
   return edits;
 };
 
-
-export const addSiswa = async (nama, level, kelas_id, no_telp_ortu, email, password) => {
+export const addKelas = (level, namaKelas) => {
   const token = localStorage.getItem('adminToken');
 
-  const newSiswa = {nama, level, kelas_id, no_telp_ortu, email, password};
+  if (!token) {
+    console.error("Token not found. Please login again.");
+    return Promise.resolve({ success: false, message: "Token not found. Please login again." });
+  }
 
-  return axios.post(`${http}/siswa`, newSiswa, {
+  const newKelas = { level, namaKelas };
+
+  return axios.post(`${http}/kelas`, newKelas, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -130,40 +134,7 @@ export const addSiswa = async (nama, level, kelas_id, no_telp_ortu, email, passw
       return response.data;
     })
     .catch(error => {
-      console.error("Error adding siswa:", error.response ? error.response.data : error.message);
+      console.error("Error adding guru:", error.response ? error.response.data : error.message);
       return { success: false, message: error.response ? error.response.data.message : error.message };
     });
-}
-
-export const fetchSiswaData = async () => {
-  const token = localStorage.getItem("adminToken");
-  if (!token) {
-    console.error("Token not found. Please login again.");
-    return null;
-  }
-
-  return axios.get(`${http}/siswa`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-  .then((response) => {
-    const siswaData = response.data?.data?.dataSiswa ?? null;
-    console.log("Data siswa:", siswaData);
-    return siswaData;
-  })
-  .catch((error) => {
-    console.error("Error fetching siswa data:", error);
-    return null;
-  });
-};
-
-
-export const fetchData = async () => {
-  const data = await fetchSiswaData(); 
-  if (data) {
-      setSiswaList(data); 
-  } else {
-      console.error("Error fetching data: Data siswa tidak tersedia");
-  }
 };

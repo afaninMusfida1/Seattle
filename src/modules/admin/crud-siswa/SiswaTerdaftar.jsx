@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLayout } from '../layout/LayoutContext';
+import { useLayout } from '../../layout/LayoutContext';
 import SiswaItem from "./SiswaItem";
-import { fetchData, fetchSiswaData } from '../config/Api';
-import { useGuru } from "./GuruContext";
+import { useSiswa } from "./SiswaProvider";
 
 const SiswaTerdaftar = () => {
     const { actionSetPageTitle } = useLayout()
     const navigate = useNavigate();
-    const {siswaList, setSiswaList} = useGuru([]);
+    const { siswaList, setSiswaList, handleFetch } = useSiswa([]);
 
     useEffect(() => {
         actionSetPageTitle('Daftar Siswa');
-        fetchData(setSiswaList);
+        handleFetch();
     }, []);
 
-    const fetchData = async () => {
-        const data = await fetchSiswaData();
-        if (data) {
-            setSiswaList(data);
-        }
-    };
+    // useEffect(() => {
+    //     actionSetPageTitle('Daftar Siswa');
+    //     apiGetSiswa()
+    //         .then(data => {
+    //             setSiswaList(data);
+    //         })
+    //         .catch(error => {
+    //             console.error("Error fetching siswa data:", error);
+    //         });
+    // }, []);
 
-    function handleChange() {
-        navigate('/admin-tambah-siswa');
+
+
+    const handleChange = () => {
+        navigate('/admin/siswa/tambah');
     }
 
     return (
@@ -39,7 +44,6 @@ const SiswaTerdaftar = () => {
                         <th style={{ padding: '2px 40px ' }}>Level</th>
                         <th style={{ padding: '2px 50px ' }}>No.Telp Ortu</th>
                         <th style={{ padding: '2px 80px ' }}>Email</th>
-                        <th style={{ padding: '2px 80px ' }}>Password</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLayout } from '../layout/LayoutContext';
-import { addSiswa } from '../config/Api';
+import { useLayout } from '../../layout/LayoutContext';
+import { useSiswa } from './SiswaProvider';
 
 const TambahSiswa = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-
+    const { handleAdd } = useSiswa()
     const refNama = useRef();
     const refKelas = useRef();
     const refLevel = useRef();
@@ -16,7 +16,7 @@ const TambahSiswa = () => {
 
     useEffect(() => {
         actionSetPageTitle('Tambah Siswa');
-    }, [actionSetPageTitle]);
+    }, []);
 
     const handleTambahSiswa = async () => {
         if (!refNama.current.value || !refKelas.current.value || !refLevel.current.value || !refNoTelpOrtu.current.value || !refEmail.current.value || !refPassword.current.value) {
@@ -33,11 +33,12 @@ const TambahSiswa = () => {
 
         console.log("Input values:", { nama, kelas, level, noTelpOrtu, email, password });
 
-        const result = await addSiswa(nama, kelas, level, noTelpOrtu, email, password);
+        const result = await handleAdd(nama, kelas, level, noTelpOrtu, email, password);
 
         if (result) {
             console.log('Siswa ditambahkan:', result);
-            navigate('/admin-siswa');
+            alert('Siswa ditambahkan');
+            navigate('/admin/siswa');
         } else {
             console.error('Error menambahkan siswa:', result.message);
             alert('Error menambahkan siswa: ' + result.message);
@@ -63,9 +64,9 @@ const TambahSiswa = () => {
                     ref={refKelas}
                     className="block w-[400px] border rounded px-4 py-2 outline-none text-[#6A6D76] h-[40px] mb-[15px]">
                     <option value="" hidden>Kelas</option>
-                    <option value="option1">English For Kids</option>
-                    <option value="option2">English Beginner</option>
-                    <option value="option3">English Intermediate</option>
+                    <option value="1">English For Kids</option>
+                    <option value="2">English Beginner</option>
+                    <option value="3">English Intermediate</option>
                 </select>
                 <select
                     ref={refLevel}
