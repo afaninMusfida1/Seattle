@@ -1,17 +1,16 @@
 import { createContext, useContext, useState } from "react"
-import { handleLoginAdmin } from "../modules/config/Api";
+import { handleLoginGuru } from "../modules/auth/LoginGuru/request"; 
 
 const initContext = {
-    doLoginAdmin: () => { },
+    doLoginGuru: () => { },
     doLogout: () => { },
     error: "",
-    isLoggedIn: [],
-    setIsLoggedIn: []
+    isLoggedIn: []
 }
 
 const authContext = createContext(initContext);
 
-export const useAuth = () => {
+export const useLoginGuru = () => {
     return useContext(authContext);
 }
 
@@ -19,16 +18,16 @@ export const AuthProvider = ({ children }) => {
     const [error, setError] = useState("")
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const doLoginAdmin = async (username, password) => {
+    const doLoginGuru = async (email, password) => {
         // Call the login API
-        return handleLoginAdmin(username, password)
+        return handleLoginGuru(email, password)
             .then(apiResult => {
-                console.log('test', apiResult); // Check response structure
-
+                console.log('test login guru', apiResult); // Check response structure
+    
                 // If token exists in response data, handle login
                 if (apiResult && apiResult.data.token) {
                     // Save token to local storage
-                    localStorage.setItem('adminToken', apiResult.data.token);
+                    localStorage.setItem('guruToken', apiResult.data.token);
                     // Set logged in state
                     setIsLoggedIn(true);
                     return { token: apiResult.data.token }; // Return token for further use
@@ -41,22 +40,23 @@ export const AuthProvider = ({ children }) => {
             .catch(error => {
                 // Handle network errors or other exceptions
                 console.error('Error occurred while logging in:', error);
-                return { message: 'Error occurred while logging in' };
+                const message = error.response?.data?.message || 'Error occurred while logging in';
+                setError(message);
+                return { message };
             });
     };
-
+    
     const doLogout = () => {
-        localStorage.removeItem('adminToken');
+        localStorage.removeItem('guruToken');
         setIsLoggedIn(false);
     };
 
     return (
         <authContext.Provider value={{
-            doLoginAdmin,
+            doLoginGuru,
             doLogout,
             error,
-            isLoggedIn,
-            setIsLoggedIn
+            isLoggedIn
         }}>
             {children}
         </authContext.Provider>

@@ -3,7 +3,8 @@ import { addKelas, apiGetKelas } from "./request";
 
 const initKelasState = {
     daftarKelas: [],
-    handleFetch: () => {},
+    namaKelas: [],
+    handleFetch: () => { },
     handleAdd: () => { },
     isLoading: false
 };
@@ -18,7 +19,7 @@ export const KelasProvider = ({ children }) => {
     const handleFetch = async () => {
         const data = await apiGetKelas(); // Ambil data guru dari API
         console.log(data)
-        setDaftarKelas(data); // Setel data guru ke dalam state
+        setDaftarKelas(data); // Setel data kelas ke dalam state
     };
 
     const handleAdd = async (nama_kelas, kategori, periode, jadwal_kelas) => {
@@ -32,10 +33,10 @@ export const KelasProvider = ({ children }) => {
         return apiCall
     };
 
-    
+
     useEffect(() => {
         handleFetch()
-    },[]) //dikosongkan untuk menghindari infinte loop pada console
+    }, []) //dikosongkan untuk menghindari infinte loop pada console
 
 
     return (

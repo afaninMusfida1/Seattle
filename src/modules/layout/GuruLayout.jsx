@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 export default function GuruLayout(){
     const location = useLocation();
-    const isDashboardPage = ['/guru','/guru-jurnal','/isi-jurnal','/guru-rekap','/guru-rekap-absen','/guru-presensi-siswa'].includes(location.pathname);
+    const isDashboardPage = ['/guru','/guru-jurnal','/guru-isi-jurnal','/guru-rekap','/guru-rekap-absen','/guru-presensi-siswa'].includes(location.pathname);
     
   
     return (

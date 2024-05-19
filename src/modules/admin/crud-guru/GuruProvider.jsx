@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
-import { http } from '../../config/Url';
+import { API_URL, http } from '../../config/Url';
 import { addGuru, apiGetGuru } from './requests';
 
 const initGuruState = {
@@ -75,7 +75,7 @@ export const GuruProvider = ({ children }) => {
             return;
         }
 
-        axios.put(`${http}/guru/${id}`, updatedData, {
+        axios.put(`${API_URL}/guru/${id}`, updatedData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
