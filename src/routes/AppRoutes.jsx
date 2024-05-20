@@ -35,7 +35,7 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/auth/admin" element={<Login />} />
-        <Route path="/auth/guru" element={<LoginGuru/>} />
+        {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} >
           <Route path="/auth/guru" element={<Login />} />
         </Route>
