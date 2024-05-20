@@ -9,6 +9,7 @@ export const addSiswa = async (nama, kelas_id, level, no_telp_ortu, email, passw
         return Promise.resolve({ success: false, message: "Token not found. Please login again." });
     }
 
+
     const newSiswa = { nama, kelas_id, level, no_telp_ortu, email, password };
 
     return axios.post(`${API_URL}/siswa`, newSiswa, {
@@ -17,12 +18,13 @@ export const addSiswa = async (nama, kelas_id, level, no_telp_ortu, email, passw
         }
     })
         .then(response => {
-            return response.data.data.dataSiswa; // Pastikan bahwa nilai yang diharapkan dikembalikan di sini
+            return response.data; // Pastikan bahwa nilai yang diharapkan dikembalikan di sini
         })
         .catch(error => {
-            console.error("Error adding guru:", error.response ? error.response.data : error.message);
+            console.error("Error adding siswa:", error.response ? error.response.data : error.message);
             return { success: false, message: error.response ? error.response.data.message : error.message };
         });
+
 };
 
 
@@ -65,24 +67,24 @@ export const addSiswa = async (nama, kelas_id, level, no_telp_ortu, email, passw
 export const apiGetSiswa = () => {
     const token = getToken();
     if (!token) {
-      console.error("Token not found. Please login again.");
-      return { message: "Token not found. Please login again." };
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
     }
-  
+
     return axios.get(`${API_URL}/siswa`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     })
-      .then((response) => {
-        console.log(response.data.data.dataSiswa);
-        return response.data;
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-        return error.response?.data ?? { message: "Unknown error" };
-      });
-  };
+        .then((response) => {
+            console.log(response.data.data.dataSiswa);
+            return response.data.data.dataSiswa;
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+};
 
 export const deleteSiswa = async (id) => {
     const token = getToken();

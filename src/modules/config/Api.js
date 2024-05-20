@@ -1,9 +1,10 @@
 import axios from "axios";
 import { http } from "./Url";
+import { API_URL } from "./Url";
 
-export const handleLogin = async (email, password) => {
+export const handleLoginAdmin = async (username, password) => {
   return axios.post(`${http}/auth/admin`, {
-    username: email,
+    username: username,
     password: password,
   })
     .then((response) => {
@@ -15,6 +16,7 @@ export const handleLogin = async (email, password) => {
       return error.response?.data ?? { message: "Unknown error" };
     });
 };
+
 
 export const setTokens = (token) => {
   console.log("Setting token:", token);

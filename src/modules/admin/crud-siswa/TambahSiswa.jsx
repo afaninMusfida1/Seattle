@@ -2,17 +2,19 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLayout } from '../../layout/LayoutContext';
 import { useSiswa } from './SiswaProvider';
+import { useKelas } from '../crud-kelas/KelasProvider';
 
-const TambahSiswa = ({ kelasList }) => {
+const TambahSiswa = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
     const { handleAdd } = useSiswa();
+    const { daftarKelas } = useKelas();
     const refNama = useRef();
-    const refKelas = useRef();
     const refLevel = useRef();
     const refNoTelpOrtu = useRef();
     const refEmail = useRef();
     const refPassword = useRef();
+    const refKelas = useRef();
 
     useEffect(() => {
         actionSetPageTitle('Tambah Siswa');
@@ -20,30 +22,30 @@ const TambahSiswa = ({ kelasList }) => {
 
     const handleTambahSiswa = async () => {
         if (!refNama.current.value || !refKelas.current.value || !refLevel.current.value || !refNoTelpOrtu.current.value || !refEmail.current.value || !refPassword.current.value) {
-            alert('Semua field harus diisi');
+            alert('Mohon isi semua input');
             return;
         }
 
-        const nama = refNama.current.value;
-        const selectedKelasId = refKelas.current.value;
+        const nama = refNama.current.value;    
+        const kelas_id = refKelas.current.value;
         const level = refLevel.current.value;
-        const noTelpOrtu = refNoTelpOrtu.current.value;
+        const no_telp_ortu = refNoTelpOrtu.current.value;
         const email = refEmail.current.value;
         const password = refPassword.current.value;
 
-        console.log("Input values:", { nama, selectedKelasId, level, noTelpOrtu, email, password });
+        console.log("Input values:", { nama, kelas_id, level, no_telp_ortu, email, password });
 
-        const result = await handleAdd(nama, selectedKelasId, level, noTelpOrtu, email, password);
-
+        const result = await handleAdd(nama, kelas_id, level, no_telp_ortu, email, password);
         if (result) {
-            console.log('Siswa ditambahkan:', result);
+            console.log('Siswa ditambahkan');
             alert('Siswa ditambahkan');
             navigate('/admin/siswa');
         } else {
-            console.error('Error');
-            alert('Terjadi kesalahan saat menambahkan siswa');
+            // console.error('Error menambahkan siswa:', result.message);
+            alert('Terjadi kesalahan saat menambahkan siswa: ' + result);
         }
 
+        // Reset nilai input setelah menambahkan siswa
         refNama.current.value = '';
         refKelas.current.value = '';
         refLevel.current.value = '';
@@ -60,11 +62,14 @@ const TambahSiswa = ({ kelasList }) => {
                     ref={refNama}
                     className="input block w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC]"
                 />
-                <select ref={refKelas} className="block w-[400px] border rounded px-4 py-2 outline-none text-[#6A6D76] h-[40px] mb-[15px]">
+                <select
+                    ref={refKelas}
+                    className="block w-[400px] border rounded px-4 py-2 outline-none text-[#6A6D76] h-[40px] mb-[15px]"
+                >
                     <option value="" hidden>Kelas</option>
-                    {kelasList && kelasList.length > 0 ? (
-                        kelasList.map((item) => (
-                            <option key={item.id} value={item.id}>{item.nama}</option>
+                    {daftarKelas && daftarKelas.length > 0 ? (
+                        daftarKelas.map((kelas) => (
+                            <option key={kelas.id} value={kelas.id}>{kelas.nama_kelas}</option>
                         ))
                     ) : (
                         <option value="">Tidak ada kelas tersedia</option>

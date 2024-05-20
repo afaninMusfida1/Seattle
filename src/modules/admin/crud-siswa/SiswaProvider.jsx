@@ -30,16 +30,10 @@ export const SiswaProvider = ({ children }) => {
     
         setIsLoading(true);
     
-        return addSiswa(nama, kelas_id, level, no_telp_ortu, email, password)
-            .then(result => {
-                setIsLoading(false);
-                return result;
-            })
-            .catch(error => {
-                console.error('Error adding siswa:', error);
-                setIsLoading(false);
-                return { success: false, message: 'Failed to add siswa' };
-            });
+        const apiCall = await addSiswa(nama, kelas_id, level, no_telp_ortu, email, password)
+        setIsLoading(false)
+
+        return apiCall
     };
     
 
@@ -79,7 +73,7 @@ export const SiswaProvider = ({ children }) => {
             return;
         }
 
-        axios.put(`${API_URL}/siswa/${id}`, updatedData, {
+        axios.put(`${API_URL}/siswa/2${id}`, updatedData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
