@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 
-const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode }) => {
-    const navigate = useNavigate()
+const KelasItem = ({ navigateTo, title, subtitle }) => {
+    const navigate = useNavigate();
 
     function handleChange() {
-        navigate(navigateTo)
+        navigate(navigateTo);
     }
 
     return (
@@ -29,4 +29,4 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode }) 
     )
 }
 
-export default KelasItem
+export default KelasItem;

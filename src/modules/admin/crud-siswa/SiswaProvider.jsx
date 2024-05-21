@@ -1,45 +1,43 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
-import { API_URL, http } from '../../config/Url';
-import { addGuru, apiGetGuru } from './requests';
+import { API_URL } from '../../config/Url';
+import {addSiswa, apiGetSiswa } from './RequestSiswa';
 
-const initGuruState = {
-    guruList: [], 
-    setGuruList: () => {}, 
+const initSiswaState = {
+    siswaList: [], 
+    isLoading: false,
     handleAdd: () => {},
     handleUpdate: () => {},
     handleDelete: () => {},
     handleFetch: () => {},
-    isLoading: false,
 }
 
-const GuruContext = createContext(initGuruState);
-export const useGuru = () => useContext(GuruContext);
+const SiswaContext = createContext(initSiswaState);
+export const useSiswa = () => useContext(SiswaContext);
 
-
-
-export const GuruProvider = ({ children }) => {
-    const [guruList, setGuruList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+export const SiswaProvider = ({ children }) => {
+    const [siswaList, setSiswaList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
 
 
     const handleFetch = async () => {
-        const data = await apiGetGuru(); 
-        setGuruList(data); 
+        const data = await apiGetSiswa();
+        setSiswaList(data); 
     };
 
-    const handleAdd = async (nama, email, password) => {
-        if (isLoading) return
-
-        setIsLoading(true)
-
-        const apiCall = await addGuru(nama, email, password)
+    const handleAdd = async (nama, kelas_id, level, no_telp_ortu, email, password) => {
+        if (isLoading) return;
+    
+        setIsLoading(true);
+    
+        const apiCall = await addSiswa(nama, kelas_id, level, no_telp_ortu, email, password)
         setIsLoading(false)
 
         return apiCall
-    }
+    };
+    
 
-    const handleDelete = async (id) => {
+    const handleDelete = (id) => {
 
         if (isLoading) return
         setIsLoading(true)
@@ -50,13 +48,13 @@ export const GuruProvider = ({ children }) => {
             return;
         }
 
-        axios.delete(`${http}/guru/${id}`, {
+        axios.delete(`${API_URL}/siswa/${id}`, {
             headers: {
                 Authorization:` Bearer ${token}`
             }
         })
         .then(() => {
-            setGuruList(prevList => prevList.filter(guru => guru.id !== id));
+            setSiswaList(prevList => prevList.filter(siswa => siswa.id !== id));
             setIsLoading(false)
             alert("Berhasil Mendelete");
         })
@@ -68,24 +66,23 @@ export const GuruProvider = ({ children }) => {
         
     };
 
-    const handleUpdate = async (id, updatedData) => {
+    const handleUpdate = (id, updatedData) => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
             return;
         }
 
-        axios.put(`${API_URL}/guru/${id}`, updatedData, {
+        axios.put(`${API_URL}/siswa/2${id}`, updatedData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         .then(response => {
-            setGuruList(prevList => prevList.map(guru => 
-                guru.id === id ? { ...guru, ...updatedData } : guru
+            setGuruList(prevList => prevList.map(siswa => 
+                siswa.id === id ? { ...siswa, ...updatedData } : siswa
             ));
             alert("Berhasil Mengupdate");
-            return response.data
         })
         .catch(error => {
             console.error("Error updating guru:", error.response ? error.response.data : error.message);
@@ -94,9 +91,9 @@ export const GuruProvider = ({ children }) => {
     };
 
     return (
-        <GuruContext.Provider value={{ guruList, setGuruList, handleDelete, handleUpdate, handleFetch, handleAdd }}>
+        <SiswaContext.Provider value={{ siswaList, setSiswaList, handleDelete, handleUpdate, handleFetch, handleAdd }}>
             {children}
-        </GuruContext.Provider>
+        </SiswaContext.Provider>
     );
 };
 

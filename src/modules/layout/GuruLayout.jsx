@@ -13,7 +13,7 @@ export default function GuruLayout(){
         {isDashboardPage && <SidebarGuru />}
         <div>
           <Navbar />
-          <Outlet />
+          <Outlet />  
         </div>
       </div>
     )
