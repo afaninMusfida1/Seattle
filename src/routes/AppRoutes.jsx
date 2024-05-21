@@ -9,7 +9,7 @@ import SiswaTerdaftar from '../modules/admin/SiswaTerdaftar';
 import Rekap from '../modules/admin/Rekap/Rekap';
 import TambahSiswa from '../modules/admin/TambahSiswa';
 import DaftarGuru from '../modules/admin/crud-guru/DaftarGuru';
-import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
+import RekapAbsen from '../modules/admin/Rekap/RekapKbm';
 import GuruItem from '../modules/admin/crud-guru/GuruItem';
 import GuruLayout from '../modules/layout/GuruLayout';
 import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
@@ -18,8 +18,8 @@ import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
 import DaftarKelas from '../modules/admin/DaftarKelas';
-import KelasSiswa from '../modules/gurug/KelasSiswa';
-import PresensiSiswa from '../modules/gurug/PresensiSiswa';
+import KelasSiswa from '../modules/gurug/crud-presensi/KelasSiswa';
+import PresensiSiswa from '../modules/gurug/crud-presensi/PresensiSiswa';
 import Jurnal from '../modules/gurug/crud-jurnal/Jurnal';
 import RekapGuru from '../modules/gurug/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
@@ -31,6 +31,7 @@ import { JurnalProvider } from '../modules/gurug/crud-jurnal/JurnalProvider';
 import { KelasProvider } from '../modules/admin/crud-kelas/KelasProvider';
 import TambahKelas from '../modules/admin/crud-kelas/TambahKelas';
 import LoginGuru from '../modules/auth/LoginGuru/LoginGuru';
+import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 
 
 const AppRoutes = () => {
@@ -53,7 +54,7 @@ const AppRoutes = () => {
               <Route path="/guru-jurnal" element={<JurnalGuru />} />
               <Route path="/guru-isi-jurnal" element={<Jurnal />} />
               <Route path="/guru-rekap" element={<RekapGuru />} />
-              <Route path="/guru-rekap-absen" element={<RekapAbsen />} />
+              <Route path="/guru-rekap-kbm" element={<RekapKbm />} />
             </Route>
 
             <Route element={<SiswaLayout />}>

@@ -12,6 +12,7 @@ const Rekap = () => {
     const { actionSetPageTitle } = useLayout();
     const { daftarKelas, setdDaftarKelas, handleFetch } = useKelas();
     const [filter, setFilter] = useState('');
+    const [title, setTitle] = useState();
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap');
@@ -34,6 +35,7 @@ const Rekap = () => {
         return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
     });
 
+    
 
     return (
         <>
@@ -57,8 +59,8 @@ const Rekap = () => {
                             {filteredKelas.length > 0 ? (
                                 filteredKelas.map(kelas => (
                                     <KelasItem
-                                        // key={kelas.id}
-                                        // id={kelas.id}
+                                        key={kelas.id}
+                                        id={kelas.id}
                                         nama_kelas={kelas.nama_kelas}
                                         kategori={kelas.kategori}
                                         periode={kelas.periode}
@@ -91,8 +93,8 @@ const Rekap = () => {
                             {filteredKelas.length > 0 ? (
                                 filteredKelas.map(kelas => (
                                     <KelasItem
-                                        // key={kelas.id}
-                                        // id={kelas.id}
+                                        key={kelas.id}
+                                        id={kelas.id}
                                         nama_kelas={kelas.nama_kelas}
                                         kategori={kelas.kategori}
                                         periode={kelas.periode}
@@ -125,8 +127,8 @@ const Rekap = () => {
                             {filteredKelas.length > 0 ? (
                                 filteredKelas.map(kelas => (
                                     <KelasItem
-                                        // key={kelas.id}
-                                        // id={kelas.id}
+                                        key={kelas.id}
+                                        id={kelas.id}
                                         nama_kelas={kelas.nama_kelas}
                                         kategori={kelas.kategori}
                                         periode={kelas.periode}
@@ -140,7 +142,7 @@ const Rekap = () => {
                         </div>
                     </div>
                 </div>
-                <KelasGrouping/>
+                <KelasGrouping title={title}/>
             </div>
 
         </>

@@ -20,7 +20,7 @@ export const JurnalProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(initJurnalState.isLoading);
 
     const fetchJurnal = async () => {
-        const token = localStorage.getItem('adminToken');
+        const token = localStorage.getItem('guruToken');
         if (!token) {
             console.error("Token not found. Please login again.");
             return Promise.resolve({ message: "Token not found. Please login again." });
@@ -107,7 +107,8 @@ export const JurnalProvider = ({ children }) => {
         deleteJurnal,
         editJurnal,
         jurnalList,
-        isLoading}}>
+        isLoading
+        }}>
             {children}
         </JurnalContext.Provider>
     );

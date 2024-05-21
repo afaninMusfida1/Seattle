@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginGuru } from "../../../context/LoginGuruProvider";
+import { useAuth } from "../../../context/AuthContext";
+
 
 const LoginGuru = () => {
     const navigate = useNavigate();
-    const { doLoginGuru, doLogout, error } = useLoginGuru();
+    const { doLoginGuru } = useAuth()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);

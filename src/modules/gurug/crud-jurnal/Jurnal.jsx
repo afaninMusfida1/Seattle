@@ -60,7 +60,7 @@ const Jurnal = () => {
                     </form>
                 </div>
                 <div className='self-end text-right'>
-                    <button onClick={() => navigate('/guru-rekap-absen')} className='text-[#078DCC] hover:underline'>
+                    <button onClick={() => navigate('/guru-rekap-kbm')} className='text-[#078DCC] hover:underline'>
                         Lihat Jurnal
                     </button>
                 </div>

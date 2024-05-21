@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect, props } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLayout } from "../../layout/LayoutContext";
 import { useKelas } from "./KelasProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import KelasItem from "./KelasItem";
 
-const KelasGrouping = () => {
+const KelasGrouping = (props) => {
     const navigate = useNavigate();
-    const { actionSetPageTitle } = useLayout();
-    const { daftarKelas, setdDaftarKelas, handleFetch } = useKelas();
+    const { actionSetPage } = useLayout();
+    const { daftarKelas, setdDaftarKelas, handleFetch, location } = useKelas();
     const [filter, setFilter] = useState('');
-    const [title, setTitle] = useState();
 
-    useEffect(() => {
-        actionSetPageTitle('Lihat Rekap');
-    }, []);
+    // useEffect(() => {
+    //     actionSetPage('Lihat Rekap');
+    // }, []);
 
     function handleChangeAbsen() {
         navigate('/rekap-absen');
@@ -27,11 +27,14 @@ const KelasGrouping = () => {
     function handleFilterChange(event) {
         setFilter(event.target.value);
     }
+    
+
 
     const filteredKelas = daftarKelas.filter(kelas => {
         if (filter === '') return true;
         return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
     });
+
 
     return (
         <>
@@ -39,7 +42,7 @@ const KelasGrouping = () => {
                 <div className="flex flex-col gap-6 ">
                     <div className="flex justify-between">
                         <div className="kategori text-sky-400 font-bold text-lg content-center bg-sky-100 max-w-fit py-1 px-5 rounded-md">
-                            {title}
+                            Kategori Kelas
                         </div>
                         <div className='border-2 bg-white rounded-[10px] max-w-fit px-6 py-2'>
                             <FontAwesomeIcon icon={faFilter} className='opacity-30' />
@@ -56,13 +59,13 @@ const KelasGrouping = () => {
                         {filteredKelas.length > 0 ? (
                             filteredKelas.map(kelas => (
                                 <KelasItem
-                                    // key={kelas.id}
-                                    // id={kelas.id}
+                                    key={kelas.id}
+                                    id={kelas.id}
                                     nama_kelas={kelas.nama_kelas}
                                     kategori={kelas.kategori}
                                     periode={kelas.periode}
                                     jadwal_kelas={kelas.jadwal_kelas}
-                                    navigateTo={'absen'}
+                                    navigateTo={props.location}
                                 />
                             ))
                         ) : (

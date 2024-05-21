@@ -4,6 +4,7 @@ import { addKelas, apiGetKelas } from "./request";
 const initKelasState = {
     daftarKelas: [],
     namaKelas: [],
+    location: [],
     handleFetch: () => { },
     handleAdd: () => { },
     isLoading: false
@@ -15,10 +16,11 @@ export const useKelas = () => useContext(KelasContext)
 export const KelasProvider = ({ children }) => {
     const [daftarKelas, setDaftarKelas] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [location, setLocation] = useState('')
 
     const handleFetch = async () => {
-        const data = await apiGetKelas(); // Ambil data guru dari API
-        console.log(data)
+        const data = await apiGetKelas(); // Ambil data kelas dari API
+        // console.log(data)
         setDaftarKelas(data); // Setel data kelas ke dalam state
     };
 
@@ -33,14 +35,13 @@ export const KelasProvider = ({ children }) => {
         return apiCall
     };
 
-
     useEffect(() => {
         handleFetch()
     }, []) //dikosongkan untuk menghindari infinte loop pada console
 
 
     return (
-        <KelasContext.Provider value={{ daftarKelas, handleFetch, handleAdd }}>
+        <KelasContext.Provider value={{ daftarKelas, location, handleFetch, handleAdd, setLocation  }}>
             {children}
         </KelasContext.Provider>
     )
