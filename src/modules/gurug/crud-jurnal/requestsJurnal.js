@@ -9,7 +9,7 @@ export const addJurnal = async (date, pengajar, kelas, materi) => {
         return Promise.resolve({ success: false, message: 'Token not found. Please login again.' });
     }
 
-    const newJurnal =  { date, pengajar, kelas, materi };
+    const newJurnal = { date, pengajar, kelas, materi };
 
     return axios.post(`${API_URL}/jurnal`, newJurnal, {
         headers: {
@@ -28,82 +28,82 @@ export const addJurnal = async (date, pengajar, kelas, materi) => {
 export const setTokens = (token) => {
     console.log("Setting token:", token);
     localStorage.setItem("guruToken", token);
-  };
-  
-  export const getToken = () => {
+};
+
+export const getToken = () => {
     const token = localStorage.getItem("guruToken") ?? null;
     return token;
-  };
-  
-  export const removeToken = () => {
+};
+
+export const removeToken = () => {
     console.log("Removing token");
     localStorage.removeItem('guruToken');
-  };
-  
+};
+
 
 // Fungsi untuk mengambil data jurnal
-export const apiGetJurnal = () => {
+export const apiGetJurnal = async () => {
+
+    const token = getToken();
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return Promise.resolve({ message: "Token not found. Please login again." });
+    }
+
+    return axios.get(`${http}/jurnal`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(response => {
+        console.log(`respon apiGetjurnal: ${response}`)
+        setJurnalList(response.data.data);
+        return response.data.data;
+    })
+    .catch(error => {
+        console.error("Error fetching data: ", error);
+        return error.response?.data ?? { message: "Unknown error" };
+    });
+};
+
+// Fungsi untuk menghapus jurnal
+export const deleteJurnal = async (id) => {
     const token = getToken();
     if (!token) {
         console.error('Token not found. Please login again.');
         return { message: 'Token not found. Please login again.' };
     }
 
-    return axios.get(`${API_URL}/jurnal`, {
+    const deletes = await axios.delete(`${API_URL}/jurnal/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
-        }
+        },
     })
-        .then(response => {
-            console.log(response);
-            return response.data.data.dataJurnal;
+        .then((response) => {
+            return response;
         })
-        .catch(error => {
-            console.error('Error fetching data: ', error);
-            return error.response?.data ?? { message: 'Unknown error' };
+        .catch((error) => {
+            return error.response;
         });
+    return deletes;
 };
 
-// // Fungsi untuk menghapus jurnal
-// export const deleteJurnal = async (id) => {
-//     const token = getToken();
-//     if (!token) {
-//         console.error('Token not found. Please login again.');
-//         return { message: 'Token not found. Please login again.' };
-//     }
+// Fungsi untuk mengedit jurnal
+export const editJurnal = async (id, date, pengajar, kelas, materi) => {
+    const token = getToken();
+    if (!token) {
+        console.error('Token not found. Please login again.');
+        return { message: 'Token not found. Please login again.' };
+    }
 
-//     const deletes = await axios.delete(`${API_URL}/jurnal/${id}`, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     })
-//         .then(response => {
-//             return response;
-//         })
-//         .catch(error => {
-//             return error.response;
-//         });
-//     return deletes;
-// };
-
-// // Fungsi untuk mengedit jurnal
-// export const editJurnal = async (id, date, pengajar, kelas, materi) => {
-//     const token = getToken();
-//     if (!token) {
-//         console.error('Token not found. Please login again.');
-//         return { message: 'Token not found. Please login again.' };
-//     }
-
-//     const edits = await axios.put(`${API_URL}/jurnal/${id}`, { date, pengajar, kelas, materi }, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     })
-//         .then(response => {
-//             return response;
-//         })
-//         .catch(error => {
-//             return error.response;
-//         });
-//     return edits;
-// };
+    const edits = await axios.put(`${API_URL}/jurnal/${id}`, { date, pengajar, kelas, materi }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            return error.response;
+        });
+    return edits;
+};

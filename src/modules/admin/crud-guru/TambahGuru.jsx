@@ -28,7 +28,7 @@ const TambahGuru = () => {
 
         console.log("Input values:", { nama, email, password });
 
-        const result = await handleAdd(nama, email, password);
+        const result = handleAdd(nama, email, password);
 
         if (result) {
             console.log('Guru ditambahkan:', result);

@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { http } from '../../config/Url';
+import { addJurnal, apiGetJurnal } from './requestsJurnal';
 
 const initJurnalState = {
-    addJurnal: () => {},
-    fetchJurnal: () => {},
-    deleteJurnal: () => {},
-    editJurnal: () => {},
+    handleAdd: () => {},
+    handleFetch: () => {},
+    handleDelete: () => {},
+    handleUpdate: () => {},
     jurnalList: [],
     isLoading: false,
 };
@@ -16,50 +17,30 @@ const JurnalContext = createContext(initJurnalState);
 export const useJurnal = () => useContext(JurnalContext);
 
 export const JurnalProvider = ({ children }) => {
-    const [jurnalList, setJurnalList] = useState(initJurnalState.jurnalList);
-    const [isLoading, setIsLoading] = useState(initJurnalState.isLoading);
+    const [jurnalList, setJurnalList] = useState([]);
+    const [isLoading, setIsLoading] = useState();
 
-    const fetchJurnal = async () => {
-        const token = localStorage.getItem('guruToken');
-        if (!token) {
-            console.error("Token not found. Please login again.");
-            return Promise.resolve({ message: "Token not found. Please login again." });
-        }
+    const handleFetch = async () => {
+        const data = await apiGetJurnal();
+        setJurnalList(data);
 
-        return axios.get(`${http}/jurnal`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-        .then(response => {
-            setJurnalList(response.data.data);
-            return response.data.data;
-        })
-        .catch(error => {
-            console.error("Error fetching data: ", error);
-            return error.response?.data ?? { message: "Unknown error" };
-        });
     };
 
-    const addJurnal = async (newJurnal) => {
-        const token = localStorage.getItem('adminToken');
-        if (!token) {
-            console.error("Token not found. Please login again.");
-            return Promise.resolve({ success: false, message: "Token not found. Please login again." });
-        }
+    const handleAdd = async (date, pengajar, kelas, materi) => {
+        if(isLoading) return
+        setIsLoading(true)
 
-        return axios.post(`${http}/jurnal`, newJurnal, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-        .then(response => {
-            setJurnalList(prevList => [...prevList, response.data]);
-            return response.data;
-        })
-        .catch(error => {
-            console.error("Error adding jurnal:", error.response ? error.response.data : error.message);
-            return { success: false, message: error.response ? error.response.data.message : error.message };
-        });
+        const apiCall = await addJurnal(date, pengajar, kelas, materi)
+        setIsLoading(false)
+
+        return apiCall;
+
     };
 
-    const deleteJurnal = (id) => {
+    const handleDelete = async (id) => {
+        if(isLoading) return
+        setIsLoading(true)
+
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
@@ -71,15 +52,17 @@ export const JurnalProvider = ({ children }) => {
         })
         .then(() => {
             setJurnalList(prevList => prevList.filter(jurnal => jurnal.id !== id));
+            setIsLoading(false)
             return { success: true };
         })
         .catch(error => {
             console.error("Error deleting jurnal:", error.response ? error.response.data : error.message);
+            setIsLoading(false)
             return { success: false, message: error.response ? error.response.data.message : error.message };
         });
     };
 
-    const editJurnal = async (id, updatedData) => {
+    const handleUpdate = async (id, updatedData) => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
@@ -102,10 +85,10 @@ export const JurnalProvider = ({ children }) => {
 
     return (
         <JurnalContext.Provider value={{  
-        addJurnal,
-        fetchJurnal,
-        deleteJurnal,
-        editJurnal,
+        handleAdd,
+        handleFetch,
+        handleDelete,
+        handleUpdate,
         jurnalList,
         isLoading
         }}>

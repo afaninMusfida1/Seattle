@@ -85,6 +85,7 @@ export const GuruProvider = ({ children }) => {
                 guru.id === id ? { ...guru, ...updatedData } : guru
             ));
             alert("Berhasil Mengupdate");
+            return response.data
         })
         .catch(error => {
             console.error("Error updating guru:", error.response ? error.response.data : error.message);

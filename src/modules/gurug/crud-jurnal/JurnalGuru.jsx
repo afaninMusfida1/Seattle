@@ -13,10 +13,10 @@ const JurnalGuru = () => {
     const { actionSetPageTitle } = useLayout();
     const { daftarKelas, setDaftarKelas, location, setLocation } = useKelas()
 
-    const { jurnalList, fetchJurnal } = useJurnal()
+    const { jurnalList, handleFetch } = useJurnal()
 
     useEffect(() => {
-        fetchJurnal()
+        handleFetch()
         actionSetPageTitle('Jurnal');
     }, []);
 

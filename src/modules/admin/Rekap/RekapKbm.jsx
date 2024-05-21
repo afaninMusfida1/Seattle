@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useJurnal } from "../../gurug/crud-jurnal/JurnalProvider";
 import { useLayout } from "../../layout/LayoutContext";
 import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
@@ -6,9 +7,11 @@ import RekapItem from "./RekapItem";
 
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout()
+    const {jurnalList, setJurnalList, handleFetch, handleDelete} = useJurnal()
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
+        handleFetch();
     }, [])
 
     return (
@@ -27,25 +30,20 @@ const RekapKbm = () => {
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
-                        {/* <tr className="border-2">
-                            <td>22/05/2024</td>
-                            <td><button className="bg-green-200 py-1 px-2 rounded">15 siswa</button></td>
-                            <td>Dewi Setya</td>
-                            <td className="">english conversation chapter 2</td>
-                        </tr> */}
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
+                        {jurnalList.length > 0 ? (
+                            jurnalList.map(jurnal => {
+                                <RekapItem
+                                    key={jurnal.id}
+                                    id={jurnal.id}
+                                    pengajar={pengajar.id}
+                                    kelas={kelas.id}
+                                    materi={materi.id}
+                                    
+                                />
+                            })
+                        ):(
+                            <p>tidak ada jurnal</p>
+                        )}
                         <RekapItem />
                     </tbody>
                 </table>
