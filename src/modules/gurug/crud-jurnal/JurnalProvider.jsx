@@ -23,14 +23,14 @@ export const JurnalProvider = ({ children }) => {
     const handleFetch = async () => {
         const data = await apiGetJurnal();
         setJurnalList(data);
-
+        
     };
 
-    const handleAdd = async (date, pengajar, kelas, materi) => {
+    const handleAdd = async (kelas_id, guru_id, hasil_belajar, tanggal ) => {
         if(isLoading) return
         setIsLoading(true)
 
-        const apiCall = await addJurnal(date, pengajar, kelas, materi)
+        const apiCall = await addJurnal(kelas_id, guru_id, hasil_belajar, tanggal )
         setIsLoading(false)
 
         return apiCall;
@@ -41,35 +41,36 @@ export const JurnalProvider = ({ children }) => {
         if(isLoading) return
         setIsLoading(true)
 
-        const token = localStorage.getItem('adminToken');
+        const token = localStorage.getItem('guruToken');
         if (!token) {
             console.error("Token not found. Please login again.");
-            return Promise.resolve({ message: "Token not found. Please login again." });
-        }
+            return;
+        };
 
-        return axios.delete(`${http}/jurnal/${id}`, {
+        return axios.delete(`${http}/kbm/5${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(() => {
             setJurnalList(prevList => prevList.filter(jurnal => jurnal.id !== id));
             setIsLoading(false)
-            return { success: true };
+            alert("berhasil menghapus")
+            // return { success: true };
         })
         .catch(error => {
             console.error("Error deleting jurnal:", error.response ? error.response.data : error.message);
             setIsLoading(false)
-            return { success: false, message: error.response ? error.response.data.message : error.message };
+            // return { success: false, message: error.response ? error.response.data.message : error.message };
         });
     };
 
     const handleUpdate = async (id, updatedData) => {
-        const token = localStorage.getItem('adminToken');
+        const token = localStorage.getItem('guruToken');
         if (!token) {
             console.error("Token not found. Please login again.");
-            return Promise.resolve({ message: "Token not found. Please login again." });
+            return;
         }
 
-        return axios.put(`${http}/jurnal/${id}`, updatedData, {
+        return axios.put(`${http}/kbm/4${id}`, updatedData, {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(response => {

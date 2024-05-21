@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 
-const KelasItem = ({ navigateTo, title, subtitle }) => {
+const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode }) => {
     const navigate = useNavigate();
 
     function handleChange() {
         navigate(navigateTo);
+        localStorage.setItem('namaKelas', nama_kelas);
+        localStorage.setItem('kategori', kategori);
     }
 
     return (

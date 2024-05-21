@@ -5,6 +5,7 @@ import { addGuru, apiGetGuru } from './requests';
 
 const initGuruState = {
     guruList: [], 
+    nama: [],
     setGuruList: () => {}, 
     handleAdd: () => {},
     handleUpdate: () => {},
@@ -20,6 +21,7 @@ export const useGuru = () => useContext(GuruContext);
 
 export const GuruProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
+    const [nama, setNama] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -94,7 +96,7 @@ export const GuruProvider = ({ children }) => {
     };
 
     return (
-        <GuruContext.Provider value={{ guruList, setGuruList, handleDelete, handleUpdate, handleFetch, handleAdd }}>
+        <GuruContext.Provider value={{ guruList, nama, setGuruList, handleDelete, handleUpdate, handleFetch, handleAdd }}>
             {children}
         </GuruContext.Provider>
     );

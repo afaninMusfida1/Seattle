@@ -9,7 +9,7 @@ import KelasItem from "./KelasItem";
 const KelasGrouping = (props) => {
     const navigate = useNavigate();
     const { actionSetPage } = useLayout();
-    const { daftarKelas, setdDaftarKelas, handleFetch, location } = useKelas();
+    const { daftarKelas, nama_kelas, setdDaftarKelas, handleFetch, location } = useKelas();
     const [filter, setFilter] = useState('');
 
     // useEffect(() => {
@@ -28,7 +28,9 @@ const KelasGrouping = (props) => {
         setFilter(event.target.value);
     }
     
-
+    const setNamaKelas = () => {
+        localStorage.setItem('namaKelas', nama_kelas)
+    }
 
     const filteredKelas = daftarKelas.filter(kelas => {
         if (filter === '') return true;
@@ -65,6 +67,7 @@ const KelasGrouping = (props) => {
                                     kategori={kelas.kategori}
                                     periode={kelas.periode}
                                     jadwal_kelas={kelas.jadwal_kelas}
+                                    // namaKelas={setNamaKelas}
                                     navigateTo={props.location}
                                 />
                             ))

@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPersonChalkboard, faGraduationCap, faList, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom';
-
+import { useAuth } from '../../context/AuthContext';
 
 const SidebarGuru = () => {
+  const {doLogout} = useAuth()
 
   return (
     <div className="bg-gray-200 flex">
@@ -40,7 +41,7 @@ const SidebarGuru = () => {
             Rekap
           </NavLink>
 
-          <NavLink to={"/logout"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded mt-[240px] "
+          <NavLink to={"/logout"} onClick={doLogout} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded mt-[240px] "
             style={({ isActive }) => ({
               background: isActive ? "#078DCC" : "transparent",
               color: isActive ? "white" : "#004684"

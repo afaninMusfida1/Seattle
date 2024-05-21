@@ -71,6 +71,7 @@ export const AuthProvider = ({ children }) => {
                 setError(message);
                 return { message };
             });
+            console.log(email)
     };
 
     const doLogout = () => {

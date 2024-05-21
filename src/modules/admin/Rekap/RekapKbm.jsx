@@ -7,7 +7,7 @@ import RekapItem from "./RekapItem";
 
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout()
-    const {jurnalList, setJurnalList, handleFetch, handleDelete} = useJurnal()
+    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal()
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
@@ -18,7 +18,7 @@ const RekapKbm = () => {
         <>
             <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px]  p-8 ">
                 <div>
-                    
+
                 </div>
                 <table aria-rowspan={2} className="text-center table-fixed w-full overflow-hidden ">
                     <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
@@ -35,14 +35,17 @@ const RekapKbm = () => {
                                 <RekapItem
                                     key={jurnal.id}
                                     id={jurnal.id}
-                                    pengajar={pengajar.id}
-                                    kelas={kelas.id}
-                                    materi={materi.id}
-                                    
+                                    kelas_id={jurnal.kelas_id}
+                                    guru_id={jurnal.guru_id}
+                                    hasil_belajar={jurnal.hasil_belajar}
+                                    tanggal={jurnal.tanggal}
+
                                 />
                             })
-                        ):(
-                            <p>tidak ada jurnal</p>
+                        ) : (
+                            <tr>
+                                <td colSpan={4} className="text-center border-2">Belum ada jurnal</td>
+                            </tr>
                         )}
                         <RekapItem />
                     </tbody>

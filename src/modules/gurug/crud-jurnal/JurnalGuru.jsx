@@ -26,8 +26,6 @@ const JurnalGuru = () => {
         navigate('/isi-jurnal');
     }
 
-    console.log(jurnalList)
-
     return (
 
         <div className="mt-[100px]">

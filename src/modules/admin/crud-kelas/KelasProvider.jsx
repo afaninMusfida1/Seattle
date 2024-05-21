@@ -3,7 +3,6 @@ import { addKelas, apiGetKelas } from "./request";
 
 const initKelasState = {
     daftarKelas: [],
-    namaKelas: [],
     location: [],
     handleFetch: () => { },
     handleAdd: () => { },
