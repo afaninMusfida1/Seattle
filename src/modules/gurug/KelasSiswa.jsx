@@ -23,14 +23,21 @@ const AbsenSiswa = () => {
                     <h1 className="font-bold text-[#6A6D76]">Kelas A</h1>
                     <p className="text-[#6A6D76] mt-[10px]">English beginner</p>
                 </button>
-                <KelasItem />
-                <KelasItem />
-                <KelasItem />
-                <KelasItem />
-                <KelasItem />
-                <KelasItem />
-                <KelasItem />
-                <KelasItem />
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
+                
+                <KelasItem navigateTo={'/guru-presensi-siswa'} />
             </div>
         </div>
     )

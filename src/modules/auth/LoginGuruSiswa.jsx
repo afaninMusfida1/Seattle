@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoginGuru from './LoginGuru';
 
 const LoginGuruSiswa = () => {
   const navigate = useNavigate();
 
   const handleClickGuru = () => {
-    navigate('/guru');
+    navigate('/auth/guru');
   };
 
   const handleClickSiswa = () => {
