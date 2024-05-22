@@ -1,16 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 import { addKelas, apiGetKelas } from "./request";
+import { http } from "../../config/Url";
 
 const initKelasState = {
     daftarKelas: [],
+    setDaftarKelas: () => {},
     location: [],
     handleFetch: () => { },
-    handleAdd: () => { },
+    handleAdd: () => {},
+    handleDelete: () => {},
+    handleUpdate: () => {},
     isLoading: false
 };
 
-const KelasContext = createContext(initKelasState)
-export const useKelas = () => useContext(KelasContext)
+const KelasContext = createContext(initKelasState);
+export const useKelas = () => useContext(KelasContext);
 
 export const KelasProvider = ({ children }) => {
     const [daftarKelas, setDaftarKelas] = useState([]);
@@ -18,29 +23,80 @@ export const KelasProvider = ({ children }) => {
     const [location, setLocation] = useState('')
 
     const handleFetch = async () => {
-        const data = await apiGetKelas(); // Ambil data kelas dari API
-        // console.log(data)
-        setDaftarKelas(data); // Setel data kelas ke dalam state
+        const data = await apiGetKelas();
+        console.log(data);
+        setDaftarKelas(data);
     };
 
     const handleAdd = async (nama_kelas, kategori, periode, jadwal_kelas) => {
-        if (isLoading) return
+        if (isLoading) return;
 
-        setIsLoading(true)
+        setIsLoading(true);
 
-        const apiCall = await addKelas(nama_kelas, kategori, periode, jadwal_kelas)
-        setIsLoading(false)
+        const apiCall = await addKelas(nama_kelas, kategori, periode, jadwal_kelas);
+        setIsLoading(false);
 
-        return apiCall
+        return apiCall;
     };
 
-    useEffect(() => {
-        handleFetch()
-    }, []) //dikosongkan untuk menghindari infinte loop pada console
 
+    useEffect(() => {
+        handleFetch();
+    }, []);
+
+    const handleDelete = (id) => {
+        if (isLoading) return;
+        setIsLoading(true);
+
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            console.error("Token not found. Please login again.");
+            setIsLoading(false);
+            return;
+        }
+
+        axios.delete(`${http}/kelas/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(() => {
+            setDaftarKelas(prevList => prevList.filter(kelas => kelas.id !== id));
+            setIsLoading(false);
+            alert("Berhasil Mendelete");
+        })
+        .catch(error => {
+            console.error("Error deleting kelas:", error.response ? error.response.data : error.message);
+            setIsLoading(false);
+            alert("Gagal mendelete kelas");
+        });
+    };
+
+    const handleUpdate = (id, updatedData) => {
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            console.error("Token not found. Please login again.");
+            return;
+        }
+
+        axios.put(`${http}/kelas/${id}`, updatedData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            setDaftarKelas(prevList => prevList.map(kelas => 
+                kelas.id === id ? { ...kelas, ...updatedData } : kelas
+            ));
+            alert("Berhasil Mengupdate");
+        })
+        .catch(error => {
+            console.error("Error updating kelas:", error.response ? error.response.data : error.message);
+           
+        })};
 
     return (
-        <KelasContext.Provider value={{ daftarKelas, location, handleFetch, handleAdd, setLocation  }}>
+        <KelasContext.Provider value={{ daftarKelas, setDaftarKelas, location, handleFetch, handleAdd, handleDelete, handleUpdate, setLocation  }}>
             {children}
         </KelasContext.Provider>
     )

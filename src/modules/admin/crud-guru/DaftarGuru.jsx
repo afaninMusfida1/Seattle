@@ -21,7 +21,7 @@ const DaftarGuru = () => {
     };
 
     return (
-        <div className=" rounded-[10px] ml-[350px] mt-[100px] mr-[100px] ">
+        <div className=" rounded-[10px] ml-[100px] mt-[100px] mr-[100px] ">
             <div className='flex gap-x-14 gap-y-10 flex-wrap overflow-y-scroll max-h-[560px]'>
             {guruList.length > 0 ? (
                 guruList.map(guru => (

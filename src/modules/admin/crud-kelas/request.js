@@ -48,3 +48,40 @@ export const apiGetKelas = async (role) => {
     });
 };
 
+  export const deleteKelas = async (id) => {
+    const token = getToken();
+    const deletes = await axios
+        .delete(http + "/admin" + id, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((response) => {
+            return response;
+        })
+        .catch((eror) => {
+            return eror.response;
+        });
+    return deletes;
+}; 
+
+export const editKelas = async (id, nama_kelas, kategori, periode, jadwal_kelas) => {
+  const token = getToken();
+  const edits = await axios
+      .put(
+          http + "/kelas/2" + id,
+          { nama_kelas, kategori, periode, jadwal_kelas },
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          }
+      )
+      .then((response) => {
+          return response;
+      })
+      .catch((eror) => {
+          return eror.response
+      });
+  return edits;
+};
