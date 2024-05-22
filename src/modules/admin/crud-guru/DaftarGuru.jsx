@@ -13,7 +13,7 @@ const DaftarGuru = () => {
 
     useEffect(() => {
         actionSetPageTitle('Daftar Guru');
-        handleFetch(); // Panggil fungsi fetchData untuk mengambil data guru
+        handleFetch(); 
     }, []);
 
     const handleChange = () => {
@@ -31,7 +31,6 @@ const DaftarGuru = () => {
                         nama={guru.nama} 
                         email={guru.email}
                         password={guru.password}
-                        handleEditGuru={editGuru} // Teruskan fungsi handleEditGuru ke komponen GuruItem
                     />
                 ))
             ) : (

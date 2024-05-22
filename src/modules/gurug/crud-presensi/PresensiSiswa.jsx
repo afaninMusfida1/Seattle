@@ -1,11 +1,12 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router"
-import { useLayout } from "../layout/LayoutContext"
+import { useLayout } from "../../layout/LayoutContext"
+
 import PresensiItem from "./PresensiItem"
 
 const PresensiSiswa = () => {
-    const { actionSetPageTitle } = useLayout()
-    const navigate = useNavigate()
+    const { actionSetPageTitle } = useLayout();
+    const navigate = useNavigate();
 
     useEffect(() => {
         actionSetPageTitle('Presensi Siswa')

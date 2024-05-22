@@ -1,9 +1,10 @@
 import axios from "axios";
 import { http } from "./Url";
+import { API_URL } from "./Url";
 
-export const handleLogin = async (email, password) => {
+export const handleLoginAdmin = async (username, password) => {
   return axios.post(`${http}/auth/admin`, {
-    username: email,
+    username: username,
     password: password,
   })
     .then((response) => {
@@ -16,6 +17,7 @@ export const handleLogin = async (email, password) => {
     });
 };
 
+
 export const setTokens = (token) => {
   console.log("Setting token:", token);
   localStorage.setItem("adminToken", token);
@@ -23,6 +25,11 @@ export const setTokens = (token) => {
 
 export const getToken = () => {
   const token = localStorage.getItem("adminToken") ?? null;
+  return token;
+};
+
+export const getTokenGuru = () => {
+  const token = localStorage.getItem("guruToken") ?? null;
   return token;
 };
 

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Popup from "reactjs-popup";
 import { useKelas } from "./KelasProvider";
 
 const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id }) => {
-    const navigate = useNavigate();
+    const navigate = useNavigate();;
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [editedNama, setEditedNama] = useState(nama_kelas);
     const [editedKategori, setEditedKategori] = useState(kategori);
@@ -15,7 +18,9 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id
     const { handleDelete, handleUpdate } = useKelas(); // Add handleUpdate
 
     const handleChange = () => {
-        navigate(navigateTo);
+        navigate(navigateTo);;
+        localStorage.setItem('namaKelas', nama_kelas);
+        localStorage.setItem('kategori', kategori);
     };
 
     const handleEdit = () => {
@@ -117,3 +122,4 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id
 };
 
 export default KelasItem;
+;

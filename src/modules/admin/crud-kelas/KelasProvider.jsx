@@ -6,7 +6,8 @@ import { http } from "../../config/Url";
 const initKelasState = {
     daftarKelas: [],
     setDaftarKelas: () => {},
-    handleFetch: () => {},
+    location: [],
+    handleFetch: () => { },
     handleAdd: () => {},
     handleDelete: () => {},
     handleUpdate: () => {},
@@ -19,6 +20,7 @@ export const useKelas = () => useContext(KelasContext);
 export const KelasProvider = ({ children }) => {
     const [daftarKelas, setDaftarKelas] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [location, setLocation] = useState('')
 
     const handleFetch = async () => {
         const data = await apiGetKelas();
@@ -36,6 +38,7 @@ export const KelasProvider = ({ children }) => {
 
         return apiCall;
     };
+
 
     useEffect(() => {
         handleFetch();
@@ -93,7 +96,7 @@ export const KelasProvider = ({ children }) => {
         })};
 
     return (
-        <KelasContext.Provider value={{ daftarKelas, setDaftarKelas, handleFetch, handleAdd, handleDelete, handleUpdate }}>
+        <KelasContext.Provider value={{ daftarKelas, setDaftarKelas, location, handleFetch, handleAdd, handleDelete, handleUpdate, setLocation  }}>
             {children}
         </KelasContext.Provider>
     )
