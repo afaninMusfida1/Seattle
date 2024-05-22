@@ -18,7 +18,7 @@ const TambahSiswa = () => {
     }
 
     return (
-        <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8 ">
+        <div className="bg-white rounded-[30px] ml-[100px] mr-[100px] mt-[100px] p-8 ">
             <div className='flex-cols gap-8'>
                 <input placeholder="Nama" className="input block w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <input placeholder="NIS" className="input block w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>

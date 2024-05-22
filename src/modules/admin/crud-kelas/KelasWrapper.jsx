@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom"
 import { KelasProvider } from "KelasProvider"
 
-const KelasWrapper = () => {
+const KelasWrapper = ({children}) => {
     return (
-        <Outlet />
+        <KelasProvider>
+            <Outlet />
+        </KelasProvider>
     )
 }
 
-export default KelasWrapper
+export default KelasWrapper;

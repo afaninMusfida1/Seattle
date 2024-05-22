@@ -50,7 +50,7 @@ const TambahKelas = () => {
 
     return (
         <>
-            <div className="bg-white max-w-[500px] rounded-[30px] ml-[350px] mr-[100px] mt-[100px] flex flex-col gap-10 p-8">
+            <div className="bg-white max-w-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[100px] flex flex-col gap-10 p-8">
                 <div className="flex flex-col gap-8">
                     <div>
                         <input type="text" ref={refnama_kelas} placeholder="Nama kelas" className="input w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC]" />
@@ -67,4 +67,4 @@ const TambahKelas = () => {
     )
 }
 
-export default TambahKelas
+export default TambahKelas;

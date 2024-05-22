@@ -35,7 +35,7 @@ const Rekap = () => {
 
 
     return (
-        <div className="rekap-absen bg-white rounded-[30px] p-8 mr-[100px] ml-[350px] mt-[100px]">
+        <div className="rekap-absen bg-white rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[100px]">
             <div className="flex flex-col gap-6">
                 <div className='border-2 bg-white rounded-[10px] max-w-fit px-6 py-2'>
                     <FontAwesomeIcon icon={faFilter} className='opacity-30' />
