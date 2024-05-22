@@ -6,9 +6,9 @@ import { useGuru } from "../../admin/crud-guru/GuruProvider";
 const LoginGuru = () => {
     const navigate = useNavigate();
     const { doLoginGuru } = useAuth();
-    const [namaGuru, setNamaGuru] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [namaGuru, setNamaGuru] = useState("nama");
+    const [email, setEmail] = useState("santi@gmail.com");
+    const [password, setPassword] = useState("12345678");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginError, setLoginError] = useState(null)
 

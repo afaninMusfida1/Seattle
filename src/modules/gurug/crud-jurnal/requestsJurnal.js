@@ -2,14 +2,14 @@ import axios from 'axios';
 import { API_URL, http } from '../../config/Url';
 
 // Fungsi untuk menambahkan jurnal
-export const addJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
+export const addJurnal = async (kelas_id, hasil_belajar, tanggal) => {
     const token = localStorage.getItem('guruToken');
     if (!token) {
         console.error('Token not found. Please login again.');
         return Promise.resolve({ success: false, message: 'Token not found. Please login again.' });
     }
 
-    const newJurnal = { kelas_id, guru_id, hasil_belajar, tanggal };
+    const newJurnal = { kelas_id, hasil_belajar, tanggal };
 
     return axios.post(`${API_URL}/kbm`, newJurnal, {
         headers: {

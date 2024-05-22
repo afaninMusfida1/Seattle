@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLayout } from '../../layout/LayoutContext';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
 
 const Jurnal = () => {
@@ -10,6 +10,7 @@ const Jurnal = () => {
     const { actionSetPageTitle } = useLayout();
     const { handleAdd, jurnalList } = useJurnal();
     const [tanggal, setTanggal] = useState(new Date());
+    const { kelas_id } = useParams()
     const refKelas_id = useRef('');
     const refHasil_belajar = useRef('');
     const [namaGuru, setNamaGuru] = useState("");
@@ -25,21 +26,16 @@ const Jurnal = () => {
     }, []);
 
     const handleIsiJurnal = async () => {
-        if (!refGuru_id.current.value || !refKelas_id.current.value || !refHasil_belajar.current.value) {
+        if (!refHasil_belajar.current.value || tanggal == "") {
             alert('mohon isi semua form');
             return;
         }
-        
 
-
-        const kelas_id = refKelas_id.current.value;
         const guru_id = namaGuru;
         const hasil_belajar = refHasil_belajar.current.value;
-        // const namaGuru = localStorage.getItem('namaGuru')
-        console.log(`input jurnal value: ${tanggal}`)
-        console.log(jurnalList)
-
-        const result = await handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
+        // console.log(`input jurnal value: ${tanggal} ${hasil_belajar} ${kelas_id}`)
+        // return 
+        const result = await handleAdd(kelas_id, hasil_belajar, tanggal);
 
         if (result) {
             console.log(`jurnal ditambahkan: ${result}`);
@@ -56,10 +52,6 @@ const Jurnal = () => {
 
     };
 
-    const handleButtonClick = async () => {
-        await handleIsiJurnal();
-        navigate('/guru-rekap-kbm')
-    }
     return (
         <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px] p-8" >
             <div className='grid grid-flow-col'>
@@ -68,18 +60,17 @@ const Jurnal = () => {
                         <DatePicker
                             selected={tanggal}
                             onChange={(tanggal) => setTanggal(tanggal)}
-                            className='outline-none text-center py-2 rounded border mb-4'
+                            className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
                             id='tanggal' />
-                        <input
+                        {/* <input
                             type="text"
                             placeholder='Pengajar'
                             value={namaGuru}
                             className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
-                        />
+                        /> */}
                         <input
                             type="text"
                             placeholder='Kelas'
-                            // ref={refKelas_id}
                             value={kelas}
                             className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
                         />
@@ -91,10 +82,9 @@ const Jurnal = () => {
                             className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
                         ></textarea>
                         <button type="button"
-                            onClick={() => {
-                                handleIsiJurnal()
-                                navigate('/guru-rekap-kbm')
-                            }
+                            onClick={ async () => {
+                                await handleIsiJurnal()
+                                }
                             }
                             className="mt-[100px] py-2 font-poppins text-[16px] border-2 bg-[#07CC85] text-white rounded-md outline-none">Buat Jurnal</button>
                     </form>

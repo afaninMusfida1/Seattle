@@ -49,11 +49,16 @@ const AppRoutes = () => {
 
         {isLoggedIn && (
           <>
-            <Route element={<KelasProvider><JurnalProvider><GuruLayout /></JurnalProvider></KelasProvider>}>
+            <Route element={
+                <KelasProvider>
+                  <JurnalProvider>
+                    <GuruLayout />
+                  </JurnalProvider>
+                </KelasProvider>}>
               <Route path="/guru/kelas" element={<KelasSiswa />} />
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
-              <Route path="/guru-jurnal" element={<JurnalGuru />} />
-              <Route path="/guru-isi-jurnal" element={<Jurnal />} />
+              <Route path="/guru/jurnal" element={<JurnalGuru />} />
+              <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
               <Route path="/guru-rekap" element={<RekapGuru />} />
               <Route path="/guru-rekap-kbm" element={<RekapKbm />} />
             </Route>
