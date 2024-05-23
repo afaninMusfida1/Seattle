@@ -20,16 +20,26 @@ const JurnalGuru = () => {
         actionSetPageTitle('Jurnal');
     }, []);
 
-    setLocation('/guru-isi-jurnal')
 
     function handleChangeAbsen() {
         navigate('/isi-jurnal');
     }
 
+    const groupedKelas = daftarKelas.length == 0 ? [] :
+        Object.groupBy(daftarKelas, ({ kategori }) => kategori)
+
+    console.log(groupedKelas)
+
     return (
 
         <div className="mt-[100px]">
-            <KelasGrouping location={location}/>
+
+            {
+                Object.entries(groupedKelas).map(
+                    (value, key) =>
+                        <KelasGrouping location={location} kategori={value[0]} />)
+            }
+
             {/* <div className="rekap-absen bg-white rounded-[30px] p-8">
                 <div className="kategori text-sky-400 font-bold text-lg mb-[20px] bg-sky-100 max-w-fit py-1 px-5 rounded-md">English Starters</div>
                 <div className="flex flex-wrap gap-x-2 gap-y-4">

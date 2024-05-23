@@ -30,9 +30,11 @@ const KelasGrouping = (props) => {
     
     const setNamaKelas = () => {
         localStorage.setItem('namaKelas', nama_kelas)
-    }
+    }   
 
     const filteredKelas = daftarKelas.filter(kelas => {
+        return kelas.kategori.toLowerCase() == props.kategori
+    }).filter(kelas => {
         if (filter === '') return true;
         return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
     });
@@ -44,7 +46,7 @@ const KelasGrouping = (props) => {
                 <div className="flex flex-col gap-6 ">
                     <div className="flex justify-between">
                         <div className="kategori text-sky-400 font-bold text-lg content-center bg-sky-100 max-w-fit py-1 px-5 rounded-md">
-                            Kategori Kelas
+                            {props.kategori ? props.kategori.toUpperCase() : ''}
                         </div>
                         <div className='border-2 bg-white rounded-[10px] max-w-fit px-6 py-2'>
                             <FontAwesomeIcon icon={faFilter} className='opacity-30' />
@@ -68,7 +70,7 @@ const KelasGrouping = (props) => {
                                     periode={kelas.periode}
                                     jadwal_kelas={kelas.jadwal_kelas}
                                     // namaKelas={setNamaKelas}
-                                    navigateTo={props.location}
+                                    navigateTo={`/guru/kelas/${kelas.id}/jurnal`}
                                 />
                             ))
                         ) : (

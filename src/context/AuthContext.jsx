@@ -6,6 +6,7 @@ const initContext = {
     doLoginAdmin: () => { },
     doLoginGuru: () => { },
     doLogout: () => { },
+    role: "",
     error: "",
     isLoggedIn: []
 }
@@ -18,6 +19,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [error, setError] = useState("")
+    const [role, setRole] = useState("")
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const doLoginAdmin = async (username, password) => {
@@ -32,6 +34,7 @@ export const AuthProvider = ({ children }) => {
                     localStorage.setItem('adminToken', apiResult.data.token);
                     // Set logged in state
                     setIsLoggedIn(true);
+                    setRole("Admin")
                     return { token: apiResult.data.token }; // Return token for further use
                 } else {
                     // Handle invalid response from server
@@ -57,6 +60,7 @@ export const AuthProvider = ({ children }) => {
                     localStorage.setItem('guruToken', apiResult.data.token);
                     // Set logged in state
                     setIsLoggedIn(true);
+                    setRole("Guru")
                     return { token: apiResult.data.token }; // Return token for further use
                 } else {
                     // Handle invalid response from server
@@ -87,6 +91,7 @@ export const AuthProvider = ({ children }) => {
             doLoginAdmin,
             doLoginGuru,
             doLogout,
+            role,
             error,
             isLoggedIn,
             setIsLoggedIn
