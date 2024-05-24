@@ -16,7 +16,7 @@ const RekapKbm = () => {
 
     return (
         <>
-            <div className="bg-white rounded-[30px] ml-[100px] mt-[100px] mr-[100px]  p-8 ">
+            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px]  p-8 ">
                 <div>
 
                 </div>

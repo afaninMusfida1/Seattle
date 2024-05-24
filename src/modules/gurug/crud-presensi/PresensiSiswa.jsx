@@ -20,7 +20,7 @@ const PresensiSiswa = () => {
     return (
         <>
             <div>
-                <div className="bg-white max-h-[500px] rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8 ">
+                <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[50px] p-8 ">
                     <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
                         <div className="item-container flex justify-between w-full border-2 rounded-lg px-4 py-1">
                             <div className="nama">Dwi Saputra</div>

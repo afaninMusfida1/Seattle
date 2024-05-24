@@ -53,7 +53,7 @@ const Jurnal = () => {
     };
 
     return (
-        <div className="bg-white rounded-[30px] ml-[100px] mt-[100px] mr-[100px] p-8" >
+        <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8" >
             <div className='grid grid-flow-col'>
                 <div className='flex flex-col'>
                     <form className='flex flex-col gap-4'>

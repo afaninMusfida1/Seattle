@@ -1,7 +1,7 @@
 const AbsenGuru = () => {
     return (
         <div>
-            <h2 className="font-poppins text-20 font-bold text-[#078DCC] ml-[300px] mt-[50px]">Absen Guru</h2>
+            <h2 className="font-poppins text-20 font-bold text-[#078DCC] ml-[100px] mt-[50px]">Absen Guru</h2>
             <div className="bg-white w-[940px] h-auto rounded-[10px] ml-[300px] mt-10 p-8 ">
                 <input placeholder="Nama" className="input my-[20px] w-[450px] h-[54px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <input placeholder="Password" className="input my-[20px] w-[450px] h-[54px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>

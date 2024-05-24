@@ -28,7 +28,7 @@ function Dashboard() {
     }
 
     return (
-        <div className=" mt-[100px] ml-[100px] mr-[100px] grid gap-8">
+        <div className=" mt-[50px] ml-[100px] mr-[100px] grid gap-8">
             <div className="">
                 <Popup trigger=
                     {<button className="pengumuman bg-[#078DCC] rounded-[30px] p-8 flex justify-between w-full overflow-hidden h-[230px]">

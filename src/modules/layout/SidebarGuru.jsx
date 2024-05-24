@@ -3,12 +3,12 @@ import { faPersonChalkboard, faGraduationCap, faList, faRightFromBracket } from 
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const SidebarGuru = () => {
+const SidebarGuru = ({isSidebarVisible, toggleSidebar}) => {
   const {doLogout} = useAuth()
 
   return (
     <div className="bg-gray-200 flex">
-      <div className="fixed bg-white text-white w-64 h-screen">
+      <div className={`fixed bg-white text-white h-screen transition-transform duration-300 ease-in-out ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-4">
           <img src="../src/assets/logo - Copy.png" className="mx-[40px] h-[60px] w-[130px]" />
         </div>

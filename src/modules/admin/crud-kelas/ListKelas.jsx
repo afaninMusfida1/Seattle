@@ -45,7 +45,7 @@ const ListKelas = () => {
     return (
         <>
             <div>
-                <div className="rekap-absen bg-white  rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[100px]">
+                <div className="rekap-absen bg-white  rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[50px]">
                     <div className="flex flex-col gap-6 ">
                         <div className="flex justify-between">
                             <div className="kategori text-sky-400 font-bold text-lg content-center bg-sky-100 max-w-fit py-1 px-5 rounded-md">English Starters</div>

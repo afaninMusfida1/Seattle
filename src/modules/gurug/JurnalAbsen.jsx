@@ -1,7 +1,7 @@
 const JurnalAbsen = () => {
 
     return (
-        <div className="bg-white w-[940px] h-[400px] rounded-[10px] ml-[250px] mt-28 p-8 mb-10">
+        <div className="bg-white w-[940px] h-[400px] rounded-[10px] ml-[100px] mt-28 p-8 mb-10">
             <div className=" flex justify-between">
                 <h2 className="font-poppins text-20 font-bold text-[#078DCC]">Rekap absen</h2>
                 <h2 className="font-poppins text-20 font-bold text-[#078DCC]">Kelas A</h2>

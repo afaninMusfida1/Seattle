@@ -32,7 +32,7 @@ const JurnalGuru = () => {
 
     return (
 
-        <div className="mt-[100px]">
+        <div className="mt-[50px]">
 
             {
                 Object.entries(groupedKelas).map(
