@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginGuru } from "../../../context/LoginGuruProvider";
+import { useAuth } from "../../../context/AuthContext";
+import { useGuru } from "../../admin/crud-guru/GuruProvider";
 
 const LoginGuru = () => {
     const navigate = useNavigate();
-    const { doLoginGuru, doLogout, error } = useLoginGuru();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const { doLoginGuru } = useAuth();
+    const [namaGuru, setNamaGuru] = useState("nama");
+    const [email, setEmail] = useState("santi@gmail.com");
+    const [password, setPassword] = useState("12345678");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginError, setLoginError] = useState(null)
 
@@ -14,6 +16,8 @@ const LoginGuru = () => {
         // navigate('/guru');
         const apiResult = await doLoginGuru(email, password);
         console.log(email, password)
+        localStorage.setItem('namaGuru', namaGuru)
+        
         if (apiResult && apiResult.token) {
             localStorage.setItem("guruToken", apiResult.token);
             setIsLoggedIn(true);
@@ -22,12 +26,12 @@ const LoginGuru = () => {
             console.error("Login gagal: ", apiResult.message);
             setLoginError(apiResult.message);
         } else {
-            console.log('alamate anak soleh')
             console.error("Login guru failed:", "Unexpected response from server");
             setLoginError("Unexpected response from server");
         }
 
         console.log(apiResult)
+        console.log(namaGuru)
     };
 
     return (
@@ -45,10 +49,16 @@ const LoginGuru = () => {
                     <>
                         <input
                             type="text"
+                            placeholder="Nama"
+                            onChange={(e) => setNamaGuru(e.target.value)}
+                            value={namaGuru}
+                            className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "
+                        />
+                        <input
+                            type="text"
                             placeholder="Email"
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
-                            
                             className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "
                         />
                         <input
@@ -56,7 +66,7 @@ const LoginGuru = () => {
                             placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
-                            
+
                             className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] mt-[10px] outline-none focus:border-[#2B3758]"
                         />
                         {loginError && <p className="text-red-500">{loginError}</p>}

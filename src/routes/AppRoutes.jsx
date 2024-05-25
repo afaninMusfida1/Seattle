@@ -7,16 +7,15 @@ import Dashboard from '../modules/Dashboard/Dashboard';
 import TambahGuru from '../modules/admin/crud-guru/TambahGuru';
 import Rekap from '../modules/admin/Rekap/Rekap';
 import DaftarGuru from '../modules/admin/crud-guru/DaftarGuru';
-import RekapAbsen from '../modules/admin/Rekap/RekapAbsen';
-import GuruItem from '../modules/admin/crud-guru/GuruItem';
+import RekapAbsen from '../modules/admin/Rekap/RekapKbm';
 import GuruLayout from '../modules/layout/GuruLayout';
 import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
 import RekapLayout from '../modules/layout/RekapLayout';
 import HalamanSiswa from '../modules/siswa/HalamanSiswa';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
-import KelasSiswa from '../modules/gurug/KelasSiswa';
-import PresensiSiswa from '../modules/gurug/PresensiSiswa';
+import KelasSiswa from '../modules/gurug/crud-presensi/KelasSiswa';
+import PresensiSiswa from '../modules/gurug/crud-presensi/PresensiSiswa';
 import Jurnal from '../modules/gurug/crud-jurnal/Jurnal';
 import RekapGuru from '../modules/gurug/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
@@ -31,7 +30,10 @@ import SiswaTerdaftar from '../modules/admin/crud-siswa/SiswaTerdaftar';
 import TambahSiswa from '../modules/admin/crud-siswa/TambahSiswa';
 import DaftarKelas from '../modules/admin/crud-kelas/DaftarKelas';
 import LoginGuru from '../modules/auth/LoginGuru/LoginGuru';
+import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
+import ListKelas from '../modules/admin/crud-kelas/ListKelas';
+
 
 
 const AppRoutes = () => {
@@ -49,13 +51,18 @@ const AppRoutes = () => {
 
         {isLoggedIn && (
           <>
-            <Route element={<KelasProvider><JurnalProvider><GuruLayout /></JurnalProvider></KelasProvider>}>
+            <Route element={
+                <KelasProvider>
+                  <JurnalProvider>
+                    <GuruLayout />
+                  </JurnalProvider>
+                </KelasProvider>}>
               <Route path="/guru/kelas" element={<KelasSiswa />} />
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
-              <Route path="/guru-jurnal" element={<JurnalGuru />} />
-              <Route path="/guru-isi-jurnal" element={<Jurnal />} />
+              <Route path="/guru/jurnal" element={<JurnalGuru />} />
+              <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
               <Route path="/guru-rekap" element={<RekapGuru />} />
-              <Route path="/guru-rekap-absen" element={<RekapAbsen />} />
+              <Route path="/guru-rekap-kbm" element={<RekapKbm />} />
             </Route>
 
             <Route element={<SiswaLayout />}>
@@ -76,7 +83,8 @@ const AppRoutes = () => {
             <Route path='/admin' element={<KelasProvider><MainLayout /></KelasProvider>}>
               <Route index element={<Dashboard />} />
               <Route path="" element={<Dashboard />} />
-              <Route path="kelas" element={<TambahKelas />} />
+              <Route path="tambah-kelas" element={<TambahKelas />} />
+              <Route path="kelas" element={<ListKelas />} />
 
               <Route path="siswa" element={<SiswaWrapper />}>
                 <Route path="" element={<SiswaTerdaftar />} />

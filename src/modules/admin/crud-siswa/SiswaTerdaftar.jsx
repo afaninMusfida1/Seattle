@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLayout } from '../../layout/LayoutContext';
 import SiswaItem from "./SiswaItem";
 import { useSiswa } from "./SiswaProvider";
 import DaftarGuru from "../crud-guru/DaftarGuru";
-import { useLayout } from "../../layout/LayoutContext";
 
 const SiswaTerdaftar = () => {
     const { actionSetPageTitle } = useLayout()
     const navigate = useNavigate();
     const { siswaList, handleFetch } = useSiswa();
-    
 
     useEffect(() => {
         actionSetPageTitle('Daftar Siswa');
@@ -19,14 +18,6 @@ const SiswaTerdaftar = () => {
     const handleChange = () => {
         navigate('/admin/siswa/tambah');
     }
-
-    // const handleEdit = (id, updatedData) => {
-    //     setStudents(prevSiswa => 
-    //         prevSiswa.map(siswa => 
-    //             siswa.id === id ? { ...siswa, ...updatedData } : siswa
-    //         )
-    //     );
-    // };
 
     return (
         <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
@@ -56,7 +47,6 @@ const SiswaTerdaftar = () => {
                                 no_telp_ortu={siswa.no_telp_ortu}
                                 email={siswa.email}
                                 password={siswa.password}
-                                // onEdit={handleEdit}
                             />
                         ))
                     ) : (
@@ -73,69 +63,3 @@ const SiswaTerdaftar = () => {
 }
 
 export default SiswaTerdaftar;
-
-
-
-
-
-// import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-// import SiswaItem from "./SiswaItem";
-// import { useLayout } from "../../layout/LayoutContext";
-
-// const SiswaTerdaftar = () => {
-//     const { actionSetPageTitle } = useLayout();
-//     const navigate = useNavigate();
-//     const [students, setStudents] = useState([
-//         { id: 1, nama: "Putri", level: 4, nis: "2291820", noTelp: "086464849847", kelas: "English elementary" },
-//         { id: 2, nama: "Aina", level: 6, nis: "874648239", noTelp: "0885478292893", kelas: "English for kids" }
-//     ]);
-
-//     useEffect(() => {
-//         actionSetPageTitle('Daftar Siswa');
-//     }, [actionSetPageTitle]);
-
-//     const handleChange = () => {
-//         navigate('/admin-tambah-siswa');
-//     };
-
-//     const handleEdit = (id, updatedData) => {
-//         setStudents(prevStudents => 
-//             prevStudents.map(student => 
-//                 student.id === id ? { ...student, ...updatedData } : student
-//             )
-//         );
-//     };
-
-//     return (
-//         <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
-//             <div className="flex">
-//                 <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Kelas English Beginner</h2>
-//             </div>
-//             <table className="table-fixed text-center mt-[25px] w-full">
-//                 <thead className="text-white bg-[#078DCC]">
-//                     <tr>
-//                         <th style={{ padding: '2px 40px' }}>Nama</th>
-//                         <th style={{ padding: '2px 20px' }}>Level</th>
-//                         <th style={{ padding: '2px 40px' }}>NIS</th>
-//                         <th style={{ padding: '2px 50px' }}>No.Telp Ortu</th>
-//                         <th style={{ padding: '2px 80px' }}>Kelas</th>
-//                         <th style={{ padding: '2px 20px' }}>Aksi</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {students.map(student => (
-//                         <SiswaItem 
-//                             key={student.id} 
-//                             student={student} 
-//                             onEdit={handleEdit} 
-//                         />
-//                     ))}
-//                 </tbody>
-//             </table>
-//             <button onClick={handleChange} className="text-[#078DCC] text-[14px] ml-[750px] mt-[300px] hover:underline">Tambahkan Siswa</button>
-//         </div>
-//     );
-// };
-
-// export default SiswaTerdaftar;
