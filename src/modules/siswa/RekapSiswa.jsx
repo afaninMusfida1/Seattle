@@ -1,7 +1,7 @@
 import { useNavigate, Outlet } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import KelasItem from '../kelas/KelasItem';
 import { useLayout } from '../layout/LayoutContext';
+import KelasItem from '../admin/crud-kelas/KelasItem';
 
 const Rekap = () => {
     const navigate = useNavigate();

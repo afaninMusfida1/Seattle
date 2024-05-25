@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Dashboard from "../Dashboard/Dashboard";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { doLoginAdmin, error } = useAuth();
-  const [email, setEmail] = useState("admin");
-  const [password, setPassword] = useState("admin123");
+  const { doLoginAdmin, error, isLoggedIn, setIsLoggedIn } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState(null);
 
   const handleClick = async () => {
-    const apiResult = await doLoginAdmin(email, password);
+    const apiResult = await doLoginAdmin(username, password);
+    console.log(username, password)
     if (apiResult && apiResult.token) {
       localStorage.setItem("adminToken", apiResult.token);
       setIsLoggedIn(true);
@@ -24,6 +24,8 @@ const Login = () => {
       console.error("Login failed:", "Unexpected response from server");
       setLoginError("Unexpected response from server");
     }
+
+    console.log()
   };
 
   return (
@@ -44,14 +46,16 @@ const Login = () => {
         ) : (
           <>
             <input
-              // onChange={(e) => setEmail(e.target.value)}
-              // value={email}
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
+
               placeholder="Username"
               className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758] "
             />
             <input type="password"
-              // onChange={(e) => setPassword(e.target.value)}
-              // value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+
               placeholder="Password"
               className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] mt-[10px] outline-none focus:border-[#2B3758]"
             />

@@ -17,7 +17,7 @@ const Sidebar = () => {
     <div className="bg-gray-200 flex">
       <div className="fixed bg-white text-white w-64 h-screen">
         <div className="flex items-center justify-between p-4">
-          <img src="src/assets/logo - Copy.png" className="mx-[40px] h-[60px] w-[130px]" />
+          <img src="../../src/assets/logo - Copy.png" alt='logo-seattle.png' className="mx-[40px] h-[60px] w-[130px]" />
         </div>
         <nav className="px-[25px]">
           <section className="text-sm block px-4 py-2 font-bold text-[#A7B9D1]">Overview</section>
