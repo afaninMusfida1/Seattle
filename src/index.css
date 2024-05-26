@@ -22,4 +22,8 @@ body{
     @apply bg-[#DCE5F1];
 }
 
+.fixed{
+    transition: transform 0.3s ease, width 0.3s ease;
+}
+
 

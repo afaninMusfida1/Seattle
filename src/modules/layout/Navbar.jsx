@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLayout } from './LayoutContext';
 
-const Navbar = () => {
+const Navbar = ({isSidebarVisible}) => {
     const location = useLocation();
     const {pageTitle: pageTitleV2} = useLayout();
     const [pageTitle, setPageTitle] = useState("Dashboard");
@@ -24,8 +24,8 @@ const Navbar = () => {
     return (
         // <div className="flex absolute top-0 w-screen justify-around bg-transparent mt-[20px]">
         //     <nav className=" grid grid-cols-2 gap-[400px] w-screen mx-[280px]">
-        <div className="flex  absolute top-0 left-[350px] bg-transparent mt-[20px]">
-        <nav className="">
+        <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarVisible ? 'ml-[250px]' : 'ml-0'}`}>
+        <nav className="pt-4 pl-[100px]">
                 <div>
                     {/* <h1 className="text-poppins font-bold text-[24px] text-[#06357A]">
                         {pageTitle === "Dashboard" ? "Welcome, Admin" : pageTitle === "Tambahkan Guru" ? "Tambahkan Guru" : pageTitle === "Tambahkan Siswa" ? "Tambahkan Siswa" : "Lihat Rekap"}

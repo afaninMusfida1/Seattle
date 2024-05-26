@@ -1,13 +1,51 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
-import { http } from '../config/Url';
+import { API_URL, http } from '../../config/Url';
+import { addGuru, apiGetGuru } from './requests';
 
-const GuruContext = createContext();
+const initGuruState = {
+    guruList: [], 
+    nama: [],
+    setGuruList: () => {}, 
+    handleAdd: () => {},
+    handleUpdate: () => {},
+    handleDelete: () => {},
+    handleFetch: () => {},
+    isLoading: false,
+}
+
+const GuruContext = createContext(initGuruState);
+export const useGuru = () => useContext(GuruContext);
+
+
 
 export const GuruProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
+    const [nama, setNama] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleDelete = (id) => {
+
+    const handleFetch = async () => {
+        const data = await apiGetGuru(); 
+        setGuruList(data); 
+    };
+
+    const handleAdd = async (nama, email, password) => {
+        if (isLoading) return
+
+        setIsLoading(true)
+
+        const apiCall = await addGuru(nama, email, password)
+        setIsLoading(false)
+
+        return apiCall
+    }
+
+    const handleDelete = async (id) => {
+
+        if (isLoading) return
+        setIsLoading(true)
+
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
@@ -21,22 +59,25 @@ export const GuruProvider = ({ children }) => {
         })
         .then(() => {
             setGuruList(prevList => prevList.filter(guru => guru.id !== id));
+            setIsLoading(false)
             alert("Berhasil Mendelete");
         })
         .catch(error => {
             console.error("Error deleting guru:", error.response ? error.response.data : error.message);
+            setIsLoading(false)
             alert("Gagal mendelete guru");
         });
+        
     };
 
-    const handleUpdate = (id, updatedData) => {
+    const handleUpdate = async (id, updatedData) => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
             return;
         }
 
-        axios.put(`${http}/guru/${id}`, updatedData, {
+        axios.put(`${API_URL}/guru/${id}`, updatedData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -46,6 +87,7 @@ export const GuruProvider = ({ children }) => {
                 guru.id === id ? { ...guru, ...updatedData } : guru
             ));
             alert("Berhasil Mengupdate");
+            return response.data
         })
         .catch(error => {
             console.error("Error updating guru:", error.response ? error.response.data : error.message);
@@ -54,10 +96,10 @@ export const GuruProvider = ({ children }) => {
     };
 
     return (
-        <GuruContext.Provider value={{ guruList, setGuruList, handleDelete, handleUpdate }}>
+        <GuruContext.Provider value={{ guruList, nama, setGuruList, handleDelete, handleUpdate, handleFetch, handleAdd }}>
             {children}
         </GuruContext.Provider>
     );
 };
 
-export const useGuru = () => useContext(GuruContext);
+

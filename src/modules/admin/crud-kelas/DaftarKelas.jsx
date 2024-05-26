@@ -1,7 +1,7 @@
 import { useNavigate, Outlet, Navigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { useLayout } from '../layout/LayoutContext';
-import KelasItem from '../kelas/KelasItem';
+import { useLayout } from '../../layout/LayoutContext';
+import KelasItem from './KelasItem';
 
 
 const DaftarKelas = () => {
@@ -17,7 +17,7 @@ const DaftarKelas = () => {
     }
 
     return (
-        <div className="grid gap-6 mb-[50px] mr-[100px] ml-[350px] mt-[100px] ">
+        <div className="grid gap-6 mb-[50px] mr-[100px] ml-[100px] mt-[100px] ">
             <div className="rekap-absen bg-white rounded-[30px] p-8 ">
                 <div>
                 </div>
@@ -26,18 +26,26 @@ const DaftarKelas = () => {
                         <h1 className="font-bold text-[#6A6D76]">Kelas A</h1>
                         <p className="text-[#6A6D76] mt-[10px]">English beginner</p>
                     </button>
+                    {/* <KelasItem/>
                     <KelasItem/>
                     <KelasItem/>
                     <KelasItem/>
                     <KelasItem/>
-                    <KelasItem/>
-                    <KelasItem/>
+                    <KelasItem/> */}
+                    {kelasList.map((kelas) => (
+                        <KelasItem
+                            key={kelas.id}
+                            navigateTo={() => handleChangeKelas(kelas.id)}
+                            title={kelas.nama}
+                        />
+                    ))}
                 </div>
-
+                <TambahSiswa kelas={kelasList} />
             </div>
 
             
         </div>
+        
     )
 }
-export default DaftarKelas
+export default DaftarKelas;
