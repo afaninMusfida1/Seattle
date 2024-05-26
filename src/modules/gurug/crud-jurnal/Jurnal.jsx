@@ -11,7 +11,7 @@ const Jurnal = () => {
     const { actionSetPageTitle } = useLayout();
     const { handleAdd, jurnalList } = useJurnal();
     const [tanggal, setTanggal] = useState(new Date());
-    const { kelas_id } = useParams()
+    const { kelas_id, guru_id } = useParams()
     const refKelas_id = useRef('');
     const refHasil_belajar = useRef('');
     const [namaGuru, setNamaGuru] = useState("");
@@ -32,13 +32,14 @@ const Jurnal = () => {
             return;
         }
 
-        const guru_id = namaGuru;
+        // const guru_id = namaGuru;
         const hasil_belajar = refHasil_belajar.current.value;
         // console.log(`input jurnal value: ${tanggal} ${hasil_belajar} ${kelas_id}`)
         // return 
         const result = await handleAdd( kelas_id, guru_id, hasil_belajar, tanggal);
 
         if (result) {
+            alert('berhasil jurnale wes keisi')
             console.log(`jurnal ditambahkan: ${result}`);
             // alert('/jurnal ditambahkan')
             navigate('/guru/rekap/lihat');
