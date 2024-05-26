@@ -51,6 +51,9 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id
                     <h2 className="text-[#6A6D76] mt-[10px]">{kategori}</h2>
                     <h3 className="text-[#6A6D76] opacity-70 text-[12px] mt-[10px]">{periode}</h3>
                 </div>
+                <div className="absolute top-0 right-0 text-[12px] bg-green-200 text-green-600 font-medium px-2 py-1 rounded mt-2 mr-2">
+                    {jadwal_kelas}
+                </div>
                 {/* <div className="flex items-center mt-2">
                     <button onClick={handleEdit} className="text-[20px] mr-2">
                         <FontAwesomeIcon icon={faPenToSquare} style={{ color: "#6a6d76" }} />
@@ -117,4 +120,4 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id
 };
 
 export default KelasItem;
-;
+

@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
+import PresensiItem from '../crud-presensi/PresensiItem';
 
 const Jurnal = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Jurnal = () => {
     const kelas = (`${namaKelas} - ${kategori}`);
 
     useEffect(() => {
-        actionSetPageTitle('Isi Jurnal');
+        actionSetPageTitle('Isi Jurnal & Presensi');
         setNamaGuru(localStorage.getItem('namaGuru'))
         setNamaKelas(localStorage.getItem('namaKelas'))
         setKategori(localStorage.getItem('kategori'))
@@ -35,12 +36,12 @@ const Jurnal = () => {
         const hasil_belajar = refHasil_belajar.current.value;
         // console.log(`input jurnal value: ${tanggal} ${hasil_belajar} ${kelas_id}`)
         // return 
-        const result = await handleAdd(kelas_id, hasil_belajar, tanggal);
+        const result = await handleAdd( kelas_id, guru_id, hasil_belajar, tanggal);
 
         if (result) {
             console.log(`jurnal ditambahkan: ${result}`);
-            alert('/jurnal ditambahkan')
-            navigate('/guru-rekap-kbm');
+            // alert('/jurnal ditambahkan')
+            navigate('/guru/rekap/lihat');
         } else {
             console.error(`error menambahkan jurnal: ${result.message}`);
             alert(`error menambahkan jurnal ${result}`)
@@ -52,50 +53,85 @@ const Jurnal = () => {
 
     };
 
+    const handleChangePresensi =() => {
+        navigate('/guru')
+        console.log('selesai presensi')
+    }
+    
+  
+
     return (
-        <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8" >
-            <div className='grid grid-flow-col'>
-                <div className='flex flex-col'>
-                    <form className='flex flex-col gap-4'>
-                        <DatePicker
-                            selected={tanggal}
-                            onChange={(tanggal) => setTanggal(tanggal)}
-                            className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
-                            id='tanggal' />
-                        {/* <input
+        <>
+            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8" >
+                <div className='grid grid-flow-col'>
+                    <div className='flex flex-col'>
+                        <form className='flex flex-col gap-4'>
+                            <DatePicker
+                                selected={tanggal}
+                                onChange={(tanggal) => setTanggal(tanggal)}
+                                className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
+                                id='tanggal' />
+                            {/* <input
                             type="text"
                             placeholder='Pengajar'
                             value={namaGuru}
                             className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
                         /> */}
-                        <input
-                            type="text"
-                            placeholder='Kelas'
-                            value={kelas}
-                            className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
-                        />
-                        <textarea
-                            name="materi"
-                            id="materi"
-                            placeholder='Materi'
-                            ref={refHasil_belajar}
-                            className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
-                        ></textarea>
-                        <button type="button"
-                            onClick={ async () => {
-                                await handleIsiJurnal()
+                            {/* <input
+                                type="text"
+                                placeholder='Kelas'
+                                value={kelas}
+                                className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
+                            /> */}
+                            <textarea
+                                name="materi"
+                                id="materi"
+                                placeholder='Materi'
+                                ref={refHasil_belajar}
+                                className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
+                            ></textarea>
+                            <button type="button"
+                                onClick={async () => {
+                                    await handleIsiJurnal()
                                 }
-                            }
-                            className="mt-[100px] py-2 font-poppins text-[16px] border-2 bg-[#07CC85] text-white rounded-md outline-none">Buat Jurnal</button>
-                    </form>
-                </div>
-                <div className='self-end text-right'>
-                    <button onClick={() => navigate('/guru-rekap-kbm')} className='text-[#078DCC] hover:underline'>
-                        Lihat Jurnal
-                    </button>
+                                }
+                                className="mt-[100px] py-2 font-poppins text-[16px] border-2 bg-[#078DCC] text-white rounded-md outline-none">Buat Jurnal</button>
+                        </form>
+                    </div>
+                    <div className='self-end text-right'>
+                        <button onClick={() => navigate('/guru/rekap/lihat')} className='text-[#078DCC] hover:underline'>
+                            Lihat Jurnal
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[30px] p-8 ">
+                    <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
+                        <div className="item-container flex justify-between w-full border-2 rounded-lg px-4 py-1">
+                            <div className="nama">Dwi Saputra</div>
+                            <div className="status flex gap-10">
+                                <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">hadir</button>
+                                <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">izin</button>
+                                <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">sakit</button>
+                            </div>
+                        </div>
+                        <PresensiItem />
+                        <PresensiItem />
+                        <PresensiItem />
+                        <PresensiItem />
+                        <PresensiItem />
+                        <PresensiItem />
+                        <PresensiItem />
+                        <PresensiItem />
+                        <PresensiItem />
+                    </div>
+                    <div className="flex justify-end">
+                        <button onClick={handleChangePresensi} className="bg-[#078DCC] text-white px-[70px] py-[5px] rounded mr-[20px] mt-[20px] self-end">
+                            Selesai
+                        </button>
+                    </div>
+                </div>
+        </>
     );
 };
 
