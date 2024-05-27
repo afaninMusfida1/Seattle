@@ -10,7 +10,8 @@ const TambahSiswa = () => {
     const { handleAdd } = useSiswa();
     const { daftarKelas } = useKelas();
     const refNama = useRef();
-    const refLevel = useRef();
+    // const refLevel = useRef();
+    // const refKategori = useRef();
     const refNoTelpOrtu = useRef();
     const refEmail = useRef();
     const refPassword = useRef();
@@ -21,38 +22,41 @@ const TambahSiswa = () => {
     }, []);
 
     const handleTambahSiswa = async () => {
-        if (!refNama.current.value || !refKelas.current.value || !refLevel.current.value || !refNoTelpOrtu.current.value || !refEmail.current.value || !refPassword.current.value) {
+        if (!refNama.current.value ||
+            // !refKategori.current.value || 
+            !refKelas.current.value || !refNoTelpOrtu.current.value || !refEmail.current.value || !refPassword.current.value) {
             alert('Mohon isi semua input');
             return;
         }
 
-        const nama = refNama.current.value;    
+        const nama = refNama.current.value;
         const kelas_id = refKelas.current.value;
-        const level = refLevel.current.value;
+        // const kategori = refKategori.current.value;
         const no_telp_ortu = refNoTelpOrtu.current.value;
         const email = refEmail.current.value;
         const password = refPassword.current.value;
 
-        console.log("Input values:", { nama, kelas_id, level, no_telp_ortu, email, password });
+        console.log("Input values:", { nama, kelas_id, no_telp_ortu, email, password });
 
-        const result = await handleAdd(nama, kelas_id, level, no_telp_ortu, email, password);
-        if (result) {
+        const result = await handleAdd(nama, kelas_id, no_telp_ortu, email, password);
+        if (result.status === 'success') {
             console.log('Siswa ditambahkan');
             alert('Siswa ditambahkan');
             navigate('/admin/siswa');
         } else {
             // console.error('Error menambahkan siswa:', result.message);
-            alert('Terjadi kesalahan saat menambahkan siswa: ' + result);
+            alert('Terjadi kesalahan saat menambahkan siswa: ' + result.message);
         }
 
         // Reset nilai input setelah menambahkan siswa
         refNama.current.value = '';
+        // refKategori.current.value = '';
         refKelas.current.value = '';
-        refLevel.current.value = '';
         refNoTelpOrtu.current.value = '';
         refEmail.current.value = '';
         refPassword.current.value = '';
     };
+
 
     return (
         <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
@@ -62,6 +66,11 @@ const TambahSiswa = () => {
                     ref={refNama}
                     className="input block w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC]"
                 />
+                {/* <input
+                    placeholder="Kategori"
+                    ref={refKategori}
+                    className="input block w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC]"
+                /> */}
                 <select
                     ref={refKelas}
                     className="block w-[400px] border rounded px-4 py-2 outline-none text-[#6A6D76] h-[40px] mb-[15px]"
@@ -75,7 +84,7 @@ const TambahSiswa = () => {
                         <option value="">Tidak ada kelas tersedia</option>
                     )}
                 </select>
-                <select
+                {/* <select
                     ref={refLevel}
                     className="block border rounded px-4 py-2 outline-none text-[#6A6D76] w-[400px] h-[40px] mb-[15px]"
                 >
@@ -86,7 +95,7 @@ const TambahSiswa = () => {
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
-                </select>
+                </select> */}
                 <input
                     placeholder="No.telp orang tua"
                     ref={refNoTelpOrtu}
