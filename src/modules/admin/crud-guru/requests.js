@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../../config/Api";
 import { API_URL, http } from "../../config/Url";
 
-export const addGuru = (nama, email, password) => {
+export const addGuru = async (nama, email, password) => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
         console.error("Token not found. Please login again.");

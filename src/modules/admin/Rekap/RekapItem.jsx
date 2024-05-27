@@ -1,14 +1,12 @@
-const RekapItem = () => {
+const RekapItem = ({ kelas_id, guru_id, hasil_belajar, tanggal }) => {
     return (
-        <>
-            <tr className="border-2">
-                <td className="">22/05/2024</td>
-                <td><button className="bg-green-200 py-1 px-2 rounded">15 siswa</button></td>
-                <td>Dewi Setya</td>
-                <td className="">english conversation chapter 2</td>
-            </tr>
-        </>
-    )
-}
+        <tr className="border-2">
+            <td>{tanggal}</td>
+            <td><button className="bg-green-200 py-1 px-2 rounded">{kelas_id}</button></td>
+            <td>{guru_id}</td>
+            <td>{hasil_belajar}</td>
+        </tr>
+    );
+};
 
-export default RekapItem
+export default RekapItem;

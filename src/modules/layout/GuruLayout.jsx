@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 export default function GuruLayout(){
     const location = useLocation();
-    const isDashboardPage = ['/guru','/guru-jurnal','/guru-rekap','/guru-rekap-absen','/guru-presensi-siswa'].includes(location.pathname);
+    const isDashboardPage = ['/guru','/guru/kelas','/guru-jurnal','/guru-isi-jurnal','/guru-rekap','/guru-rekap-kbm','/guru-presensi-siswa'].includes(location.pathname);
     
   
     return (
@@ -13,7 +13,7 @@ export default function GuruLayout(){
         {isDashboardPage && <SidebarGuru />}
         <div>
           <Navbar />
-          <Outlet />
+          <Outlet />  
         </div>
       </div>
     )

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { http } from "./Url";
+import { API_URL } from "./Url";
 
-export const handleLogin = (email, password) => {
+export const handleLoginAdmin = async (username, password) => {
   return axios.post(`${http}/auth/admin`, {
-    username: email,
+    username: username,
     password: password,
   })
     .then((response) => {
@@ -16,6 +17,7 @@ export const handleLogin = (email, password) => {
     });
 };
 
+
 export const setTokens = (token) => {
   console.log("Setting token:", token);
   localStorage.setItem("adminToken", token);
@@ -23,7 +25,11 @@ export const setTokens = (token) => {
 
 export const getToken = () => {
   const token = localStorage.getItem("adminToken") ?? null;
-  console.log("Getting token:", token);
+  return token;
+};
+
+export const getTokenGuru = () => {
+  const token = localStorage.getItem("guruToken") ?? null;
   return token;
 };
 
@@ -32,7 +38,7 @@ export const removeToken = () => {
   localStorage.removeItem('adminToken');
 };
 
-export const tampilkan = () => {
+export const tampilkan = async () => {
   const token = getToken();
   if (!token) {
     console.error("Token not found. Please login again.");
@@ -45,7 +51,6 @@ export const tampilkan = () => {
     }
   })
     .then((response) => {
-      console.log(response);
       return response.data.data.dataGuru;
     })
     .catch((error) => {
@@ -54,28 +59,28 @@ export const tampilkan = () => {
     });
 };
 
-export const addGuru = (nama, email, password) => {
-  const token = localStorage.getItem('adminToken');
-  if (!token) {
-    console.error("Token not found. Please login again.");
-    return Promise.resolve({ success: false, message: "Token not found. Please login again." });
-  }
+// export const addGuru = (nama, email, password) => {
+//   const token = localStorage.getItem('adminToken');
+//   if (!token) {
+//     console.error("Token not found. Please login again.");
+//     return Promise.resolve({ success: false, message: "Token not found. Please login again." });
+//   }
 
-  const newGuru = { nama, email, password };
+//   const newGuru = { nama, email, password };
 
-  return axios.post(`${http}/guru`, newGuru, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      console.error("Error adding guru:", error.response ? error.response.data : error.message);
-      return { success: false, message: error.response ? error.response.data.message : error.message };
-    });
-};
+//   return axios.post(`${http}/guru`, newGuru, {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   })
+//     .then(response => {
+//       return response.data;
+//     })
+//     .catch(error => {
+//       console.error("Error adding guru:", error.response ? error.response.data : error.message);
+//       return { success: false, message: error.response ? error.response.data.message : error.message };
+//     });
+// };
 
 export const deleteGuru = async (id) => {
   const token = getToken();
@@ -115,27 +120,27 @@ export const editGuru = async (id, nama, email, password) => {
   return edits;
 };
 
-export const addKelas = (level, namaKelas) => {
-  const token = localStorage.getItem('adminToken');
+// export const addKelas = async (nama_kelas, kategori, periode, jadwal_kelas) => {
+//   const token = localStorage.getItem('adminToken');
 
-  if (!token) {
-    console.error("Token not found. Please login again.");
-    return Promise.resolve({ success: false, message: "Token not found. Please login again." });
-  }
+//   if (!token) {
+//     console.error("Token not found. Please login again.");
+//     return Promise.resolve({ success: false, message: "Token not found. Please login again." });
+//   }
 
-  const newKelas = { level, namaKelas };
+//   const newKelas = {nama_kelas, kategori, periode, jadwal_kelas};
 
-  return axios.post(`${http}/kelas`, newKelas, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      console.error("Error adding guru:", error.response ? error.response.data : error.message);
-      return { success: false, message: error.response ? error.response.data.message : error.message };
-    });
-};
+//   return axios.post(`${http}/kelas`, newKelas, {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   })  
+//     .then(response => {
+//       return response.data;
+//     })
+//     .catch(error => {
+//       console.error("Error adding guru:", error.response ? error.response.data : error.message);
+//       return { success: false, message: error.response ? error.response.data.message : error.message };
+//     });
+// };
 
