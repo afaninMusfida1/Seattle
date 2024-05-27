@@ -1,9 +1,9 @@
 
 import axios from 'axios';
 import { API_URL, http } from '../../config/Url';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
-const { kelas_id } = useParams()
+// const { kelas_id } = useParams()
 
 // Fungsi untuk menambahkan jurnal
 export const addJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
