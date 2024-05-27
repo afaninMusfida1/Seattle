@@ -33,21 +33,6 @@ export const addJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
         });
 };
 
-// export const setTokens = (token) => {
-//     console.log("Setting token:", token);
-//     localStorage.setItem("guruToken", token);
-// };
-
-// export const getToken = () => {
-//     const token = localStorage.getItem("guruToken") ?? null;
-//     return token;
-// };
-
-// export const removeToken = () => {
-//     console.log("Removing token");
-//     localStorage.removeItem('guruToken');
-// };
-
 //memanggil api jurnal by id jurnal
 export const apiGetJurnalById = () => {
     const token = localStorage.getItem("guruToken");
@@ -108,7 +93,7 @@ export const apiGetJurnal = () => {
     })
         .then(response => {
             console.log(`respon apiGetjurnal: ${response}`);
-            return response;
+            return response.data.data.dataKbm;
         })
         .catch(error => {
             console.error("Error fetching data: ", error);
@@ -124,7 +109,7 @@ export const deleteJurnal = async (id) => {
         return { message: 'Token not found. Please login again.' };
     }
 
-    const deletes = await axios.delete(`${API_URL}/kbm/5${id}`, {
+    const deletes = await axios.delete(`${API_URL}/kbm/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         },
@@ -146,7 +131,7 @@ export const editJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
         return { message: 'Token not found. Please login again.' };
     }
 
-    const edits = await axios.put(`${API_URL}/kbm/${id}`, { date, pengajar, kelas, materi }, {
+    const edits = await axios.put(`${API_URL}/kbm/${id}`, { kelas_id, guru_id, hasil_belajar, tanggal }, {
         headers: {
             Authorization: `Bearer ${token}`
         },

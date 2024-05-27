@@ -9,7 +9,7 @@ import PresensiItem from '../crud-presensi/PresensiItem';
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, jurnalList } = useJurnal();
+    const { handleAdd, jurnalList, handleFetch } = useJurnal();
     const [tanggal, setTanggal] = useState(new Date());
     const { kelas_id, guru_id } = useParams()
     const refKelas_id = useRef('');
@@ -24,6 +24,7 @@ const Jurnal = () => {
         setNamaGuru(localStorage.getItem('namaGuru'))
         setNamaKelas(localStorage.getItem('namaKelas'))
         setKategori(localStorage.getItem('kategori'))
+        handleFetch()
     }, []);
 
     const handleIsiJurnal = async () => {
@@ -36,21 +37,21 @@ const Jurnal = () => {
         const hasil_belajar = refHasil_belajar.current.value;
         // console.log(`input jurnal value: ${tanggal} ${hasil_belajar} ${kelas_id}`)
         // return 
-        const result = await handleAdd( kelas_id, guru_id, hasil_belajar, tanggal);
+        const result = handleAdd( kelas_id, guru_id, hasil_belajar, tanggal);
 
         if (result) {
-            alert('berhasil jurnale wes keisi')
+            // alert('berhasil jurnale wes keisi')
             console.log(`jurnal ditambahkan: ${result}`);
             // alert('/jurnal ditambahkan')
-            navigate('/guru/rekap/lihat');
+            // navigate('/guru/rekap/lihat');
         } else {
-            console.error(`error menambahkan jurnal: ${result.message}`);
+            console.error(`error menambahkan jurnal: ${result}`);
             alert(`error menambahkan jurnal ${result}`)
         }
 
-        refKelas_id.current.value = '';
+        // refKelas_id.current.value = '';
         // refGuru_id.current.value = '';
-        refHasil_belajar.current.value = '';
+        refHasil_belajar.current.value = "";
 
     };
 
