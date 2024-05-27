@@ -29,7 +29,7 @@ const Jurnal = () => {
         handleFetch()
     }, []);
 
-    const checkKbm = () => {
+    const checkJurnal = () => {
         setIsChecking(false)
         if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
             setJurnalIsAvailable(true)
@@ -81,7 +81,7 @@ const Jurnal = () => {
                             onChange={(tanggal) => setTanggal(tanggal)}
                             className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
                             id='tanggal' />
-                        <button onClick={checkKbm} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
+                        <button onClick={checkJurnal} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
                             Cek Jurnal
                         </button>
                     </div>
