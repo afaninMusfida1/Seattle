@@ -81,7 +81,7 @@ const AppRoutes = () => {
 
             <Route path='/admin' element={<KelasProvider><MainLayout /></KelasProvider>}>
               <Route index element={<Dashboard />} />
-              <Route path="" element={<Dashboard />} />
+              {/* <Route path="" element={<Dashboard />} /> */}
               <Route path="tambah-kelas" element={<TambahKelas />} />
               <Route path="kelas" element={<ListKelas />} />
 
