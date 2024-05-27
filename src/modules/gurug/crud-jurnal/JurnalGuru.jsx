@@ -37,7 +37,7 @@ const JurnalGuru = () => {
             {
                 Object.entries(groupedKelas).map(
                     (value, key) =>
-                        <KelasGrouping location={location} kategori={value[0]} />)
+                        <KelasGrouping key={key} location={location} kategori={value[0]} />)
             }
 
             {/* <div className="rekap-absen bg-white rounded-[30px] p-8">

@@ -32,7 +32,7 @@ const SidebarGuru = ({isSidebarVisible, toggleSidebar}) => {
             Jurnal & Presensi
           </NavLink>
 
-          <NavLink to={"/guru-rekap"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
+          <NavLink to={"/guru/rekap"} className="animate w-[200px] text-[#004684] hover:text-white hover:bg-[#078DCC] hover:rounded-[5px] block px-4 py-2 text-sm text-left rounded "
             style={({ isActive }) => ({
               background: isActive ? "#078DCC" : "transparent",
               color: isActive ? "white" : "#004684",

@@ -1,15 +1,17 @@
+
 import axios from 'axios';
 import { API_URL, http } from '../../config/Url';
 
+
 // Fungsi untuk menambahkan jurnal
-export const addJurnal = async (kelas_id, hasil_belajar, tanggal) => {
+export const addJurnal = async (kelas_id, guru_id,  hasil_belajar, tanggal) => {
     const token = localStorage.getItem('guruToken');
     if (!token) {
         console.error('Token not found. Please login again.');
         return Promise.resolve({ success: false, message: 'Token not found. Please login again.' });
     }
 
-    const newJurnal = { kelas_id, hasil_belajar, tanggal };
+    const newJurnal = { kelas_id, guru_id, hasil_belajar, tanggal };
 
     return axios.post(`${API_URL}/kbm`, newJurnal, {
         headers: {
@@ -17,7 +19,11 @@ export const addJurnal = async (kelas_id, hasil_belajar, tanggal) => {
         }
     })
         .then(response => {
-            return response.data;
+            console.log(response)
+            alert('isi jurnal berhasil')
+            // console.log(guru_id)
+            console.log('isi jurnal berhasil')
+            return response.data.data.dataKbm;
         })
         .catch(error => {
             console.error('Error adding jurnal:', error.response ? error.response.data : error.message);
@@ -54,8 +60,8 @@ export const apiGetJurnal = () => {
         headers: { Authorization: `Bearer ${token}` }
     })
         .then(response => {
-            console.log(`respon apiGetjurnal: ${response.data.data.dataKbm}`);
-            return response.data.data.dataKbm;
+            console.log(`respon apiGetjurnal: ${response}`);
+            return response;
         })
         .catch(error => {
             console.error("Error fetching data: ", error);
