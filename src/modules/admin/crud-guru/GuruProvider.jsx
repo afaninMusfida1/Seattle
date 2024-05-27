@@ -17,8 +17,6 @@ const initGuruState = {
 const GuruContext = createContext(initGuruState);
 export const useGuru = () => useContext(GuruContext);
 
-
-
 export const GuruProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
     const [nama, setNama] = useState("");
