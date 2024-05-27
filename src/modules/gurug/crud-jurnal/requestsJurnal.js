@@ -63,9 +63,7 @@ export const apiGetJurnalByTanggal = async (tanggal) => {
         return { message: "Token not found. Please login again." };
     }
 
-    const tanggalkbm = { tanggal }
-
-    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, tanggalkbm, {
+    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, tanggal, {
         headers: { Authorization: `Bearer ${token}` }
     })
         .then(response => {
