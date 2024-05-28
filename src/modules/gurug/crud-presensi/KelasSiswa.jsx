@@ -27,7 +27,7 @@ const AbsenSiswa = () => {
 
     return (
         <>
-        <div className="mt-[100px]">
+        <div className="mt-[50px]">
                 <KelasGrouping location={location}/>
                 <KelasGrouping location={location}/>
                 <KelasGrouping location={location}/>

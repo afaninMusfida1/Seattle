@@ -3,11 +3,13 @@ import { useJurnal } from "../../gurug/crud-jurnal/JurnalProvider";
 import { useLayout } from "../../layout/LayoutContext";
 import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
+import { useParams } from "react-router-dom";
 
 
 const RekapKbm = () => {
-    const { actionSetPageTitle } = useLayout()
-    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal()
+    const { actionSetPageTitle } = useLayout();
+    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal();
+    const { kelas_id, guru_id } = useParams();
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
@@ -16,11 +18,11 @@ const RekapKbm = () => {
 
     return (
         <>
-            <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px]  p-8 ">
+            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px]  p-8 ">
                 <div>
 
                 </div>
-                <table aria-rowspan={2} className="text-center table-fixed w-full overflow-hidden ">
+                <table aria-rowspan={1} className="text-center table-fixed w-full overflow-hidden ">
                     <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
                         <tr>
                             <th className="">Tanggal</th >
@@ -35,8 +37,8 @@ const RekapKbm = () => {
                                 <RekapItem
                                     key={jurnal.id}
                                     id={jurnal.id}
-                                    kelas_id={jurnal.kelas_id}
-                                    guru_id={jurnal.guru_id}
+                                    kelas_id={kelas_id}
+                                    guru_id={guru_id}
                                     hasil_belajar={jurnal.hasil_belajar}
                                     tanggal={jurnal.tanggal}
 

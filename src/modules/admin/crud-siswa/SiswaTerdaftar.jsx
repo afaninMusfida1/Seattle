@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLayout } from '../../layout/LayoutContext';
 import SiswaItem from "./SiswaItem";
@@ -10,66 +10,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const SiswaTerdaftar = () => {
     const { actionSetPageTitle } = useLayout();
     const navigate = useNavigate();
-    const location = useLocation();
-    const { siswaList, handleFetch, handleSearchKategori } = useSiswa();
+    const { siswaList, handleFetch, searchSiswa } = useSiswa();
     const { daftarKelas } = useKelas();
 
-    const queryParams = new URLSearchParams(location.search);
-    const initialKategori = queryParams.get('kategori') || '';
-    const initialKelas = queryParams.get('kelas') || '';
-    const initialNama = queryParams.get('nama') || '';
-
-    const [searchKategori, setSearchKategori] = useState(initialKategori);
-    const [searchKelas, setSearchKelas] = useState(initialKelas);
-    const [searchNama, setSearchNama] = useState(initialNama);
+    const [searchKategori, setSearchKategori] = useState('');
+    const [searchKelas, setSearchKelas] = useState('');
+    const [searchNama, setSearchNama] = useState('');
     const [hasSearched, setHasSearched] = useState(false);
-    const [isSearching, setIsSearching] = useState(false); // State untuk menandakan apakah sedang dilakukan pencarian
+    const [isSearching, setIsSearching] = useState(false);
 
     useEffect(() => {
         actionSetPageTitle('Daftar Siswa');
         handleFetch();
     }, []);
 
-    useEffect(() => {
-        setSearchKategori(initialKategori);
-        setSearchKelas(initialKelas);
-        setSearchNama(initialNama);
-    }, []);
-
     const handleSearch = (e) => {
         e.preventDefault();
-        const params = new URLSearchParams();
-        if (searchKategori) params.set('kategori', searchKategori);
-        if (searchKelas) params.set('kelas', searchKelas);
-        if (searchNama) params.set('nama', searchNama);
-        navigate({ search: params.toString() });
+        console.log("Searching for:", searchKategori, searchKelas, searchNama);
+        searchSiswa(searchKategori, searchKelas, searchNama).then(data => {
+            console.log("Search results:", data);
+        });
+        setHasSearched(true);
+        setIsSearching(true);
 
-        setHasSearched(true); // Mark that a search has been initiated
-        setIsSearching(true); // Set isSearching to true when search is performed
-    };
-
-    const handleInputChange = () => {
-        // Set isSearching to false when input fields are emptied
         setSearchKategori('');
         setSearchKelas('');
         setSearchNama('');
         setIsSearching(false);
     };
 
-    const filteredSiswa = siswaList.filter((siswa) => {
-        return (
-            (searchKategori === '' || siswa.kategori.toLowerCase().includes(searchKategori.toLowerCase())) &&
-            (searchKelas === '' || String(siswa.kelas_id) === searchKelas) &&
-            (searchNama === '' || siswa.nama.toLowerCase().includes(searchNama.toLowerCase()))
-        );
-    });
-
     const handleChange = () => {
         navigate('/admin/siswa/tambah');
     };
+
     return (
         <>
-            <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
+            <div className="bg-white rounded-[30px] ml-[100px] mr-[100px] mt-[50px] p-8">
                 <div className="flex justify-between items-center mb-4">
                     <form onSubmit={handleSearch} className="flex gap-4">
                         <div className="relative">
@@ -139,8 +115,8 @@ const SiswaTerdaftar = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredSiswa.length > 0 ? (
-                                filteredSiswa.map(siswa => (
+                            {siswaList.length > 0 ? (
+                                siswaList.map(siswa => (
                                     <SiswaItem
                                         key={siswa.id}
                                         id={siswa.id}

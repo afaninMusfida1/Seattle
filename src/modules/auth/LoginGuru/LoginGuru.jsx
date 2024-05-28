@@ -6,9 +6,9 @@ import { useGuru } from "../../admin/crud-guru/GuruProvider";
 const LoginGuru = () => {
     const navigate = useNavigate();
     const { doLoginGuru } = useAuth();
-    const [namaGuru, setNamaGuru] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [namaGuru, setNamaGuru] = useState("hambaAllah");
+    const [email, setEmail] = useState("santi@gmail.com");
+    const [password, setPassword] = useState("12345678");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginError, setLoginError] = useState(null)
 
@@ -21,7 +21,7 @@ const LoginGuru = () => {
         if (apiResult && apiResult.token) {
             localStorage.setItem("guruToken", apiResult.token);
             setIsLoggedIn(true);
-            navigate('/guru/kelas')
+            navigate('/guru/jurnal')
         } else if (apiResult && apiResult.message) {
             console.error("Login gagal: ", apiResult.message);
             setLoginError(apiResult.message);
@@ -31,6 +31,7 @@ const LoginGuru = () => {
         }
 
         console.log(apiResult)
+        // console.log(id)
         console.log(namaGuru)
     };
 

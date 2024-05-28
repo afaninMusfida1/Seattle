@@ -17,7 +17,7 @@ const DaftarKelas = () => {
     }
 
     return (
-        <div className="grid gap-6 mb-[50px] mr-[100px] ml-[350px] mt-[100px] ">
+        <div className="grid gap-6 mb-[50px] mr-[100px] ml-[100px] mt-[100px] ">
             <div className="rekap-absen bg-white rounded-[30px] p-8 ">
                 <div>
                 </div>

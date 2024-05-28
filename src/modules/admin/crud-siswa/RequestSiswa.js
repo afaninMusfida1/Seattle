@@ -9,10 +9,12 @@ const handleUnauthorizedError = (error) => {
         alert("Session expired. Please login again.");
         localStorage.removeItem('adminToken');
 
-        const navigate = useNavigate();
+        const navigate = useNavigate(); // Menggunakan useNavigate untuk navigasi
         navigate('/login');
     }
 };
+
+//get kelas
 
 export const addSiswa = (nama, kelas_id, no_telp_ortu, email, password) => {
     const token = getToken();
@@ -41,7 +43,7 @@ export const addSiswa = (nama, kelas_id, no_telp_ortu, email, password) => {
     });
 };
 
-export const apiGetSiswa = () => {
+export const apiGetSiswa = async () => {
     const token = getToken();
     if (!token) {
         console.error("Token not found. Please login again.");
@@ -60,7 +62,7 @@ export const apiGetSiswa = () => {
         });
 };
 
-export const deleteSiswa = (id) => {
+export const deleteSiswa = async (id) => {
     const token = getToken();
     return axios.delete(`${API_URL}/siswa/${id}`, {
         headers: {
@@ -74,9 +76,9 @@ export const deleteSiswa = (id) => {
         });
 };
 
-export const editSiswa = (id, updatedSiswa) => {
+export const editSiswa = async (id, kelas_id, updatedSiswa) => {
     const token = getToken();
-    return axios.put(`${API_URL}/siswa/${id}`, updatedSiswa, {
+    return axios.put(`${API_URL}/siswa/${id}`, kelas_id, updatedSiswa, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -86,4 +88,30 @@ export const editSiswa = (id, updatedSiswa) => {
             handleUnauthorizedError(error);
             return error.response;
         });
+};
+
+export const searchSiswaApi = (kategori, kelas, nama) => {
+    const token = getToken();
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return Promise.resolve({ message: "Token not found. Please login again." });
+    }
+
+    const params = {
+        kategori,
+        kelas,
+        nama
+    };
+
+    return axios.get(`${API_URL}/siswa`, {
+        params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(response => response.data.data.dataSiswa)
+    .catch(error => {
+        handleUnauthorizedError(error);
+        return error.response?.data ?? { message: "Unknown error" };
+    });
 };

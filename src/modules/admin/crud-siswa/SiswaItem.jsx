@@ -15,25 +15,44 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
     const [editedEmail, setEditedEmail] = useState(email);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+
     const confirmDelete = () => {
-        const konfirm = window.confirm("Apakah Anda Yakin Ingin Menghapusnya?");
+        const konfirm = confirm("Apakah Anda Yakin Ingin Menghapusnya?");
         if (konfirm) {
             handleDelete(id);
         }
     };
 
+    const getNamaKelas = (kelasId) => {
+        if (!daftarKelas || !Array.isArray(daftarKelas)) {
+            return 'Daftar kelas tidak tersedia';
+        }
+        const kelasData = daftarKelas.find(k => k.id === kelasId);
+        return kelasData ? kelasData.nama_kelas : 'Tidak ada kelas';
+    };
+
+    
+    
     const handleEditSubmit = (e) => {
         e.preventDefault();
-        handleUpdate(id, { nama: editedNama, kategori: editedKategori, kelas: editedKelas, no_telp_ortu: editedNoTelpOrtu, email: editedEmail });
+        const updatedDataSiswa = {
+            nama: editedNama,
+            kategori: editedKategori,
+            kelas_id: editedKelas, 
+            no_telp_ortu: editedNoTelpOrtu,
+            email: editedEmail
+        };
+        handleUpdate(id, updatedDataSiswa);
         setIsPopupOpen(false);
     };
+
 
     return (
         <>
             <tr className="border-2">
                 <td style={{ padding: '5px' }}>{nama}</td>
                 <td style={{ padding: '5px' }}>{kategori}</td>
-                <td style={{ padding: '5px' }}>{kelas}</td>
+                <td style={{ padding: '5px' }}>{getNamaKelas(kelas)}</td>
                 <td style={{ padding: '5px' }}>{no_telp_ortu}</td>
                 <td style={{ padding: '5px' }}>{email}</td>
                 <td style={{ padding: '8px' }}>
@@ -104,7 +123,7 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
                                 <label htmlFor="email">Email:</label>
                                 <input
                                     id="email"
-                                    type="email"
+                                    // type="email"
                                     value={editedEmail}
                                     onChange={(e) => setEditedEmail(e.target.value)}
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
