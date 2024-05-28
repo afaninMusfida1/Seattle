@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
-import { http } from '../../config/Url';
+import { API_URL, http } from '../../config/Url';
 import { addGuru, apiGetGuru } from './requests';
 
 const initGuruState = {
@@ -20,12 +20,12 @@ export const useGuru = () => useContext(GuruContext);
 
 export const GuruProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const handleFetch = async () => {
-        const data = await apiGetGuru(); // Ambil data guru dari API
-        setGuruList(data); // Setel data guru ke dalam state
+        const data = await apiGetGuru(); 
+        setGuruList(data); 
     };
 
     const handleAdd = async (nama, email, password) => {
@@ -39,7 +39,7 @@ export const GuruProvider = ({ children }) => {
         return apiCall
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
 
         if (isLoading) return
         setIsLoading(true)
@@ -68,14 +68,14 @@ export const GuruProvider = ({ children }) => {
         
     };
 
-    const handleUpdate = (id, updatedData) => {
+    const handleUpdate = async (id, updatedData) => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
             console.error("Token not found. Please login again.");
             return;
         }
 
-        axios.put(`${http}/guru/${id}`, updatedData, {
+        axios.put(`${API_URL}/guru/${id}`, updatedData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useLayout } from '../../layout/LayoutContext';
 import { useNavigate } from 'react-router-dom';
-import { addGuru } from '../../config/Api';
 import { useGuru } from './GuruProvider';
 
 const TambahGuru = () => {
@@ -43,7 +42,6 @@ const TambahGuru = () => {
     };
 
     return (
-        <>
             <div className="bg-white max-w-[500px] rounded-[30px] ml-[350px] mr-[100px] mt-[100px] flex flex-col gap-10 p-8">
                 <div>
                     <input placeholder="Nama" ref={refNama} className="input w-[400px] h-[40px] font-poppins text-[16px] border-2 text-[#3F3F3F] bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC]" />
@@ -54,8 +52,6 @@ const TambahGuru = () => {
                     Tambahkan
                 </button>
             </div>
-        </>
-
     );
 };
 

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import axios from "axios";
-import { http } from '../config/Url';
+import { http } from '../../config/Url';
 
 const KelasContext = createContext();
 
