@@ -13,7 +13,6 @@ const RekapKbm = () => {
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
         handleFetch();
-        console.log(jurnalList)
     }, [])
 
     return (
@@ -26,24 +25,23 @@ const RekapKbm = () => {
                     <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
                         <tr>
                             <th className="">Tanggal</th >
-                            <th>Kehadiran</th>
+                            <th>Kelas</th>
                             <th>Pengajar</th>
                             <th>Materi</th>
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
                         {jurnalList.length > 0 ? (
-                            jurnalList.map(jurnal => {
+                            jurnalList.map(jurnal => (
                                 <RekapItem
                                     key={jurnal.id}
-                                    id={jurnal.id}
+                                   
                                     kelas_id={jurnal.kelas_id}
                                     guru_id={jurnal.guru_id}
                                     hasil_belajar={jurnal.hasil_belajar}
                                     tanggal={jurnal.tanggal}
-
                                 />
-                            })
+                            ))
                         ) : (
                             <tr>
                                 <td colSpan={4} className="text-center border-2">Belum ada jurnal</td>

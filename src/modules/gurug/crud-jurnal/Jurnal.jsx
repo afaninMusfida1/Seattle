@@ -31,11 +31,11 @@ const Jurnal = () => {
 
     const checkJurnal = () => {
         setIsChecking(false)
-        if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
-            setJurnalIsAvailable(true)
-        } else if (jurnalList == 0) { // jika data kbm pada tanggal itu belum ada maka set false
-            setJurnalIsAvailable(false)
-        }
+        // if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
+        //     setJurnalIsAvailable(true)
+        // } else if (jurnalList == 0) { // jika data kbm pada tanggal itu belum ada maka set false
+        //     setJurnalIsAvailable(false)
+        // }
     }
 
     const handleIsiJurnal = async () => {
@@ -43,27 +43,12 @@ const Jurnal = () => {
             alert('mohon isi semua form');
             return;
         }
-
-        // const guru_id = namaGuru;
         const hasil_belajar = refHasil_belajar.current.value;
-        // console.log(`input jurnal value: ${tanggal} ${hasil_belajar} ${kelas_id}`)
-        // return 
         const result = handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
-
         if (result) {
-            // alert('berhasil jurnale wes keisi')
-            console.log(`jurnal ditambahkan: ${result}`);
-            // alert('/jurnal ditambahkan')
-            // navigate('/guru/rekap/lihat');
-        } else {
-            console.error(`error menambahkan jurnal: ${result}`);
-            alert(`error menambahkan jurnal ${result}`)
+            navigate('/guru/rekap/lihat');
         }
-
-        // refKelas_id.current.value = '';
-        // refGuru_id.current.value = '';
         refHasil_belajar.current.value = "";
-
     };
 
     const handleChangePresensi = () => {
