@@ -5,7 +5,7 @@ import { useLayout } from '../layout/LayoutContext';
 const Jurnal = () => {
     const navigate = useNavigate();
     const [showDafJurnal, setShowDafJurnal] = useState(false);
-    const {actionSetPageTitle} = useLayout()
+    const { actionSetPageTitle } = useLayout()
 
     const [formData, setFormData] = useState({
         bulan: '',
@@ -16,7 +16,7 @@ const Jurnal = () => {
         materi: ''
     });
 
-    useEffect(()=>{
+    useEffect(() => {
         actionSetPageTitle('Isi Jurnal')
     }, [])
 
@@ -24,19 +24,19 @@ const Jurnal = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
         navigate('/guru-rekap')
-};
+    };
 
-const handleChange = (e) => {
-    e.preventDefault();
-    axios.post('/api/jurnal', formData)
-        .then(response => {
-            console.log('Journal created:', response.data);
-            navigate('/guru-rekap');
-        })
-        .catch(error => {
-            console.error('Error creating journal:', error);
-        });
-};
+    const handleChange = (e) => {
+        e.preventDefault();
+        axios.post('/api/jurnal', formData)
+            .then(response => {
+                console.log('Journal created:', response.data);
+                navigate('/guru-rekap');
+            })
+            .catch(error => {
+                console.error('Error creating journal:', error);
+            });
+    };
 
 
 
@@ -63,7 +63,7 @@ const handleChange = (e) => {
                 <button onClick={handleSubmit} className="w-[400px] h-[40px] mt-[130px] font-poppins text-[16px] border-2 bg-[#07CC85] text-white rounded-[10px] outline-none ">Buat Jurnal</button>
             </div>
             <div>
-            <input placeholder="Hari" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
+                <input placeholder="Hari" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <input placeholder="Kehadiran Siswa" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <input placeholder="Materi" className="input w-[400px] h-[40px] font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-[16px] outline-none hover:border-[#078DCC] "></input>
                 <div className="py-[130px]">
