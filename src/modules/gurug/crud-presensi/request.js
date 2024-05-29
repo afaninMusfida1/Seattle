@@ -2,23 +2,50 @@
 import { API_URL } from "../../config/Url";
 import axios from "axios";
 
-export const getToken = (token) => {
-    console.log("Setting token:", token);
-    localStorage.getItem("guruToken", token);
-};
+// export const setTokens = () => {
+//     localStorage.setItem("guruToken", token);
+//     console.log("setting token guru");
+// };
 
-export const setTokens = (token) => {
-    console.log("setting token", token);
-    localStorage.setItem("guruToken", token);
-};
+// export const getToken = () => {
+//     console.log("Setting token:", token);
+//     localStorage.getItem("guruToken");
+// };
 
-export const removeToken = () => {
-    console.log("Removing token");
-    localStorage.removeItem('guruToken');
-};
+// export const removeToken = () => {
+//     console.log("Removing token");
+//     localStorage.removeItem('guruToken');
+// };
+
+export const addPresensi = async (kbm_id, siswa_id, keterangan) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error('Token not found. Please login again.');
+        return Promise.resolve({ success: false, message: 'Token not found. Please login again.' });
+    }
+
+    const newPresensi = { kbm_id, siswa_id, keterangan };
+
+    return axios.post(`${API_URL}/presensi`, newPresensi, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            console.log(response)
+            alert('berhasil isi presensi')
+            // console.log(guru_id)
+            console.log('isi jurnal berhasil')
+            return response.data.dataPresensi;
+        })
+        .catch(error => {
+            console.error('Error adding jurnal:', error.response ? error.response.data : error.message);
+            return { success: false, message: error.response ? error.response.data.message : error.message };
+        });
+}
 
 export const apiGetKelas = async () => {
-    const token = getToken();
+    const token = localStorage.getItem("guruToken") ;
     if (!token) {
         console.error("Token not found. Please login again.");
         return { message: "Token not found. Please login again." };

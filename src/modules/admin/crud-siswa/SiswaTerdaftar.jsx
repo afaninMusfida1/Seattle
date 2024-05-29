@@ -69,7 +69,7 @@ const SiswaTerdaftar = () => {
     };
     return (
         <>
-            <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
+            <div className="bg-white rounded-[30px] ml-[100px] mr-[100px] mt-[100px] p-8">
                 <div className="flex justify-between items-center mb-4">
                     <form onSubmit={handleSearch} className="flex gap-4">
                         <div className="relative">

@@ -35,16 +35,18 @@ const ListKelas = () => {
         setFilter(event.target.value);
     }
 
-    const filteredKelas = daftarKelas.filter(kelas => {
-        if (filter === '') return true;
-        return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
-    });
+    // const filteredKelas = daftarKelas.filter(kelas => {
+    //     if (filter === '') return true;
+    //     return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
+    // });
 
+    const groupedKelas = daftarKelas.length == 0 ? [] :
+        Object.groupBy(daftarKelas, ({ kategori }) => kategori)
 
 
     return (
         <>
-            <div>
+            {/* <div>
                 <div className="rekap-absen bg-white  rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[50px]">
                     <div className="flex flex-col gap-6 ">
                         <div className="flex justify-between">
@@ -147,12 +149,16 @@ const ListKelas = () => {
                         </div>
                     </div>
                     
-                </div>
-                <KelasGrouping title={title} />
-                <button onClick={handleChange} className="fixed bottom-[50px] right-[100px] text-[#078DCC] text-[20px] font-bold hover:underline">
-                    Tambahkan Kelas
-                </button>
-            </div>
+                </div> */}
+            {
+                Object.entries(groupedKelas).map(
+                    (value, key) =>
+                        <KelasGrouping key={key} location={location} kategori={value[0]} />)
+            }
+            <button onClick={handleChange} className="fixed bottom-[50px] right-[100px] text-[#078DCC] text-[20px] font-bold hover:underline">
+                Tambahkan Kelas
+            </button>
+            {/* </div> */}
 
         </>
     );

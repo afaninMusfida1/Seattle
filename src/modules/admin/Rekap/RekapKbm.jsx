@@ -3,15 +3,17 @@ import { useJurnal } from "../../gurug/crud-jurnal/JurnalProvider";
 import { useLayout } from "../../layout/LayoutContext";
 import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
+import { useParams } from "react-router-dom";
 
 
 const RekapKbm = () => {
-    const { actionSetPageTitle } = useLayout()
-    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal()
+    const { actionSetPageTitle } = useLayout();
+    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal();
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
         handleFetch();
+        console.log(jurnalList)
     }, [])
 
     return (
@@ -20,7 +22,7 @@ const RekapKbm = () => {
                 <div>
 
                 </div>
-                <table aria-rowspan={2} className="text-center table-fixed w-full overflow-hidden ">
+                <table aria-rowspan={1} className="text-center table-fixed w-full overflow-hidden ">
                     <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
                         <tr>
                             <th className="">Tanggal</th >
@@ -47,7 +49,7 @@ const RekapKbm = () => {
                                 <td colSpan={4} className="text-center border-2">Belum ada jurnal</td>
                             </tr>
                         )}
-                        <RekapItem />
+                        {/* <RekapItem /> */}
                     </tbody>
                 </table>
                 {/* <div className="header w-full flex justify-between rounded-lg py-3 px-9 text-white bg-[#06357A]">

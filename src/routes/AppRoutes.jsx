@@ -57,12 +57,12 @@ const AppRoutes = () => {
                     <GuruLayout />
                   </JurnalProvider>
                 </KelasProvider>}>
-              <Route path="/guru/kelas" element={<KelasSiswa />} />
-              <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
+              {/* <Route path="/guru/kelas" element={<KelasSiswa />} /> */}
               <Route path="/guru/jurnal" element={<JurnalGuru />} />
+              <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
               <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
-              <Route path="/guru-rekap" element={<RekapGuru />} />
-              <Route path="/guru-rekap-kbm" element={<RekapKbm />} />
+              <Route path="/guru/rekap" element={<RekapGuru />} />
+              <Route path="/guru/rekap/lihat" element={<RekapKbm />} />
             </Route>
 
             <Route element={<SiswaLayout />}>
