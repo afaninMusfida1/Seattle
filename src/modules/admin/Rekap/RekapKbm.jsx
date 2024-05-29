@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout();
-    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal();
+    const { jurnalList, setJurnalList, handleFetchJurnal, handleDelete } = useJurnal();
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
-        handleFetch();
+        handleFetchJurnal()
     }, [])
 
     return (

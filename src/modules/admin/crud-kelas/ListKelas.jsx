@@ -17,6 +17,7 @@ const ListKelas = () => {
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap');
+        handleFetch()
     }, []);
 
     // function handleChangeAbsen() {

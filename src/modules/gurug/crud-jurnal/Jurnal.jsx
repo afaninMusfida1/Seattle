@@ -5,13 +5,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
 import PresensiItem from '../crud-presensi/PresensiItem';
-import { apiGetJurnal } from './requestsJurnal';
+import { apiGetJurnal, apiGetJurnalByTanggal } from './requestsJurnal';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2'
 
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, jurnalList, handleFetch, isLoading } = useJurnal();
+    const { handleAdd, jurnalList, handleFetchJurnal, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
     const { kelas_id, guru_id } = useParams()
     const refKelas_id = useRef('');
@@ -28,22 +29,31 @@ const Jurnal = () => {
         setNamaGuru(localStorage.getItem('namaGuru'))
         setNamaKelas(localStorage.getItem('namaKelas'))
         setKategori(localStorage.getItem('kategori'))
-        handleFetch()
+        handleFetchJurnal()
     }, []);
 
     const checkJurnal = async () => {
         setIsChecking(false)
-        const result = await apiGetJurnal(tanggal)
-        console.log(result)
+        const result = await apiGetJurnalByTanggal(kelas_id, tanggal)
+        console.log(`data kbm`, result)
 
         if (result.length == 0) {
             setJurnalIsAvailable(false)
-            alert('add kbm')
-        } else if (result.length > 0) {
+            Swal.fire({
+                title: 'Perhatian',
+                text: 'belum ada jurnal, silahkan isi',
+                icon: 'info',
+                confirmButtonText: 'Oke'
+              })
+        } else if (result.length != 0) {
             setJurnalIsAvailable(true)
-            alert('edit kbm')
+            Swal.fire({
+                title: 'Perhatian',
+                text: 'ditemukan jurnal, silahkan update',
+                icon: 'info',
+                confirmButtonText: 'Oke'
+              })
         }
-
 
         // if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
         //     setJurnalIsAvailable(true)
@@ -74,10 +84,11 @@ const Jurnal = () => {
         <>
             <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8" >
                 {isChecking ? (
-                    <div className='flex gap-6'>
-                        <DatePicker
-                            selected={tanggal}
-                            onChange={(tanggal) => setTanggal(tanggal)}
+                    <div className='flex flex-col gap-6'>
+                        <input
+                            // selected={tanggal}
+                            // onChange={(tanggal) => setTanggal(tanggal)}
+                            type='date'
                             className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
                             id='tanggal' />
                         <button onClick={checkJurnal} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>

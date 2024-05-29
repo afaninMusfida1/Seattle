@@ -1,15 +1,18 @@
 import { React, createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { http } from '../../config/Url';
-import { addJurnal, apiGetJurnal, apiGetJurnalByTanggal, deleteJurnal, editJurnal } from './requestsJurnal';
+import { addJurnal, apiGetJurnal, apiGetKelas, apiGetJurnalByTanggal, deleteJurnal, editJurnal } from './requestsJurnal';
 
 const initJurnalState = {
+    jurnalList: [],
+    daftarKelas: [],
+    isLoading: false,
+    location: '',
+    handleFetchJurnal: () => { },
+    handleFetchKelas: () => { },
     handleAdd: () => { },
-    handleFetch: () => { },
     handleDelete: () => { },
     handleUpdate: () => { },
-    jurnalList: [],
-    isLoading: false,
 };
 
 const JurnalContext = createContext(initJurnalState);
@@ -18,12 +21,20 @@ export const useJurnal = () => useContext(JurnalContext);
 
 export const JurnalProvider = ({ children }) => {
     const [jurnalList, setJurnalList] = useState([]);
-    const [isLoading, setIsLoading] = useState();
+    const [daftarKelas, setDaftarKelas] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [location, setLocation] = useState('');
 
-    const handleFetch = async () => {
+    const handleFetchJurnal = async () => {
         const data = await apiGetJurnal();
         console.log(`data jurnal`, data)
         setJurnalList(data);
+    };
+
+    const handleFetchKelas = async () => {
+        const data = await apiGetKelas();
+        console.log(`data kelas`, data)
+        setDaftarKelas(data)
     };
 
     const handleAdd = async (guru_id, kelas_id, hasil_belajar, tanggal) => {
@@ -61,7 +72,7 @@ export const JurnalProvider = ({ children }) => {
     };
 
     const handleUpdate = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
-        if(isLoading) return
+        if (isLoading) return
         const token = localStorage.getItem('guruToken');
         if (!token) {
             console.error("Token not found. Please login again.");
@@ -76,12 +87,15 @@ export const JurnalProvider = ({ children }) => {
 
     return (
         <JurnalContext.Provider value={{
-            handleAdd,
-            handleFetch,
-            handleDelete,
-            handleUpdate,
+            daftarKelas,
             jurnalList,
-            isLoading
+            isLoading,
+            location,
+            handleAdd,
+            handleFetchJurnal,
+            handleFetchKelas,
+            handleDelete,
+            handleUpdate
         }}>
             {children}
         </JurnalContext.Provider>
