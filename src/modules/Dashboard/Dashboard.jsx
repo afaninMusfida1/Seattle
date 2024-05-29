@@ -16,7 +16,7 @@ function Dashboard() {
     useEffect(() => {
         actionSetPageTitle('Dashboard')
         handleFetch();
-    }, [actionSetPageTitle, handleFetch])
+    }, [])
 
     const handleSubmit = () => {
         if (title.current.value == '' || content.current.value == '') {
@@ -27,7 +27,7 @@ function Dashboard() {
         setMakeContent(content.current.value)
         console.log(`pengumuman:`, title.current.value, content.current.value)
     }
-    console.log('guruList:', guruList);
+    // console.log('guruList:', guruList);
 
     return (
         <div className=" mt-[50px] ml-[100px] mr-[100px] grid gap-8">
