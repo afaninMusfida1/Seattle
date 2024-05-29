@@ -28,6 +28,11 @@ export const getToken = () => {
   return token;
 };
 
+export const getTokenGuru = () => {
+  const token = localStorage.getItem("guruToken") ?? null;
+  return token;
+};
+
 export const removeToken = () => {
   console.log("Removing token");
   localStorage.removeItem('adminToken');

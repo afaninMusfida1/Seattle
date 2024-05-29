@@ -1,23 +1,28 @@
 import { useEffect } from "react";
+import { useJurnal } from "../../gurug/crud-jurnal/JurnalProvider";
 import { useLayout } from "../../layout/LayoutContext";
 import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
+import { useParams } from "react-router-dom";
 
 
-const RekapAbsen = () => {
-    const { actionSetPageTitle } = useLayout()
+const RekapKbm = () => {
+    const { actionSetPageTitle } = useLayout();
+    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal();
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
+        handleFetch();
+        console.log(jurnalList)
     }, [])
 
     return (
         <>
-            <div className="bg-white rounded-[30px] ml-[350px] mt-[100px] mr-[100px]  p-8 ">
+            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px]  p-8 ">
                 <div>
-                    
+
                 </div>
-                <table aria-rowspan={2} className="text-center table-fixed w-full overflow-hidden ">
+                <table aria-rowspan={1} className="text-center table-fixed w-full overflow-hidden ">
                     <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
                         <tr>
                             <th className="">Tanggal</th >
@@ -27,26 +32,24 @@ const RekapAbsen = () => {
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
-                        {/* <tr className="border-2">
-                            <td>22/05/2024</td>
-                            <td><button className="bg-green-200 py-1 px-2 rounded">15 siswa</button></td>
-                            <td>Dewi Setya</td>
-                            <td className="">english conversation chapter 2</td>
-                        </tr> */}
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
-                        <RekapItem />
+                        {jurnalList.length > 0 ? (
+                            jurnalList.map(jurnal => {
+                                <RekapItem
+                                    key={jurnal.id}
+                                    id={jurnal.id}
+                                    kelas_id={jurnal.kelas_id}
+                                    guru_id={jurnal.guru_id}
+                                    hasil_belajar={jurnal.hasil_belajar}
+                                    tanggal={jurnal.tanggal}
+
+                                />
+                            })
+                        ) : (
+                            <tr>
+                                <td colSpan={4} className="text-center border-2">Belum ada jurnal</td>
+                            </tr>
+                        )}
+                        {/* <RekapItem /> */}
                     </tbody>
                 </table>
                 {/* <div className="header w-full flex justify-between rounded-lg py-3 px-9 text-white bg-[#06357A]">
@@ -74,4 +77,4 @@ const RekapAbsen = () => {
         </>
     )
 }
-export default RekapAbsen;
+export default RekapKbm;
