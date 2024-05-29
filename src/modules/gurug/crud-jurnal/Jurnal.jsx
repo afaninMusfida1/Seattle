@@ -33,26 +33,34 @@ const Jurnal = () => {
     }, []);
 
     const checkJurnal = async () => {
-        setIsChecking(false)
         const result = await apiGetJurnalByTanggal(kelas_id, tanggal)
         console.log(`data kbm`, result)
 
-        if (result.length == 0) {
+        if (tanggal == '') {
+            Swal.fire({
+                title: 'Perhatian',
+                text: 'mohon isi tanggal terlebih dahulu',
+                icon: 'warning',
+                confirmButtonText: 'Oke'
+            })
+        } else if (result.length == 0) {
             setJurnalIsAvailable(false)
             Swal.fire({
                 title: 'Perhatian',
                 text: 'belum ada jurnal, silahkan isi',
                 icon: 'info',
                 confirmButtonText: 'Oke'
-              })
+            })
+            setIsChecking(false)
         } else if (result.length != 0) {
             setJurnalIsAvailable(true)
             Swal.fire({
-                title: 'Perhatian',
+                title: 'Informasi',
                 text: 'ditemukan jurnal, silahkan update',
                 icon: 'info',
-                confirmButtonText: 'Oke'
-              })
+                confirmButtonText: 'Lanjut'
+            })
+            setIsChecking(false)
         }
 
         // if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
@@ -84,17 +92,21 @@ const Jurnal = () => {
         <>
             <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8" >
                 {isChecking ? (
-                    <div className='flex flex-col gap-6'>
+                    <>
+                   
+                    <div className='flex gap-6'>
                         <input
                             // selected={tanggal}
-                            // onChange={(tanggal) => setTanggal(tanggal)}
+                            onChange={(tanggal) => setTanggal(tanggal)}
                             type='date'
-                            className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
+                            className='outline-none w-[15rem] text-left py-2 rounded border px-3 bg-[#DCE5F1]'
                             id='tanggal' />
                         <button onClick={checkJurnal} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
                             Cek Jurnal
                         </button>
                     </div>
+                    <span className='text-[12px] opacity-50 text-orange-500'>* isi tanggal terlebih dahulu</span>
+                    </>
                 ) : (
                     <div className='grid grid-flow-col'>
                         <div className='flex flex-col'>
@@ -102,21 +114,9 @@ const Jurnal = () => {
                                 <input
                                     type='date'
                                     value={tanggal}
-                                    // onChange={(tanggal) => setTanggal(tanggal)}
+                                    onChange={(tanggal) => setTanggal(tanggal)}
                                     className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
                                     id='tanggal' />
-                                {/* <input
-                                            type="text"
-                                            placeholder='Pengajar'
-                                            value={namaGuru}
-                                            className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
-                                        /> */}
-                                {/* <input
-                                                type="text"
-                                                placeholder='Kelas'
-                                                value={kelas}
-                                                className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
-                                            /> */}
                                 <textarea
                                     name="materi"
                                     id="materi"
