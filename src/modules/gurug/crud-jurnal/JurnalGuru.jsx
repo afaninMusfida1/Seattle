@@ -4,20 +4,18 @@ import KelasItem from '../../admin/crud-kelas/KelasItem';
 import { useLayout } from '../../layout/LayoutContext';
 import GuruLayout from '../../layout/GuruLayout';
 import { useJurnal } from './JurnalProvider';
-import { useKelas } from '../../admin/crud-kelas/KelasProvider';
 import KelasGrouping from '../../admin/crud-kelas/KelasGrouping';
 
 
 const JurnalGuru = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { daftarKelas, setDaftarKelas, location, setLocation } = useKelas()
-
-    const { jurnalList, handleFetch } = useJurnal()
+    const { daftarKelas, handleFetchJurnal, handleFetchKelas } = useJurnal()
+    // const { daftarKelas, setDaftarKelas, location, setLocation } = useKelas()
 
     useEffect(() => {
-        handleFetch()
-        actionSetPageTitle('Jurnal');
+        actionSetPageTitle('Jurnal & Presensi');
+        handleFetchKelas()
     }, []);
 
 
@@ -27,6 +25,7 @@ const JurnalGuru = () => {
 
     const groupedKelas = daftarKelas.length == 0 ? [] :
         Object.groupBy(daftarKelas, ({ kategori }) => kategori)
+
 
     return (
 

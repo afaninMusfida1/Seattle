@@ -5,12 +5,12 @@ import { http } from "../../config/Url";
 
 const initKelasState = {
     daftarKelas: [],
-    setDaftarKelas: () => {},
-    location: [],
+    location: '',
+    setDaftarKelas: () => { },
     handleFetch: () => { },
-    handleAdd: () => {},
-    handleDelete: () => {},
-    handleUpdate: () => {},
+    handleAdd: () => { },
+    handleDelete: () => { },
+    handleUpdate: () => { },
     isLoading: false
 };
 
@@ -20,11 +20,10 @@ export const useKelas = () => useContext(KelasContext);
 export const KelasProvider = ({ children }) => {
     const [daftarKelas, setDaftarKelas] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [location, setLocation] = useState('')
+    const [location, setLocation] = useState('');
 
     const handleFetch = async () => {
         const data = await apiGetKelas();
-        console.log(data);
         setDaftarKelas(data);
     };
 
@@ -40,9 +39,9 @@ export const KelasProvider = ({ children }) => {
     };
 
 
-    useEffect(() => {
-        handleFetch();
-    }, []);
+    // useEffect(() => {
+    //     handleFetch();
+    // }, []);
 
     const handleDelete = (id) => {
         if (isLoading) return;
@@ -60,16 +59,16 @@ export const KelasProvider = ({ children }) => {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then(() => {
-            setDaftarKelas(prevList => prevList.filter(kelas => kelas.id !== id));
-            setIsLoading(false);
-            alert("Berhasil Mendelete");
-        })
-        .catch(error => {
-            console.error("Error deleting kelas:", error.response ? error.response.data : error.message);
-            setIsLoading(false);
-            alert("Gagal mendelete kelas");
-        });
+            .then(() => {
+                setDaftarKelas(prevList => prevList.filter(kelas => kelas.id !== id));
+                setIsLoading(false);
+                alert("Berhasil Mendelete");
+            })
+            .catch(error => {
+                console.error("Error deleting kelas:", error.response ? error.response.data : error.message);
+                setIsLoading(false);
+                alert("Gagal mendelete kelas");
+            });
     };
 
     const handleUpdate = (id, updatedData) => {
@@ -84,20 +83,31 @@ export const KelasProvider = ({ children }) => {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then(response => {
-            setDaftarKelas(prevList => prevList.map(kelas => 
-                kelas.id === id ? { ...kelas, ...updatedData } : kelas
-            ));
-            alert("Berhasil Mengupdate");
-            return response
-        })
-        .catch(error => {
-            console.error("Error updating kelas:", error.response ? error.response.data : error.message);
-           
-        })};
+            .then(response => {
+                setDaftarKelas(prevList => prevList.map(kelas =>
+                    kelas.id === id ? { ...kelas, ...updatedData } : kelas
+                ));
+                alert("Berhasil Mengupdate");
+                return response
+            })
+            .catch(error => {
+                console.error("Error updating kelas:", error.response ? error.response.data : error.message);
+
+            })
+    };
 
     return (
-        <KelasContext.Provider value={{ daftarKelas, setDaftarKelas, location, handleFetch, handleAdd, handleDelete, handleUpdate, setLocation  }}>
+        <KelasContext.Provider value={{
+            daftarKelas,
+            location,
+            isLoading,
+            setDaftarKelas,
+            handleFetch,
+            handleAdd,
+            handleDelete,
+            handleUpdate,
+            setLocation
+        }}>
             {children}
         </KelasContext.Provider>
     )

@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { API_URL, http } from '../../config/Url';
+import { getToken, getTokenGuru } from '../../config/Api';
 // import { useParams } from 'react-router-dom';
 
 // const { kelas_id } = useParams()
@@ -33,6 +34,51 @@ export const addJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
         });
 };
 
+//memanggil api kelas
+export const apiGetKelas = async (role) => {
+    const token = role == 'Admin' ? getToken() : getTokenGuru()
+
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${API_URL}/kelas`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then((response) => {
+            return response.data.data.kelas;
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+};
+
+// Fungsi untuk mengambil data jurnal
+export const apiGetJurnal = () => {
+
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${http}/kbm`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(response => {
+            console.log(`respon apiGetjurnal: ${response}`);
+            return response.data.data.dataKbm;
+        })
+        .catch(error => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+};
+
 //memanggil api jurnal by id jurnal
 export const apiGetJurnalById = () => {
     const token = localStorage.getItem("guruToken");
@@ -56,7 +102,7 @@ export const apiGetJurnalById = () => {
         });
 }
 
-export const apiGetJurnalByTanggal = async (tanggal) => {
+export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error("Token not found. Please login again.");
@@ -68,7 +114,6 @@ export const apiGetJurnalByTanggal = async (tanggal) => {
     })
         .then(response => {
             console.log(response)
-            alert('ada kbm pada tanggal ini')
             return response.data.data.dataKbm;
         })
         .catch(error => {
@@ -77,27 +122,7 @@ export const apiGetJurnalByTanggal = async (tanggal) => {
         });
 }
 
-// Fungsi untuk mengambil data jurnal
-export const apiGetJurnal = () => {
 
-    const token = localStorage.getItem("guruToken");
-    if (!token) {
-        console.error("Token not found. Please login again.");
-        return { message: "Token not found. Please login again." };
-    }
-
-    return axios.get(`${http}/kbm`, {
-        headers: { Authorization: `Bearer ${token}` }
-    })
-        .then(response => {
-            console.log(`respon apiGetjurnal: ${response}`);
-            return response.data.data.dataKbm;
-        })
-        .catch(error => {
-            console.error("Error fetching data: ", error);
-            return error.response?.data ?? { message: "Unknown error" };
-        });
-};
 
 // Fungsi untuk menghapus jurnal
 export const deleteJurnal = async (id) => {
