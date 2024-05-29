@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+// import React { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import { useSiswa } from './SiswaProvider';
 import { useKelas } from '../crud-kelas/KelasProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
     const { handleDelete, handleUpdate } = useSiswa();
