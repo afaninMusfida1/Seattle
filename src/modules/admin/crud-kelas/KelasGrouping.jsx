@@ -9,16 +9,16 @@ import KelasItem from "./KelasItem";
 const KelasGrouping = (props) => {
     const navigate = useNavigate();
     const { actionSetPage } = useLayout();
-    const { daftarKelas, nama_kelas, setdDaftarKelas, handleFetch, location } = useKelas();
+    const { daftarKelas, nama_kelas, setdDaftarKelas, handleFetch, location, setLocation } = useKelas();
     const [filter, setFilter] = useState('');
 
     // useEffect(() => {
     //     actionSetPage('Lihat Rekap');
     // }, []);
 
-    function handleChangeAbsen() {
-        navigate('/rekap-absen');
-    }
+    // function handleChangeAbsen() {
+    //     navigate('/rekap-absen');
+    // }
 
     function handleChangeJurnal() {
         navigate('/rekap-jurnal');
@@ -38,7 +38,6 @@ const KelasGrouping = (props) => {
         if (filter === '') return true;
         return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
     });
-
 
     return (
         <>

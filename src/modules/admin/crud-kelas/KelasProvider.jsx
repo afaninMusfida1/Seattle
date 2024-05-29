@@ -89,6 +89,7 @@ export const KelasProvider = ({ children }) => {
                 kelas.id === id ? { ...kelas, ...updatedData } : kelas
             ));
             alert("Berhasil Mengupdate");
+            return response
         })
         .catch(error => {
             console.error("Error updating kelas:", error.response ? error.response.data : error.message);
