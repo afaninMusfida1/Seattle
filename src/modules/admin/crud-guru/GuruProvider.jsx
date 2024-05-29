@@ -28,6 +28,7 @@ export const GuruProvider = ({ children }) => {
     const handleFetch = async () => {
         const data = await apiGetGuru(); 
         setGuruList(data); 
+        console.log(guruList)
     };
 
     const handleAdd = async (nama, email, password) => {

@@ -76,7 +76,7 @@ const TambahSiswa = () => {
                     className="block w-[400px] border rounded px-4 py-2 outline-none text-[#6A6D76] h-[40px] mb-[15px]"
                 >
                     <option value="" hidden>Kelas</option>
-                    {daftarKelas && daftarKelas.length > 0 ? (
+                    { daftarKelas.length > 0 ? (
                         daftarKelas.map((kelas) => (
                             <option key={kelas.id} value={kelas.id}>{kelas.nama_kelas}</option>
                         ))

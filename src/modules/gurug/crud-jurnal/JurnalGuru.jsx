@@ -28,8 +28,6 @@ const JurnalGuru = () => {
     const groupedKelas = daftarKelas.length == 0 ? [] :
         Object.groupBy(daftarKelas, ({ kategori }) => kategori)
 
-    console.log(groupedKelas)
-
     return (
 
         <div className="mt-[50px]">
