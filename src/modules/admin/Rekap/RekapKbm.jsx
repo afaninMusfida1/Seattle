@@ -35,7 +35,7 @@ const RekapKbm = () => {
                             jurnalList.map(jurnal => (
                                 <RekapItem
                                     key={jurnal.id}
-                                   
+                                    id={jurnal.id}
                                     kelas_id={jurnal.kelas_id}
                                     guru_id={jurnal.guru_id}
                                     hasil_belajar={jurnal.hasil_belajar}
