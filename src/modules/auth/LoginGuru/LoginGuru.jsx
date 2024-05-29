@@ -7,8 +7,8 @@ const LoginGuru = () => {
     const navigate = useNavigate();
     const { doLoginGuru } = useAuth();
     const [namaGuru, setNamaGuru] = useState("hambaAllah");
-    const [email, setEmail] = useState("santi@gmail.com");
-    const [password, setPassword] = useState("12345678");
+    const [email, setEmail] = useState("fani@gmail.com");
+    const [password, setPassword] = useState("fani1234");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginError, setLoginError] = useState(null)
 

@@ -33,13 +33,13 @@ function Dashboard() {
         <div className=" mt-[50px] ml-[100px] mr-[100px] grid gap-8">
             <div className="">
                 <Popup trigger=
-                    {<button className="pengumuman bg-[#078DCC] rounded-[30px] p-8 flex justify-between w-full overflow-hidden h-[230px]">
+                    {<div className="pengumuman cursor-pointer bg-[#078DCC] rounded-[30px] p-8 flex justify-between w-full overflow-hidden h-[230px]">
                         <div className="self-end ">
                             <h1 className="font-poppins font-semibold text-[#FBFBFB] text-left pt-20 text-4xl">{makeTitle}</h1>
                             <h1 className=" font-poppins text-[#FFFFFF] text-lg pt-3 mr-8  max-h-11 overflow-hidden text-left">{makeContent}</h1>
                         </div>
                         <button onClick={() => alert`awas`()} className="bg-white opacity-50 rounded-full p-2 text-center self-end text-6xl font-bold text-slate-400 ">+</button>
-                    </button>}
+                    </div>}
                     modal nested >
                     {
                         close => (
