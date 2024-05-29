@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLayout } from '../../layout/LayoutContext';
 import SiswaItem from "./SiswaItem";
 import { useSiswa } from "./SiswaProvider";
