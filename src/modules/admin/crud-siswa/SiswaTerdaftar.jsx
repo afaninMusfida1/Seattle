@@ -18,11 +18,24 @@ const SiswaTerdaftar = () => {
     const [searchNama, setSearchNama] = useState('');
     const [hasSearched, setHasSearched] = useState(false);
     const [isSearching, setIsSearching] = useState(false);
+    const [groupedKelas, setGroupedKelas] = useState({});
 
     useEffect(() => {
         actionSetPageTitle('Daftar Siswa');
         handleFetch();
     }, []);
+
+    useEffect(() => {
+        const grouped = daftarKelas.reduce((acc, curr) => {
+            const { kategori } = curr;
+            if (!acc[kategori]) {
+                acc[kategori] = [];
+            }
+            acc[kategori].push(curr);
+            return acc;
+        }, {});
+        setGroupedKelas(grouped);
+    }, [daftarKelas]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -49,20 +62,25 @@ const SiswaTerdaftar = () => {
                 <div className="flex justify-between items-center mb-4">
                     <form onSubmit={handleSearch} className="flex gap-4">
                         <div className="relative">
-                            <input
-                                type="text"
+                            <select
                                 value={searchKategori}
                                 onChange={(e) => setSearchKategori(e.target.value)}
-                                placeholder="Kategori"
-                                className="bg-slate-200 rounded px-3 py-2 outline-none"
-                            />
+                                className="bg-slate-200 rounded px-3 py-2 outline-none w-[215px]"
+                            >
+                                <option value="" hidden>Kategori</option>
+                                {groupedKelas && Object.entries(groupedKelas).map(([kategori]) => (
+                                    <option key={kategori} value={kategori}>{kategori}</option>
+                                ))}
+                                {!groupedKelas && <option value="">Tidak ada kategori tersedia</option>}
+                            </select>
                             <button
                                 type="submit"
                                 className="absolute right-2 top-2 text-blue-500"
                             >
-                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                <FontAwesomeIcon className="px-[10px]" icon={faMagnifyingGlass} />
                             </button>
                         </div>
+
                         <div className="relative">
                             <select
                                 value={searchKelas}
@@ -70,7 +88,7 @@ const SiswaTerdaftar = () => {
                                 className="bg-slate-200 w-[215px] rounded px-3 py-2 outline-none"
                             >
                                 <option value="" hidden>Kelas</option>
-                                {daftarKelas && daftarKelas.length > 0 ? (
+                                {daftarKelas.length > 0 ? (
                                     daftarKelas.map((kelas) => (
                                         <option key={kelas.id} value={kelas.id}>{kelas.nama_kelas}</option>
                                     ))

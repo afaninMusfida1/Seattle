@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useSiswa } from './SiswaProvider';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
+import { useSiswa } from './SiswaProvider';
 import { useKelas } from '../crud-kelas/KelasProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -14,31 +15,50 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
     const [editedNoTelpOrtu, setEditedNoTelpOrtu] = useState(no_telp_ortu);
     const [editedEmail, setEditedEmail] = useState(email);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+    const [value,setValue] = useState("");
 
     const confirmDelete = () => {
-        const konfirm = confirm("Apakah Anda Yakin Ingin Menghapusnya?");
+        const konfirm = window.confirm("Apakah Anda Yakin Ingin Menghapusnya?");
         if (konfirm) {
             handleDelete(id);
         }
     };
 
-    const getNamaKelas = (kelasId) => {
-        if (!daftarKelas || !Array.isArray(daftarKelas)) {
-            return 'Daftar kelas tidak tersedia';
-        }
-        const kelasData = daftarKelas.find(k => k.id === kelasId);
-        return kelasData ? kelasData.nama_kelas : 'Tidak ada kelas';
-    };
+    console.log(value)
 
-    
-    
+    const handleKelas = (val) => {
+        return setValue(val);
+    }
+
+    const groupedKelas = {};
+    daftarKelas.forEach((kelas) => {
+        if (!groupedKelas[kelas.kategori]) {
+            groupedKelas[kelas.kategori] = [];
+        }
+        groupedKelas[kelas.kategori].push(kelas);
+    });
+
+    // const getNamaKelas = (kelasId) => {
+    //     if (!daftarKelas || !Array.isArray(daftarKelas)) {
+    //         return 'Daftar kelas tidak tersedia';
+    //     }
+    //     const kelasData = daftarKelas.find(k => k.id === kelasId);
+    //     return kelasData ? kelasData.nama_kelas : 'Tidak ada kelas';
+    // };
+
+
+    /**
+     * 
+     * @param e form Event
+     * @returns PopUp Element
+     */
+
     const handleEditSubmit = (e) => {
         e.preventDefault();
         const updatedDataSiswa = {
             nama: editedNama,
             kategori: editedKategori,
-            kelas_id: editedKelas, 
+            kelas_id: editedKelas,
             no_telp_ortu: editedNoTelpOrtu,
             email: editedEmail
         };
@@ -46,13 +66,12 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
         setIsPopupOpen(false);
     };
 
-
     return (
         <>
             <tr className="border-2">
                 <td style={{ padding: '5px' }}>{nama}</td>
                 <td style={{ padding: '5px' }}>{kategori}</td>
-                <td style={{ padding: '5px' }}>{getNamaKelas(kelas)}</td>
+                <td style={{ padding: '5px' }}>{value}</td>
                 <td style={{ padding: '5px' }}>{no_telp_ortu}</td>
                 <td style={{ padding: '5px' }}>{email}</td>
                 <td style={{ padding: '8px' }}>
@@ -83,13 +102,17 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
                             </div>
                             <div>
                                 <label htmlFor="kategori">Kategori:</label>
-                                <input
+                                <select
                                     id="kategori"
-                                    type="text"
                                     value={editedKategori}
                                     onChange={(e) => setEditedKategori(e.target.value)}
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
-                                />
+                                >
+                                    <option value="" hidden>Pilih Kategori</option>
+                                    {daftarKelas.map((kelas) => (
+                                        <option key={kelas.kategori} value={kelas.kategori}>{kelas.kategori}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div>
                                 <label htmlFor="kelas">Kelas:</label>
@@ -100,9 +123,9 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
                                 >
                                     <option value="" hidden>Pilih Kelas</option>
-                                    {daftarKelas && daftarKelas.length > 0 ? (
+                                    {daftarKelas.length > 0 ? (
                                         daftarKelas.map((kelas) => (
-                                            <option key={kelas.id} value={kelas.id}>{kelas.nama_kelas}</option>
+                                            <option key={kelas.id} value={kelas.id} onSelectCapture={() => handleKelas(kelas.id)}>{kelas.nama_kelas}</option>
                                         ))
                                     ) : (
                                         <option value="">Tidak ada kelas tersedia</option>

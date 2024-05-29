@@ -20,7 +20,7 @@ export const addSiswa = (nama, kelas_id, no_telp_ortu, email, password) => {
     const token = getToken();
     if (!token) {
         console.error("Token not found. Please login again.");
-        return Promise.resolve({ success: false, message: "Token not found. Please login again." });
+        return Promise.reject({ message: "Token not found. Please login again." });
     }
 
     const newSiswa = { nama, kelas_id, no_telp_ortu, email, password };
@@ -42,6 +42,7 @@ export const addSiswa = (nama, kelas_id, no_telp_ortu, email, password) => {
         return { success: false, message: error.response ? error.response.data.message : error.message };
     });
 };
+
 
 export const apiGetSiswa = async () => {
     const token = getToken();
@@ -76,14 +77,14 @@ export const deleteSiswa = async (id) => {
         });
 };
 
-export const editSiswa = async (id, kelas_id, updatedSiswa) => {
+export const editSiswa = async (id, updatedSiswa) => {
     const token = getToken();
-    return axios.put(`${API_URL}/siswa/${id}`, kelas_id, updatedSiswa, {
+    return axios.put(`${API_URL}/siswa/${id}`, updatedSiswa, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     })
-        .then(response => response)
+        .then(response => response.data)
         .catch(error => {
             handleUnauthorizedError(error);
             return error.response;
