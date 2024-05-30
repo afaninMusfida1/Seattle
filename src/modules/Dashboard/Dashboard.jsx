@@ -3,9 +3,11 @@ import { useLayout } from "../layout/LayoutContext";
 import { useEffect, useRef, useState } from "react";
 import Popup from 'reactjs-popup';
 import '/src/index.css'
+import { useGuru } from "../admin/crud-guru/GuruProvider";
 
 function Dashboard() {
     const { actionSetPageTitle } = useLayout();
+    const {guruList, handleFetch} = useGuru();
     const [makeTitle, setMakeTitle] = useState('Pengumuman');
     const [makeContent, setMakeContent] = useState('Belum ada pengumuman')
     const title = useRef();
@@ -13,11 +15,10 @@ function Dashboard() {
 
     useEffect(() => {
         actionSetPageTitle('Dashboard')
+        handleFetch();
     }, [])
 
     const handleSubmit = () => {
-
-
         if (title.current.value == '' || content.current.value == '') {
             alert(`mohon isi keduanya`)
             return
@@ -26,6 +27,7 @@ function Dashboard() {
         setMakeContent(content.current.value)
         console.log(`pengumuman:`, title.current.value, content.current.value)
     }
+    // console.log('guruList:', guruList);
 
     return (
         <div className=" mt-[50px] ml-[100px] mr-[100px] grid gap-8">
@@ -70,7 +72,7 @@ function Dashboard() {
                     <div className="icon bg-green-400 w-[80px] h-[80px] rounded-full overflow-hidden"></div>
                     <div className="status flex items-end justify-between ">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Guru terdaftar</h1>
-                        <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">4</h1>
+                        <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">{guruList.length}</h1>
                     </div>
                 </div>
                 <div className=" bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px] ">

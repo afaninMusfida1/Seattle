@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
         // Call the login API
         return handleLoginAdmin(username, password)
             .then(apiResult => {
-                console.log('test', apiResult); // Check response structure
 
                 // If token exists in response data, handle login
                 if (apiResult && apiResult.data.token) {

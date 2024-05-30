@@ -12,9 +12,9 @@ const KelasGrouping = (props) => {
     const { daftarKelas, nama_kelas, setdDaftarKelas, handleFetch, location, setLocation } = useKelas();
     const [filter, setFilter] = useState('');
 
-    // useEffect(() => {
-    //     actionSetPage('Lihat Rekap');
-    // }, []);
+    useEffect(() => {
+        handleFetch()
+    }, []);
 
     // function handleChangeAbsen() {
     //     navigate('/rekap-absen');

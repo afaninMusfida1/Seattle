@@ -9,4 +9,4 @@ const GuruWrapper = ({children}) => {
     )
 }
 
-export default GuruWrapper
+export default GuruWrapper;
