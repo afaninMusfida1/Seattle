@@ -70,6 +70,7 @@ const KelasGrouping = (props) => {
                                     jadwal_kelas={kelas.jadwal_kelas}
                                     // namaKelas={setNamaKelas}
                                     navigateTo={`/guru/kelas/${kelas.id}/jurnal`}
+                                    // navigateTo={location}
                                 />
                             ))
                         ) : (

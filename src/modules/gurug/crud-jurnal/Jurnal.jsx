@@ -83,6 +83,7 @@ const Jurnal = () => {
         const hasil_belajar = refHasil_belajar.current.value;
         const result = await handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
         if (result) {
+            console.log(result)
             navigate('/guru/rekap/lihat');
         }
         refHasil_belajar.current.value = "";
@@ -99,7 +100,7 @@ const Jurnal = () => {
                 {isChecking ? (
                     <>
 
-                        <div className='flex gap-6'>
+                        <div className='flex gap-6 relative'>
                             <input
                                 type='date'
                                 value={tanggal}
@@ -109,6 +110,11 @@ const Jurnal = () => {
                             <button onClick={() => checkJurnal(kelas_id, tanggal)} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
                                 Cek Jurnal
                             </button>
+                            <span
+                                onClick={() => navigate('/guru/kelas/:kelas_id/rekap')}
+                                className='absolute right-0 bottom-0 text-[#078DCC] hover:underline cursor-pointer'>
+                                Lihat jurnal
+                            </span>
                         </div>
                     </>
                 ) : (
@@ -152,7 +158,11 @@ const Jurnal = () => {
                                     <>
                                         <div className='flex gap-4'>
                                             <button type="button"
-                                                onClick={handleIsiJurnal}
+                                                onClick={() => {
+                                                    handleIsiJurnal()
+                                                    setTanggal("")
+                                                }
+                                                }
                                                 className="mt-[100px] grow py-2 font-poppins bg-[#078DCC] text-white rounded-md outline-none">
                                                 Buat Jurnal
                                             </button>
@@ -170,7 +180,7 @@ const Jurnal = () => {
                             </form>
                         </div>
                         <div className='self-end text-right'>
-                            <button onClick={() => navigate('/guru/rekap/lihat')} className='text-[#078DCC] hover:underline'>
+                            <button onClick={() => navigate('/guru/kelas/:kelas_id/rekap')} className='text-[#078DCC] hover:underline'>
                                 Lihat Jurnal
                             </button>
                         </div>

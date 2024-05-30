@@ -103,6 +103,26 @@ export const apiGetJurnalById = () => {
         });
 }
 
+export const apiGetJurnalByKelas = async (kelas_id) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${API_URL}/kbm/kelas/${kelas_id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(response => {
+            console.log(`respon get jurnal by kelas`, response);
+            return response.data.data.dataKbm;
+        })
+        .catch(error => {
+            console.error('Error checking jurnal:', error.response ? error.response.data : error.message);
+            return { success: false, message: error.response ? error.response.data.message : error.message };
+        });
+}
+
 export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {
@@ -110,11 +130,11 @@ export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
         return { message: "Token not found. Please login again." };
     }
 
-    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, {tanggal}, {
+    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, { tanggal }, {
         headers: { Authorization: `Bearer ${token}` }
     })
         .then(response => {
-            console.log(`respon cek jurnal`,response)
+            console.log(`respon cek jurnal`, response)
             return response.data.data.dataKbm;
         })
         .catch(error => {
@@ -148,14 +168,14 @@ export const deleteJurnal = async (id) => {
 };
 
 // Fungsi untuk mengedit jurnal
-export const editJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
+export const editJurnal = async (id, updatedData) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error('Token not found. Please login again.');
         return { message: 'Token not found. Please login again.' };
     }
 
-    const edits = await axios.put(`${API_URL}/kbm/${id}`, { kelas_id, guru_id, hasil_belajar, tanggal }, {
+    const edits = await axios.put(`${API_URL}/kbm/${id}`, { updatedData }, {
         headers: {
             Authorization: `Bearer ${token}`
         },

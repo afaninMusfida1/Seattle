@@ -1,7 +1,7 @@
 import { React, createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { http } from '../../config/Url';
-import { addJurnal, apiGetJurnal, apiGetKelas, apiGetJurnalByTanggal, deleteJurnal, editJurnal } from './requestsJurnal';
+import { addJurnal, apiGetJurnal, apiGetKelas, apiGetJurnalByTanggal, deleteJurnal, editJurnal, apiGetJurnalByKelas } from './requestsJurnal';
 
 const initJurnalState = {
     jurnalList: [],
@@ -9,6 +9,7 @@ const initJurnalState = {
     isLoading: false,
     location: '',
     handleFetchJurnal: () => { },
+    handleGetJurnalByKelas: () => { },
     handleCheckKbm: () => { },
     handleFetchKelas: () => { },
     handleAdd: () => { },
@@ -57,6 +58,16 @@ export const JurnalProvider = ({ children }) => {
         return apiCall
     };
 
+    const handleGetJurnalByKelas = async (kelas_id) => {
+        if (isLoading) return
+        setIsLoading(true)
+
+        const apiCall = await apiGetJurnalByKelas(kelas_id);
+        setIsLoading(false)
+
+        return apiCall;
+    }
+
     const handleDelete = async (id) => {
         if (isLoading) return
         const token = localStorage.getItem('guruToken');
@@ -70,12 +81,12 @@ export const JurnalProvider = ({ children }) => {
         return apiCall;
     };
 
-    const handleUpdate = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
+    const handleUpdate = async (id, updatedData) => {
         if (isLoading) return
         const token = localStorage.getItem('guruToken');
-   
+
         setIsLoading(true)
-        const apiCall = await editJurnal(kelas_id, guru_id, hasil_belajar, tanggal);
+        const apiCall = await editJurnal(id, updatedData);
         setIsLoading(false)
         return apiCall
     };
@@ -85,10 +96,12 @@ export const JurnalProvider = ({ children }) => {
         <JurnalContext.Provider value={{
             daftarKelas,
             jurnalList,
+            setJurnalList,
             isLoading,
             location,
             handleAdd,
             handleFetchJurnal,
+            handleGetJurnalByKelas,
             handleCheckKbm,
             handleFetchKelas,
             handleDelete,

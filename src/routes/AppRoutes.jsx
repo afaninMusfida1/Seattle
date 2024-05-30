@@ -62,7 +62,7 @@ const AppRoutes = () => {
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
               <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
               <Route path="/guru/rekap" element={<RekapGuru />} />
-              <Route path="/guru/rekap/lihat" element={<RekapKbm />} />
+              <Route path="/guru/kelas/:kelas_id/rekap" element={<RekapKbm />} />
             </Route>
 
             <Route element={<SiswaLayout />}>
