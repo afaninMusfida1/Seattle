@@ -81,12 +81,12 @@ export const JurnalProvider = ({ children }) => {
         return apiCall;
     };
 
-    const handleUpdate = async (id, updatedData) => {
+    const handleUpdate = async (id, kelas_id, hasil_belajar, tanggal) => {
         if (isLoading) return
         const token = localStorage.getItem('guruToken');
 
         setIsLoading(true)
-        const apiCall = await editJurnal(id, updatedData);
+        const apiCall = await editJurnal(id, kelas_id, hasil_belajar, tanggal);
         setIsLoading(false)
         return apiCall
     };

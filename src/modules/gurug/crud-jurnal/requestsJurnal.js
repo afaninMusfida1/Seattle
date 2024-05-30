@@ -134,7 +134,7 @@ export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
         headers: { Authorization: `Bearer ${token}` }
     })
         .then(response => {
-            console.log(`respon cek jurnal`, response)
+            console.log(`respon cek jurnal`, response.data.data.dataKbm)
             return response.data.data.dataKbm;
         })
         .catch(error => {
@@ -168,14 +168,14 @@ export const deleteJurnal = async (id) => {
 };
 
 // Fungsi untuk mengedit jurnal
-export const editJurnal = async (id, updatedData) => {
+export const editJurnal = async (id, kelas_id, hasil_belajar, tanggal) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error('Token not found. Please login again.');
         return { message: 'Token not found. Please login again.' };
     }
 
-    const edits = await axios.put(`${API_URL}/kbm/${id}`, { updatedData }, {
+    const edits = await axios.put(`${API_URL}/kbm/${id}`, { kelas_id, hasil_belajar, tanggal }, {
         headers: {
             Authorization: `Bearer ${token}`
         },
