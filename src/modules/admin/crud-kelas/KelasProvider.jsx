@@ -38,7 +38,6 @@ export const KelasProvider = ({ children }) => {
         return apiCall;
     };
 
-
     // useEffect(() => {
     //     handleFetch();
     // }, []);

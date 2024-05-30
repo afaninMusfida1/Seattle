@@ -1,67 +1,41 @@
-/* eslint-disable react/prop-types */
-// import React { useEffect, useState } from 'react';
-import Popup from 'reactjs-popup';
-import { useSiswa } from './SiswaProvider';
-import { useKelas } from '../crud-kelas/KelasProvider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from "react";
+import { useKelas } from "../crud-kelas/KelasProvider";
+import { useSiswa } from "./SiswaProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import Popup from "reactjs-popup";
 
-const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
+const SiswaItem = ({ id, nama, kategori, no_telp_ortu, email, nama_kelas, password }) => {
     const { handleDelete, handleUpdate } = useSiswa();
-    const { daftarKelas } = useKelas();
+    const { daftarKelas, getNamaKelas } = useKelas();
     const [editedNama, setEditedNama] = useState(nama);
-    const [editedKategori, setEditedKategori] = useState(kategori);
-    const [editedKelas, setEditedKelas] = useState(kelas);
+    // const [editedKategori, setEditedKategori] = useState(kategori);
+    const [editedKelasId, setEditedKelasId] = useState(nama_kelas);
     const [editedNoTelpOrtu, setEditedNoTelpOrtu] = useState(no_telp_ortu);
     const [editedEmail, setEditedEmail] = useState(email);
+    const [editedPassword, setEditedPassword] = useState(password);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [value,setValue] = useState("");
 
     const confirmDelete = () => {
-        const konfirm = window.confirm("Apakah Anda Yakin Ingin Menghapusnya?");
+        const konfirm = confirm("Apakah Anda Yakin Ingin Menghapusnya?");
         if (konfirm) {
             handleDelete(id);
         }
     };
 
-    console.log(value)
-
-    const handleKelas = (val) => {
-        return setValue(val);
-    }
-
-    const groupedKelas = {};
-    daftarKelas.forEach((kelas) => {
-        if (!groupedKelas[kelas.kategori]) {
-            groupedKelas[kelas.kategori] = [];
-        }
-        groupedKelas[kelas.kategori].push(kelas);
-    });
-
-    // const getNamaKelas = (kelasId) => {
-    //     if (!daftarKelas || !Array.isArray(daftarKelas)) {
-    //         return 'Daftar kelas tidak tersedia';
-    //     }
-    //     const kelasData = daftarKelas.find(k => k.id === kelasId);
-    //     return kelasData ? kelasData.nama_kelas : 'Tidak ada kelas';
-    // };
-
-
-    /**
-     * 
-     * @param e form Event
-     * @returns PopUp Element
-     */
+    useEffect(() => {
+        setEditedPassword(password);
+    }, []);
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
         const updatedDataSiswa = {
             nama: editedNama,
-            kategori: editedKategori,
-            kelas_id: editedKelas,
+            // kategori: editedKategori,
+            kelas_id: editedKelasId,
             no_telp_ortu: editedNoTelpOrtu,
-            email: editedEmail
+            email: editedEmail,
+            password: editedPassword
         };
         handleUpdate(id, updatedDataSiswa);
         setIsPopupOpen(false);
@@ -72,7 +46,7 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
             <tr className="border-2">
                 <td style={{ padding: '5px' }}>{nama}</td>
                 <td style={{ padding: '5px' }}>{kategori}</td>
-                <td style={{ padding: '5px' }}>{value}</td>
+                <td style={{ padding: '5px' }}>{nama_kelas}</td>
                 <td style={{ padding: '5px' }}>{no_telp_ortu}</td>
                 <td style={{ padding: '5px' }}>{email}</td>
                 <td style={{ padding: '8px' }}>
@@ -101,7 +75,7 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
                                 />
                             </div>
-                            <div>
+                            {/* <div>
                                 <label htmlFor="kategori">Kategori:</label>
                                 <select
                                     id="kategori"
@@ -114,19 +88,19 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
                                         <option key={kelas.kategori} value={kelas.kategori}>{kelas.kategori}</option>
                                     ))}
                                 </select>
-                            </div>
+                            </div> */}
                             <div>
                                 <label htmlFor="kelas">Kelas:</label>
                                 <select
                                     id="kelas"
-                                    value={editedKelas}
-                                    onChange={(e) => setEditedKelas(e.target.value)}
+                                    value={editedKelasId}
+                                    onChange={(e) => setEditedKelasId(e.target.value)}
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
                                 >
                                     <option value="" hidden>Pilih Kelas</option>
                                     {daftarKelas.length > 0 ? (
                                         daftarKelas.map((kelas) => (
-                                            <option key={kelas.id} value={kelas.id} onSelectCapture={() => handleKelas(kelas.id)}>{kelas.nama_kelas}</option>
+                                            <option key={kelas.nama_kelas} value={kelas.nama_kelas}>{kelas.nama_kelas}</option>
                                         ))
                                     ) : (
                                         <option value="">Tidak ada kelas tersedia</option>
@@ -150,6 +124,15 @@ const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
                                     // type="email"
                                     value={editedEmail}
                                     onChange={(e) => setEditedEmail(e.target.value)}
+                                    className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="password">Password:</label>
+                                <input
+                                    id="password"
+                                    value={editedPassword}
+                                    onChange={(e) => setEditedPassword(e.target.value)}
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
                                 />
                             </div>

@@ -60,7 +60,8 @@ const SiswaTerdaftar = () => {
         <>
             <div className="bg-white rounded-[30px] ml-[100px] mr-[100px] mt-[50px] p-8">
                 <div className="flex justify-between items-center mb-4">
-                    <form onSubmit={handleSearch} className="flex gap-4">
+                    <form onSubmit={handleSearch}
+                        className="flex gap-4">
                         <div className="relative">
                             <select
                                 value={searchKategori}
@@ -88,13 +89,14 @@ const SiswaTerdaftar = () => {
                                 className="bg-slate-200 w-[215px] rounded px-3 py-2 outline-none"
                             >
                                 <option value="" hidden>Kelas</option>
-                                {daftarKelas.length > 0 ? (
-                                    daftarKelas.map((kelas) => (
-                                        <option key={kelas.id} value={kelas.id}>{kelas.nama_kelas}</option>
-                                    ))
-                                ) : (
-                                    <option value="">Tidak ada kelas tersedia</option>
-                                )}
+                                {groupedKelas && Object.entries(groupedKelas).map(([kategori, kelasList]) => (
+                                    <optgroup key={kategori} label={kategori}>
+                                        {kelasList.map((kelas) => (
+                                            <option key={kelas.id} value={kelas.id}>{kelas.nama_kelas}</option>
+                                        ))}
+                                    </optgroup>
+                                ))}
+                                {!groupedKelas && <option value="">Tidak ada kelas tersedia</option>}
                             </select>
                             <button
                                 type="submit"
@@ -140,9 +142,10 @@ const SiswaTerdaftar = () => {
                                         id={siswa.id}
                                         nama={siswa.nama}
                                         kategori={siswa.kategori}
-                                        kelas={siswa.kelas_id}
+                                        nama_kelas={siswa.nama_kelas}
                                         no_telp_ortu={siswa.no_telp_ortu}
                                         email={siswa.email}
+                                        password={siswa.password}
                                     />
                                 ))
                             ) : (
