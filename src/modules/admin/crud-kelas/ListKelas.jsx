@@ -35,11 +35,13 @@ const ListKelas = () => {
         setFilter(event.target.value);
     }
 
-    const filteredKelas = daftarKelas.filter(kelas => {
-        if (filter === '') return true;
-        return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
-    });
+    // const filteredKelas = daftarKelas.filter(kelas => {
+    //     if (filter === '') return true;
+    //     return kelas.jadwal_kelas.toLowerCase().includes(filter.toLowerCase());
+    // });
 
+    const groupedKelas = daftarKelas.length == 0 ? [] :
+        Object.groupBy(daftarKelas, ({ kategori }) => kategori)
 
 
     return (
