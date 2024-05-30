@@ -49,6 +49,7 @@ export const apiGetKelas = async (role) => {
         }
     })
         .then((response) => {
+            console.log(`respon get kelas: `, response)
             return response.data.data.kelas;
         })
         .catch((error) => {
@@ -70,7 +71,7 @@ export const apiGetJurnal = () => {
         headers: { Authorization: `Bearer ${token}` }
     })
         .then(response => {
-            console.log(`respon apiGetjurnal: ${response}`);
+            console.log(`respon apiGetjurnal:`, response);
             return response.data.data.dataKbm;
         })
         .catch(error => {
@@ -109,11 +110,11 @@ export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
         return { message: "Token not found. Please login again." };
     }
 
-    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, tanggal, {
+    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, {tanggal}, {
         headers: { Authorization: `Bearer ${token}` }
     })
         .then(response => {
-            console.log(response)
+            console.log(`respon cek jurnal`,response)
             return response.data.data.dataKbm;
         })
         .catch(error => {
@@ -160,6 +161,7 @@ export const editJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
         },
     })
         .then((response) => {
+            console.log(response)
             return response;
         })
         .catch((error) => {

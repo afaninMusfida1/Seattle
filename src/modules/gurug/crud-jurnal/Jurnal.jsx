@@ -12,9 +12,9 @@ import Swal from 'sweetalert2'
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, jurnalList, handleFetchJurnal, isLoading } = useJurnal();
+    const { handleAdd, handleCheckKbm, jurnalList, handleFetchJurnal, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
-    const { kelas_id, guru_id } = useParams()
+    const { kelas_id, guru_id } = useParams();
     const refKelas_id = useRef('');
     const refHasil_belajar = useRef('');
     const [namaGuru, setNamaGuru] = useState("");
@@ -32,37 +32,37 @@ const Jurnal = () => {
         handleFetchJurnal()
     }, []);
 
-    const checkJurnal = async () => {
-        const result = await apiGetJurnalByTanggal(kelas_id, tanggal)
-        console.log(`data kbm`, result)
-
-        if (tanggal == '') {
+    const checkJurnal = async (kelas_id, tanggal) => {
+        if (!tanggal) {
             Swal.fire({
                 title: 'Perhatian',
                 text: 'mohon isi tanggal terlebih dahulu',
                 icon: 'warning',
                 confirmButtonText: 'Oke'
-            })
-        } else if (result.length == 0) {
-            setJurnalIsAvailable(false)
+            });
+            return;
+        }
+
+        const result = await handleCheckKbm(kelas_id, tanggal)
+
+        if (result.length === 0) {
+            setJurnalIsAvailable(false);
             Swal.fire({
-                title: 'Perhatian',
+                title: 'Informasi',
                 text: 'belum ada jurnal, silahkan isi',
                 icon: 'info',
                 confirmButtonText: 'Oke'
             })
-            setIsChecking(false)
-        } else if (result.length != 0) {
+        } else {
             setJurnalIsAvailable(true)
             Swal.fire({
                 title: 'Informasi',
-                text: 'ditemukan jurnal, silahkan update',
+                text: 'Ditemukan jurnal, silahkan update',
                 icon: 'info',
-                confirmButtonText: 'Lanjut'
-            })
-            setIsChecking(false)
-        }
-
+                confirmButtonText: 'Oke'
+            });
+        };
+        setIsChecking(false)
         // if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
         //     setJurnalIsAvailable(true)
         // } else if (jurnalList == 0) { // jika data kbm pada tanggal itu belum ada maka set false
@@ -71,13 +71,19 @@ const Jurnal = () => {
     }
 
     const handleIsiJurnal = async () => {
-        if (!refHasil_belajar.current.value || tanggal == "") {
-            alert('mohon isi semua form');
+        if (!refHasil_belajar.current.value || !tanggal) {
+            Swal.fire({
+                title: 'Perhatian',
+                text: 'mohon isi semua form',
+                icon: 'warning',
+                confirmButtonText: 'Oke'
+            })
             return;
         }
         const hasil_belajar = refHasil_belajar.current.value;
-        const result = handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
+        const result = await handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
         if (result) {
+            console.log(result)
             navigate('/guru/rekap/lihat');
         }
         refHasil_belajar.current.value = "";
@@ -93,57 +99,80 @@ const Jurnal = () => {
             <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8" >
                 {isChecking ? (
                     <>
-                   
-                    <div className='flex gap-6'>
-                        <input
-                            // selected={tanggal}
-                            onChange={(tanggal) => setTanggal(tanggal)}
-                            type='date'
-                            className='outline-none w-[15rem] text-left py-2 rounded border px-3 bg-[#DCE5F1]'
-                            id='tanggal' />
-                        <button onClick={checkJurnal} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
-                            Cek Jurnal
-                        </button>
-                    </div>
-                    <span className='text-[12px] opacity-50 text-orange-500'>* isi tanggal terlebih dahulu</span>
+
+                        <div className='flex gap-6 relative'>
+                            <input
+                                type='date'
+                                value={tanggal}
+                                onChange={(e) => setTanggal(e.target.value)}
+                                className='outline-none w-[15rem] text-left py-2 rounded border px-3 bg-[#DCE5F1]'
+                                id='tanggal' />
+                            <button onClick={() => checkJurnal(kelas_id, tanggal)} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
+                                Cek Jurnal
+                            </button>
+                            <span
+                                onClick={() => navigate('/guru/rekap/lihat')}
+                                className='absolute right-0 bottom-0 text-[#078DCC] hover:underline cursor-pointer'>
+                                Lihat jurnal
+                            </span>
+                        </div>
                     </>
                 ) : (
                     <div className='grid grid-flow-col'>
                         <div className='flex flex-col'>
                             <form className='flex flex-col gap-4'>
-                                <input
-                                    type='date'
-                                    value={tanggal}
-                                    onChange={(tanggal) => setTanggal(tanggal)}
+                                <div
+                                    // type='date'
+                                    // defaultValue={tanggal}
+                                    onChange={(e) => setTanggal(e.target.value)}
                                     className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
-                                    id='tanggal' />
+                                    id='tanggal'>
+                                    {tanggal}
+                                </div>
                                 <textarea
                                     name="materi"
                                     id="materi"
-                                    placeholder='Materi'
+                                    placeholder='Materi - chapter'
                                     ref={refHasil_belajar}
                                     className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
                                 ></textarea>
-                                {jurnalIsAvailable ?
-                                    <button type="button"
-                                        onClick={async () => {
-                                            await handleIsiJurnal()
-                                        }
-                                        }
-                                        className="mt-[100px] py-2 font-poppins text-[16px] border-2 bg-green-400 text-white rounded-md outline-none">
-                                        update Jurnal
-                                    </button>
-                                    :
-                                    <button type="button"
-                                        onClick={async () => {
-                                            await handleIsiJurnal()
-                                        }
-                                        }
-                                        className="mt-[100px] py-2 font-poppins text-[16px] border-2 bg-[#078DCC] text-white rounded-md outline-none">
-                                        Buat Jurnal
-                                    </button>
-                                }
-
+                                {jurnalIsAvailable ? (
+                                    <>
+                                        <div className='flex gap-4' >
+                                            <button type="button"
+                                                onClick={handleIsiJurnal}
+                                                className="mt-[100px] grow py-2 font-poppins text-[16px] bg-green-400 text-white rounded-md outline-none">
+                                                Update Jurnal
+                                            </button>
+                                            <button type='button'
+                                                onClick={() => {
+                                                    setIsChecking(true)
+                                                    setTanggal("")
+                                                }}
+                                                className='bg-red-400 py-2 px-6 text-white mt-[100px] rounded-md '>
+                                                batal
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className='flex gap-4'>
+                                            <button type="button"
+                                                onClick={handleIsiJurnal}
+                                                className="mt-[100px] grow py-2 font-poppins bg-[#078DCC] text-white rounded-md outline-none">
+                                                Buat Jurnal
+                                            </button>
+                                            <button type='button'
+                                                onClick={() => {
+                                                    setIsChecking(true)
+                                                    setTanggal("")
+                                                }}
+                                                className='bg-red-400 py-2 px-6 text-white mt-[100px] rounded-md '>
+                                                batal
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </form>
                         </div>
                         <div className='self-end text-right'>

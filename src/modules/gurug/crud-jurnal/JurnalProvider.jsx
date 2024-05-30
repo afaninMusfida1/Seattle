@@ -9,6 +9,7 @@ const initJurnalState = {
     isLoading: false,
     location: '',
     handleFetchJurnal: () => { },
+    handleCheckKbm: () => { },
     handleFetchKelas: () => { },
     handleAdd: () => { },
     handleDelete: () => { },
@@ -27,13 +28,11 @@ export const JurnalProvider = ({ children }) => {
 
     const handleFetchJurnal = async () => {
         const data = await apiGetJurnal();
-        console.log(`data jurnal`, data)
         setJurnalList(data);
     };
 
     const handleFetchKelas = async () => {
         const data = await apiGetKelas();
-        console.log(`data kelas`, data)
         setDaftarKelas(data)
     };
 
@@ -48,11 +47,11 @@ export const JurnalProvider = ({ children }) => {
     };
 
     //comming soon code
-    const handleCheckKbm = async (hasil_belajar, tanggal) => {
+    const handleCheckKbm = async (kelas_id, tanggal) => {
         if (isLoading) return
         setIsLoading(true)
 
-        const apiCall = await apiGetJurnalByTanggal(tanggal);
+        const apiCall = await apiGetJurnalByTanggal(kelas_id, tanggal);
         setIsLoading(false)
 
         return apiCall
@@ -74,10 +73,7 @@ export const JurnalProvider = ({ children }) => {
     const handleUpdate = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
         if (isLoading) return
         const token = localStorage.getItem('guruToken');
-        if (!token) {
-            console.error("Token not found. Please login again.");
-            return;
-        }
+   
         setIsLoading(true)
         const apiCall = await editJurnal(kelas_id, guru_id, hasil_belajar, tanggal);
         setIsLoading(false)
@@ -93,6 +89,7 @@ export const JurnalProvider = ({ children }) => {
             location,
             handleAdd,
             handleFetchJurnal,
+            handleCheckKbm,
             handleFetchKelas,
             handleDelete,
             handleUpdate

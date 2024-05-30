@@ -37,7 +37,9 @@ const RekapKbm = () => {
                                     key={jurnal.id}
                                     id={jurnal.id}
                                     kelas_id={jurnal.kelas_id}
+                                    nama_kelas={jurnal.nama_kelas}
                                     guru_id={jurnal.guru_id}
+                                    nama={jurnal.nama}
                                     hasil_belajar={jurnal.hasil_belajar}
                                     tanggal={jurnal.tanggal}
                                 />
