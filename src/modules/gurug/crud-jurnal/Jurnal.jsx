@@ -83,6 +83,7 @@ const Jurnal = () => {
         const hasil_belajar = refHasil_belajar.current.value;
         const result = await handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
         if (result) {
+            console.log(result)
             navigate('/guru/rekap/lihat');
         }
         refHasil_belajar.current.value = "";
@@ -99,7 +100,7 @@ const Jurnal = () => {
                 {isChecking ? (
                     <>
 
-                        <div className='flex gap-6'>
+                        <div className='flex gap-6 relative'>
                             <input
                                 type='date'
                                 value={tanggal}
@@ -109,6 +110,11 @@ const Jurnal = () => {
                             <button onClick={() => checkJurnal(kelas_id, tanggal)} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
                                 Cek Jurnal
                             </button>
+                            <span
+                                onClick={() => navigate('/guru/rekap/lihat')}
+                                className='absolute right-0 bottom-0 text-[#078DCC] hover:underline cursor-pointer'>
+                                Lihat jurnal
+                            </span>
                         </div>
                     </>
                 ) : (
