@@ -4,10 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import Popup from 'reactjs-popup';
 import '/src/index.css'
 import { useGuru } from "../admin/crud-guru/GuruProvider";
+import { useSiswa } from "../admin/crud-siswa/SiswaProvider";
+import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAddressCard, faChalkboardUser } from "@fortawesome/free-solid-svg-icons";
+
+
 
 function Dashboard() {
     const { actionSetPageTitle } = useLayout();
-    const {guruList, handleFetch} = useGuru();
+    const {guruList, handleFetch: fetchGuru} = useGuru();
+    const {siswaList, handleFetch: fetchSiswa} = useSiswa();
     const [makeTitle, setMakeTitle] = useState('Pengumuman');
     const [makeContent, setMakeContent] = useState('Belum ada pengumuman')
     const title = useRef();
@@ -15,8 +22,9 @@ function Dashboard() {
 
     useEffect(() => {
         actionSetPageTitle('Dashboard')
-        handleFetch();
-    }, [])
+        fetchGuru();
+        fetchSiswa();
+    }, []);
 
     const handleSubmit = () => {
         if (title.current.value == '' || content.current.value == '') {
@@ -38,7 +46,7 @@ function Dashboard() {
                             <h1 className="font-poppins font-semibold text-[#FBFBFB] text-left pt-20 text-4xl">{makeTitle}</h1>
                             <h1 className=" font-poppins text-[#FFFFFF] text-lg pt-3 mr-8  max-h-11 overflow-hidden text-left">{makeContent}</h1>
                         </div>
-                        <button onClick={() => alert`awas`()} className="bg-white opacity-50 rounded-full p-2 text-center self-end text-6xl font-bold text-slate-400 ">+</button>
+                        <button onClick={() => alert`Isi Form`()} className="bg-white opacity-50 rounded-full p-2 text-center self-end text-6xl font-bold text-slate-400 ">+</button>
                     </div>}
                     modal nested >
                     {
@@ -69,17 +77,17 @@ function Dashboard() {
 
             <div className="flex gap-8">
                 <div className=" bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px] ">
-                    <div className="icon bg-green-400 w-[80px] h-[80px] rounded-full overflow-hidden"></div>
+                    <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center"><FontAwesomeIcon icon={faChalkboardUser} style={{color: "#ffffff",}} className="text-[30px]"/></div>
                     <div className="status flex items-end justify-between ">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Guru terdaftar</h1>
                         <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">{guruList.length}</h1>
                     </div>
                 </div>
                 <div className=" bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px] ">
-                    <div className="icon bg-green-400 w-[80px] h-[80px] rounded-full overflow-hidden"></div>
+                    <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center"><FontAwesomeIcon icon={faAddressCard} style={{color: "#ffffff",}} className="text-[30px]"/></div>
                     <div className="status flex items-end justify-between">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Siswa terdaftar</h1>
-                        <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">489</h1>
+                        <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">{siswaList.length}</h1>
                     </div>
                 </div>
             </div>

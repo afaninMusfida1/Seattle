@@ -34,6 +34,7 @@ import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
 import ListKelas from '../modules/admin/crud-kelas/ListKelas';
 import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
+import { SiswaProvider } from '../modules/admin/crud-siswa/SiswaProvider';
 
 
 
@@ -80,7 +81,7 @@ const AppRoutes = () => {
               <Route path="/siswa-jadwal" element={<JadwalMapel />} />
             </Route>
 
-            <Route path='/admin' element={<KelasProvider><GuruProvider><MainLayout /></GuruProvider></KelasProvider>}>
+            <Route path='/admin' element={<KelasProvider><GuruProvider><SiswaProvider><MainLayout /></SiswaProvider></GuruProvider></KelasProvider>}>
               <Route index element={<Dashboard />} />
               <Route path="" element={<Dashboard />} />
               <Route path="tambah-kelas" element={<TambahKelas />} />

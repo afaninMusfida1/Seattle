@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addSiswa, apiGetSiswa, deleteSiswa, editSiswa, searchSiswaApi } from './RequestSiswa';
 
@@ -21,6 +21,10 @@ export const SiswaProvider = ({ children }) => {
     const navigate = useNavigate(); // Tambahkan useNavigate di sini
 
    //get kelas
+
+   useEffect(() => {
+    handleFetch();
+   }, []);
    
     const handleFetch = () => {
         setIsLoading(true);
