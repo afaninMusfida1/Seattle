@@ -5,12 +5,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
 import PresensiItem from '../crud-presensi/PresensiItem';
+import { apiGetJurnal } from './requestsJurnal';
+import { faSync } from '@fortawesome/free-solid-svg-icons';
 
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
     const { handleAdd, jurnalList, handleFetch, isLoading } = useJurnal();
-    const [tanggal, setTanggal] = useState(new Date());
+    const [tanggal, setTanggal] = useState("");
     const { kelas_id, guru_id } = useParams()
     const refKelas_id = useRef('');
     const refHasil_belajar = useRef('');
@@ -29,13 +31,25 @@ const Jurnal = () => {
         handleFetch()
     }, []);
 
-    const checkJurnal = () => {
+    const checkJurnal = async () => {
         setIsChecking(false)
-        if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
-            setJurnalIsAvailable(true)
-        } else if (jurnalList == 0) { // jika data kbm pada tanggal itu belum ada maka set false
+        const result = await apiGetJurnal(tanggal)
+        console.log(result)
+
+        if (result.length == 0) {
             setJurnalIsAvailable(false)
+            alert('add kbm')
+        } else if (result.length > 0) {
+            setJurnalIsAvailable(true)
+            alert('edit kbm')
         }
+
+
+        // if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
+        //     setJurnalIsAvailable(true)
+        // } else if (jurnalList == 0) { // jika data kbm pada tanggal itu belum ada maka set false
+        //     setJurnalIsAvailable(false)
+        // }
     }
 
     const handleIsiJurnal = async () => {
@@ -43,27 +57,12 @@ const Jurnal = () => {
             alert('mohon isi semua form');
             return;
         }
-
-        // const guru_id = namaGuru;
         const hasil_belajar = refHasil_belajar.current.value;
-        // console.log(`input jurnal value: ${tanggal} ${hasil_belajar} ${kelas_id}`)
-        // return 
         const result = handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
-
         if (result) {
-            // alert('berhasil jurnale wes keisi')
-            console.log(`jurnal ditambahkan: ${result}`);
-            // alert('/jurnal ditambahkan')
-            // navigate('/guru/rekap/lihat');
-        } else {
-            console.error(`error menambahkan jurnal: ${result}`);
-            alert(`error menambahkan jurnal ${result}`)
+            navigate('/guru/rekap/lihat');
         }
-
-        // refKelas_id.current.value = '';
-        // refGuru_id.current.value = '';
         refHasil_belajar.current.value = "";
-
     };
 
     const handleChangePresensi = () => {
@@ -89,9 +88,10 @@ const Jurnal = () => {
                     <div className='grid grid-flow-col'>
                         <div className='flex flex-col'>
                             <form className='flex flex-col gap-4'>
-                                <DatePicker
-                                    selected={tanggal}
-                                    onChange={(tanggal) => setTanggal(tanggal)}
+                                <input
+                                    type='date'
+                                    value={tanggal}
+                                    // onChange={(tanggal) => setTanggal(tanggal)}
                                     className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
                                     id='tanggal' />
                                 {/* <input
