@@ -26,11 +26,15 @@ export const JurnalProvider = ({ children }) => {
         
     };
 
-    const handleAdd = async (kelas_id, guru_id, hasil_belajar, tanggal ) => {
+    const handleCheckKbm = (tanggal) => {
+        const apiCall = apiGetJurnal(tanggal)
+    }
+
+    const handleAdd = async (guru_id, kelas_id, hasil_belajar, tanggal ) => {
         if(isLoading) return
         setIsLoading(true)
 
-        const apiCall = await addJurnal(kelas_id, guru_id, hasil_belajar, tanggal )
+        const apiCall = await addJurnal(guru_id, kelas_id, hasil_belajar, tanggal )
         setIsLoading(false)
 
         return apiCall;

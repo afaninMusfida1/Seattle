@@ -20,7 +20,7 @@ const SiswaTerdaftar = () => {
     }
 
     return (
-        <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">
+        <div className="bg-white rounded-[30px] ml-[100px] mr-[100px] mt-[50px] p-8">
             <div className="flex">
                 <h2 className="font-poppins font-20 font-bold text-[#078DCC]">Kelas English Beginner</h2>
             </div>

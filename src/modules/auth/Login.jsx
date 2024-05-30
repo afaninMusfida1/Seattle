@@ -5,8 +5,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { doLoginAdmin, error, isLoggedIn, setIsLoggedIn } = useAuth();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("admin");
+  const [password, setPassword] = useState("admin123");
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(null);
 

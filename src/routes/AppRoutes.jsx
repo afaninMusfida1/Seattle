@@ -32,6 +32,9 @@ import DaftarKelas from '../modules/admin/crud-kelas/DaftarKelas';
 import LoginGuru from '../modules/auth/LoginGuru/LoginGuru';
 import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
+import ListKelas from '../modules/admin/crud-kelas/ListKelas';
+import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
+
 
 
 
@@ -49,13 +52,18 @@ const AppRoutes = () => {
 
         {isLoggedIn && (
           <>
-            <Route element={<KelasProvider><JurnalProvider><GuruLayout /></JurnalProvider></KelasProvider>}>
-              <Route path="/guru/kelas" element={<KelasSiswa />} />
+            <Route element={
+                <KelasProvider>
+                  <JurnalProvider>
+                    <GuruLayout />
+                  </JurnalProvider>
+                </KelasProvider>}>
+              {/* <Route path="/guru/kelas" element={<KelasSiswa />} /> */}
+              <Route path="/guru/jurnal" element={<JurnalGuru />} />
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
-              <Route path="/guru-jurnal" element={<JurnalGuru />} />
-              <Route path="/guru-isi-jurnal" element={<Jurnal />} />
-              <Route path="/guru-rekap" element={<RekapGuru />} />
-              <Route path="/guru-rekap-kbm" element={<RekapKbm />} />
+              <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
+              <Route path="/guru/rekap" element={<RekapGuru />} />
+              <Route path="/guru/rekap/lihat" element={<RekapKbm />} />
             </Route>
 
             <Route element={<SiswaLayout />}>
@@ -73,10 +81,11 @@ const AppRoutes = () => {
               <Route path="/siswa-jadwal" element={<JadwalMapel />} />
             </Route>
 
-            <Route path='/admin' element={<KelasProvider><MainLayout /></KelasProvider>}>
+            <Route path='/admin' element={<KelasProvider><GuruProvider><MainLayout /></GuruProvider></KelasProvider>}>
               <Route index element={<Dashboard />} />
-              {/* <Route path="" element={<Dashboard />} /> */}
-              <Route path="kelas" element={<TambahKelas />} />
+              <Route path="" element={<Dashboard />} />
+              <Route path="tambah-kelas" element={<TambahKelas />} />
+              <Route path="kelas" element={<ListKelas />} />
 
               <Route path="siswa" element={<SiswaWrapper />}>
                 <Route path="" element={<SiswaTerdaftar />} />
