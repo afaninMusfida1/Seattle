@@ -3,9 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useLayout } from '../../layout/LayoutContext';
 import SiswaItem from "./SiswaItem";
 import { useSiswa } from "./SiswaProvider";
-import { useKelas } from "../crud-kelas/KelasProvider";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useKelas } from "../crud-kelas/KelasProvider";
 
 const SiswaTerdaftar = () => {
     const { actionSetPageTitle } = useLayout();

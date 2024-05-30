@@ -22,8 +22,8 @@ export const JurnalProvider = ({ children }) => {
 
     const handleFetch = async () => {
         const data = await apiGetJurnal();
+        console.log(`data jurnal`, data)
         setJurnalList(data);
-        console.log(`test fetch jurnal ${data}`)
     };
 
     const handleAdd = async (guru_id, kelas_id, hasil_belajar, tanggal) => {

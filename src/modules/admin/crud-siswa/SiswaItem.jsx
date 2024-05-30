@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSiswa } from './SiswaProvider';
 import Popup from 'reactjs-popup';
-import { useKelas } from '../crud-kelas/KelasProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useKelas } from '../crud-kelas/KelasProvider';
 
 const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
     const { handleDelete, handleUpdate } = useSiswa();
