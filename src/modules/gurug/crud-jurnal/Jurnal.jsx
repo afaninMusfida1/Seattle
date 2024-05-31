@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, handleCheckKbm, jurnalList, handleFetchJurnal, isLoading } = useJurnal();
+    const { handleAdd, handleCheckKbm, handleUpdate, jurnalList, handleFetchJurnal, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
     const { kelas_id, guru_id } = useParams();
     const refKelas_id = useRef('');
@@ -23,6 +23,8 @@ const Jurnal = () => {
     const kelas = (`${namaKelas} - ${kategori}`);
     const [isChecking, setIsChecking] = useState(true);
     const [jurnalIsAvailable, setJurnalIsAvailable] = useState();
+    const [materi, setMateri] = useState("");
+    const [id, setId] = useState();
 
     useEffect(() => {
         actionSetPageTitle('Isi Jurnal & Presensi');
@@ -45,7 +47,7 @@ const Jurnal = () => {
 
         const result = await handleCheckKbm(kelas_id, tanggal)
 
-        if (result.length === 0) {
+        if (!result) {
             setJurnalIsAvailable(false);
             Swal.fire({
                 title: 'Informasi',
@@ -54,7 +56,9 @@ const Jurnal = () => {
                 confirmButtonText: 'Oke'
             })
         } else {
-            setJurnalIsAvailable(true)
+            setJurnalIsAvailable(true);
+            setMateri(result.hasil_belajar);
+            setId(result.id)
             Swal.fire({
                 title: 'Informasi',
                 text: 'Ditemukan jurnal, silahkan update',
@@ -63,15 +67,10 @@ const Jurnal = () => {
             });
         };
         setIsChecking(false)
-        // if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
-        //     setJurnalIsAvailable(true)
-        // } else if (jurnalList == 0) { // jika data kbm pada tanggal itu belum ada maka set false
-        //     setJurnalIsAvailable(false)
-        // }
     }
 
     const handleIsiJurnal = async () => {
-        if (!refHasil_belajar.current.value || !tanggal) {
+        if (!materi || !tanggal) {
             Swal.fire({
                 title: 'Perhatian',
                 text: 'mohon isi semua form',
@@ -80,12 +79,12 @@ const Jurnal = () => {
             })
             return;
         }
-        const hasil_belajar = refHasil_belajar.current.value;
-        const result = await handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
+        const result = await handleAdd(kelas_id, guru_id, materi, tanggal);
         if (result) {
-            navigate('/guru/rekap/lihat');
+            console.log(result)
+            navigate('/guru/kelas/:kelas_id/rekap');
         }
-        refHasil_belajar.current.value = "";
+        setMateri("");
     };
 
     const handleChangePresensi = () => {
@@ -99,7 +98,7 @@ const Jurnal = () => {
                 {isChecking ? (
                     <>
 
-                        <div className='flex gap-6'>
+                        <div className='flex gap-6 relative'>
                             <input
                                 type='date'
                                 value={tanggal}
@@ -109,6 +108,11 @@ const Jurnal = () => {
                             <button onClick={() => checkJurnal(kelas_id, tanggal)} className='bg-[#078DCC] rounded-md text-white px-3 py-2 active:opacity-50 outline-none'>
                                 Cek Jurnal
                             </button>
+                            <span
+                                onClick={() => navigate('/guru/kelas/:kelas_id/rekap')}
+                                className='absolute right-0 bottom-0 text-[#078DCC] hover:underline cursor-pointer'>
+                                Lihat jurnal
+                            </span>
                         </div>
                     </>
                 ) : (
@@ -127,14 +131,20 @@ const Jurnal = () => {
                                     name="materi"
                                     id="materi"
                                     placeholder='Materi - chapter'
-                                    ref={refHasil_belajar}
+                                    value={materi} // Set value textarea dari state hasil_belajar
+                                    onChange={(e) => setMateri(e.target.value)} //ubah state saat state berubah
                                     className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
                                 ></textarea>
                                 {jurnalIsAvailable ? (
                                     <>
                                         <div className='flex gap-4' >
                                             <button type="button"
-                                                onClick={handleIsiJurnal}
+                                                onClick={() => {
+                                                    handleUpdate(id, kelas_id, materi, tanggal)
+                                                    setTanggal("")
+                                                    setMateri("")
+                                                    navigate('/guru/kelas/:kelas_id/rekap')
+                                                }}
                                                 className="mt-[100px] grow py-2 font-poppins text-[16px] bg-green-400 text-white rounded-md outline-none">
                                                 Update Jurnal
                                             </button>
@@ -152,7 +162,12 @@ const Jurnal = () => {
                                     <>
                                         <div className='flex gap-4'>
                                             <button type="button"
-                                                onClick={handleIsiJurnal}
+                                                onClick={() => {
+                                                    handleIsiJurnal()
+                                                    setTanggal("")
+                                                    navigate('/guru/kelas/:kelas_id/rekap')
+                                                }
+                                                }
                                                 className="mt-[100px] grow py-2 font-poppins bg-[#078DCC] text-white rounded-md outline-none">
                                                 Buat Jurnal
                                             </button>
@@ -170,7 +185,7 @@ const Jurnal = () => {
                             </form>
                         </div>
                         <div className='self-end text-right'>
-                            <button onClick={() => navigate('/guru/rekap/lihat')} className='text-[#078DCC] hover:underline'>
+                            <button onClick={() => navigate('/guru/kelas/:kelas_id/rekap')} className='text-[#078DCC] hover:underline'>
                                 Lihat Jurnal
                             </button>
                         </div>
@@ -178,19 +193,9 @@ const Jurnal = () => {
                 )}
 
             </div>
-            <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[30px] p-8 ">
+            <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mb-[100px] mt-[30px] p-8 ">
                 <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
-                    <div className="item-container flex justify-between w-full border-2 rounded-lg px-4 py-1">
-                        <div className="nama">Dwi Saputra</div>
-                        <div className="status flex gap-10">
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">hadir</button>
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">izin</button>
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">sakit</button>
-                        </div>
-                    </div>
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
+
                     <PresensiItem />
                     <PresensiItem />
                     <PresensiItem />
