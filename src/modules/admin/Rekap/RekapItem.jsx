@@ -29,11 +29,11 @@ const RekapItem = ({  id, kelas_id, nama_kelas, nama, hasil_belajar, tanggal }) 
     return (
         <>
 
-            <tr className="border-2 text-left">
+            <tr className="border-2 text-left overflow-hidden">
                 <td className="text-center text-sky-600 font-semibold">{tanggal}</td>
                 <td className="text-center">{nama_kelas}</td>
                 <td className="text-center font-semibold text-blue-700">{nama}</td>
-                <td>{hasil_belajar}</td>
+                <td className="">{hasil_belajar}</td>
                 <td className="text-center">
                     <button onClick={handleEdit}>
                         <FontAwesomeIcon icon={faPenToSquare} className="text-sky-500" />

@@ -169,6 +169,8 @@ export const deleteJurnal = async (id) => {
 
 // Fungsi untuk mengedit jurnal
 export const editJurnal = async (id, kelas_id, hasil_belajar, tanggal) => {
+    console.log(id, kelas_id, hasil_belajar, tanggal)
+    
     const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error('Token not found. Please login again.');

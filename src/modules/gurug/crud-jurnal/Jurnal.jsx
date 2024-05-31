@@ -24,6 +24,7 @@ const Jurnal = () => {
     const [isChecking, setIsChecking] = useState(true);
     const [jurnalIsAvailable, setJurnalIsAvailable] = useState();
     const [materi, setMateri] = useState("");
+    const [id, setId] = useState();
 
     useEffect(() => {
         actionSetPageTitle('Isi Jurnal & Presensi');
@@ -57,6 +58,7 @@ const Jurnal = () => {
         } else {
             setJurnalIsAvailable(true);
             setMateri(result[0].hasil_belajar);
+            setId(result[0].id)
             Swal.fire({
                 title: 'Informasi',
                 text: 'Ditemukan jurnal, silahkan update',
@@ -138,7 +140,7 @@ const Jurnal = () => {
                                         <div className='flex gap-4' >
                                             <button type="button"
                                                 onClick={() => {
-                                                    handleUpdate()
+                                                    handleUpdate(id, kelas_id, materi, tanggal)
 
                                                 }}
                                                 className="mt-[100px] grow py-2 font-poppins text-[16px] bg-green-400 text-white rounded-md outline-none">
