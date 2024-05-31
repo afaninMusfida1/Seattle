@@ -36,6 +36,7 @@ import ListKelas from '../modules/admin/crud-kelas/ListKelas';
 import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
 import { SiswaProvider } from '../modules/admin/crud-siswa/SiswaProvider';
 import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
+import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
 
 
 
@@ -64,7 +65,7 @@ const AppRoutes = () => {
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
               <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
               <Route path="/guru/rekap" element={<RekapGuru />} />
-              <Route path="/guru/rekap/lihat" element={<RekapKbm />} />
+              <Route path="/guru/kelas/:kelas_id/rekap" element={<RekapKbm />} />
             </Route>
 
             <Route element={<SiswaLayout />}>
@@ -95,7 +96,7 @@ const AppRoutes = () => {
 
               <Route path='rekap' element={<RekapProvider><RekapWrapper /></RekapProvider>} >
                 <Route path="" element={<Rekap />} />
-                <Route path="absen" element={<RekapKbm />} />
+                <Route path="absen" element={<RekapAdmin />} />
                 <Route path="jurnal" element={<RekapJurnal />} />
               </Route>
 

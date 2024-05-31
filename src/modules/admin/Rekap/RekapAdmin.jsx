@@ -7,12 +7,12 @@ import { useParams } from "react-router-dom";
 import { apiGetJurnalByKelas } from "../../gurug/crud-jurnal/requestsJurnal";
 
 
-const RekapKbm = () => {
+const RekapAbsen = () => {
     const { actionSetPageTitle } = useLayout();
     const { jurnalList, handleFetchJurnal } = useJurnal();
 
     useEffect(() => {
-        actionSetPageTitle('Lihat Rekap Jurnal dan Presensi ')
+        actionSetPageTitle('Lihat Rekap Jurnal ')
         handleFetchJurnal()
     }, [])
 
@@ -31,7 +31,7 @@ const RekapKbm = () => {
                             <th>Kelas</th>
                             <th>Pengajar</th>
                             <th>Materi</th>
-                            <th>Action</th>
+    
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
@@ -66,4 +66,4 @@ const RekapKbm = () => {
         </>
     )
 }
-export default RekapKbm;
+export default RekapAbsen;
