@@ -63,10 +63,11 @@ export const JurnalProvider = ({ children }) => {
         if (isLoading) return
         setIsLoading(true)
 
-        const apiCall = await apiGetJurnalByKelas(kelas_id);
+        const data = await apiGetJurnalByKelas(kelas_id);
+        setJurnalList(data)
         setIsLoading(false)
 
-        return apiCall;
+        return data;
     }
 
     const handleDelete = async (id) => {
