@@ -47,7 +47,7 @@ const Jurnal = () => {
 
         const result = await handleCheckKbm(kelas_id, tanggal)
 
-        if (result.length === 0) {
+        if (!result) {
             setJurnalIsAvailable(false);
             Swal.fire({
                 title: 'Informasi',
@@ -57,8 +57,8 @@ const Jurnal = () => {
             })
         } else {
             setJurnalIsAvailable(true);
-            setMateri(result[0].hasil_belajar);
-            setId(result[0].id)
+            setMateri(result.hasil_belajar);
+            setId(result.id)
             Swal.fire({
                 title: 'Informasi',
                 text: 'Ditemukan jurnal, silahkan update',
@@ -141,7 +141,9 @@ const Jurnal = () => {
                                             <button type="button"
                                                 onClick={() => {
                                                     handleUpdate(id, kelas_id, materi, tanggal)
-
+                                                    setTanggal("")
+                                                    setMateri("")
+                                                    navigate('/guru/kelas/:kelas_id/rekap')
                                                 }}
                                                 className="mt-[100px] grow py-2 font-poppins text-[16px] bg-green-400 text-white rounded-md outline-none">
                                                 Update Jurnal
@@ -163,6 +165,7 @@ const Jurnal = () => {
                                                 onClick={() => {
                                                     handleIsiJurnal()
                                                     setTanggal("")
+                                                    navigate('/guru/kelas/:kelas_id/rekap')
                                                 }
                                                 }
                                                 className="mt-[100px] grow py-2 font-poppins bg-[#078DCC] text-white rounded-md outline-none">
@@ -190,19 +193,9 @@ const Jurnal = () => {
                 )}
 
             </div>
-            <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[30px] p-8 ">
+            <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mb-[100px] mt-[30px] p-8 ">
                 <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
-                    <div className="item-container flex justify-between w-full border-2 rounded-lg px-4 py-1">
-                        <div className="nama">Dwi Saputra</div>
-                        <div className="status flex gap-10">
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">hadir</button>
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">izin</button>
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">sakit</button>
-                        </div>
-                    </div>
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
+
                     <PresensiItem />
                     <PresensiItem />
                     <PresensiItem />

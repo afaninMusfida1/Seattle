@@ -168,16 +168,18 @@ export const deleteJurnal = async (id) => {
 };
 
 // Fungsi untuk mengedit jurnal
-export const editJurnal = async (id, kelas_id, hasil_belajar, tanggal) => {
-    console.log(id, kelas_id, hasil_belajar, tanggal)
-    
+export const editJurnal = async (id, kelas_id, hasil_belajar) => {
+    console.log(id, kelas_id, hasil_belajar)
+
     const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error('Token not found. Please login again.');
         return { message: 'Token not found. Please login again.' };
     }
 
-    const edits = await axios.put(`${API_URL}/kbm/${id}`, { kelas_id, hasil_belajar, tanggal }, {
+    console.log("payload", { kelas_id, hasil_belajar })
+
+    const edits = await axios.put(`${API_URL}/kbm/${id}`, { kelas_id, hasil_belajar }, {
         headers: {
             Authorization: `Bearer ${token}`
         },
