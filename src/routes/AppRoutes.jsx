@@ -35,6 +35,7 @@ import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
 import ListKelas from '../modules/admin/crud-kelas/ListKelas';
 import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
 import { SiswaProvider } from '../modules/admin/crud-siswa/SiswaProvider';
+import RejulSiswa from '../modules/siswa/RejulSiswa';
 import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
 import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
 
@@ -50,7 +51,7 @@ const AppRoutes = () => {
         {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} />
         <Route path="/guru" element={<LoginGuru />} />
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route path="/siswa" element={<RejulSiswa />} />
 
         {isLoggedIn && (
           <>

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { apiGetJurnalByKelas } from "../../gurug/crud-jurnal/requestsJurnal";
 
 
-const RekapAbsen = () => {
+const RekapAdmin = () => {
     const { actionSetPageTitle } = useLayout();
     const { jurnalList, handleFetchJurnal } = useJurnal();
 
@@ -66,4 +66,4 @@ const RekapAbsen = () => {
         </>
     )
 }
-export default RekapAbsen;
+export default RekapAdmin;

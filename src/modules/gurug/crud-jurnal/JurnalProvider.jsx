@@ -26,9 +26,10 @@ export const JurnalProvider = ({ children }) => {
     const [daftarKelas, setDaftarKelas] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [location, setLocation] = useState('');
+    const [selectedKelas, setSelectedKelas] = useState(null);
 
-    const handleFetchJurnal = async () => {
-        const data = await apiGetJurnal();
+    const handleFetchJurnal = async (kelas_id) => {
+        const data = await apiGetJurnal(kelas_id);
         setJurnalList(data);
     };
 
@@ -62,10 +63,11 @@ export const JurnalProvider = ({ children }) => {
         if (isLoading) return
         setIsLoading(true)
 
-        const apiCall = await apiGetJurnalByKelas(kelas_id);
+        const data = await apiGetJurnalByKelas(kelas_id);
+        setJurnalList(data)
         setIsLoading(false)
 
-        return apiCall;
+        return data;
     }
 
     const handleDelete = async (id) => {
@@ -78,16 +80,18 @@ export const JurnalProvider = ({ children }) => {
         setIsLoading(true)
         const apiCall = await deleteJurnal(id);
         setIsLoading(false);
+        handleFetchJurnal()
         return apiCall;
     };
 
-    const handleUpdate = async (id, kelas_id, hasil_belajar, tanggal) => {
+    const handleUpdate = async (id, kelas_id, hasil_belajar) => {
         if (isLoading) return
         const token = localStorage.getItem('guruToken');
 
         setIsLoading(true)
-        const apiCall = await editJurnal(id, kelas_id, hasil_belajar, tanggal);
+        const apiCall = await editJurnal(id, kelas_id, hasil_belajar);
         setIsLoading(false)
+        handleFetchJurnal()
         return apiCall
     };
 
@@ -99,6 +103,8 @@ export const JurnalProvider = ({ children }) => {
             setJurnalList,
             isLoading,
             location,
+            selectedKelas,
+            setSelectedKelas,
             handleAdd,
             handleFetchJurnal,
             handleGetJurnalByKelas,
