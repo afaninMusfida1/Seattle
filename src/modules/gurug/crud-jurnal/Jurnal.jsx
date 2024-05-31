@@ -109,7 +109,7 @@ const Jurnal = () => {
                                 Cek Jurnal
                             </button>
                             <span
-                                onClick={() => navigate('/guru/kelas/:kelas_id/rekap')}
+                                onClick={() => navigate(`/guru/kelas/${kelas_id}/rekap`)}
                                 className='absolute right-0 bottom-0 text-[#078DCC] hover:underline cursor-pointer'>
                                 Lihat jurnal
                             </span>
