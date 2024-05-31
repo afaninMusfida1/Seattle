@@ -36,11 +36,11 @@ const LoginGuru = () => {
     };
 
     return (
-        <div className="bg-[#FBFBFB] h-full min-h-screen">
-            <div className="logo">
-                <img className="mx-10 pt-5 w-auto h-20" src="src/assets/logo - Copy.png" alt="" />
+        <div className="bg-[#FBFBFB] h-full min-h-screen flex flex-col items-center justify-center">
+            <div className="logo absolute top-0 left-0 pt-5">
+                <img className="mx-5 w-auto h-[70px]" src="src/assets/logo - Copy.png" alt="" />
             </div>
-            <h1 className="text-center text-[#06357A] font-poppins font-bold text-[40px] p-5 mt-[50px] my-[25px]">
+            <h1 className="text-center text-[#06357A] font-poppins font-bold text-[40px] my-[25px]">
                 Login Pengajar
             </h1>
             <div className="container flex flex-col">
@@ -68,7 +68,7 @@ const LoginGuru = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
 
-                            className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] mt-[10px] outline-none focus:border-[#2B3758]"
+                            className="input font-poppins text-[16px] border-2 border-[#2B3758] rounded-[16px] outline-none focus:border-[#2B3758]"
                         />
                         {loginError && <p className="text-red-500">{loginError}</p>}
                         <button
