@@ -2,6 +2,7 @@ import { React, createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { http } from '../../config/Url';
 import { addJurnal, apiGetJurnal, apiGetKelas, apiGetJurnalByTanggal, deleteJurnal, editJurnal, apiGetJurnalByKelas } from './requestsJurnal';
+import { useParams } from 'react-router-dom';
 
 const initJurnalState = {
     jurnalList: [],
@@ -27,6 +28,7 @@ export const JurnalProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [location, setLocation] = useState('');
     const [selectedKelas, setSelectedKelas] = useState(null);
+    const {kelas_id} = useParams();
 
     const handleFetchJurnal = async (kelas_id) => {
         const data = await apiGetJurnal(kelas_id);
@@ -42,9 +44,9 @@ export const JurnalProvider = ({ children }) => {
         if (isLoading) return
         setIsLoading(true)
 
-        const apiCall = await addJurnal(guru_id, kelas_id, hasil_belajar, tanggal)
+        const data = await addJurnal(guru_id, kelas_id, hasil_belajar, tanggal)
         setIsLoading(false)
-        return apiCall;
+        return data;
 
     };
 
@@ -80,7 +82,7 @@ export const JurnalProvider = ({ children }) => {
         setIsLoading(true)
         const apiCall = await deleteJurnal(id);
         setIsLoading(false);
-        handleFetchJurnal()
+        handleGetJurnalByKelas(kelas_id)
         return apiCall;
     };
 
@@ -91,7 +93,7 @@ export const JurnalProvider = ({ children }) => {
         setIsLoading(true)
         const apiCall = await editJurnal(id, kelas_id, hasil_belajar);
         setIsLoading(false)
-        handleFetchJurnal()
+        // handleFetchJurnal()
         return apiCall
     };
 

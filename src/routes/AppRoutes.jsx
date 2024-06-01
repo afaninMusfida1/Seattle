@@ -47,6 +47,7 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<Navigate to="/auth" />} />
         <Route path="/auth/admin" element={<Login />} />
         {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} />
