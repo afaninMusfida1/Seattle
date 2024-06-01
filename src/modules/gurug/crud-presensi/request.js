@@ -65,3 +65,24 @@ export const apiGetKelas = async () => {
         });
 };
 
+
+export const apiGetSiswaByIdKelas = async (id) => {
+    const token = localStorage.getItem("guruToken") ;
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${API_URL}/siswa/kelas/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then((response) => {
+            return response.data.data.dataSiswa;
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+}

@@ -4,6 +4,7 @@ import { useLayout } from "../../layout/LayoutContext";
 import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
 import { useParams } from "react-router-dom";
+import { apiGetJurnalByKelas } from "../../gurug/crud-jurnal/requestsJurnal";
 
 
 const RekapKbm = () => {
@@ -14,6 +15,8 @@ const RekapKbm = () => {
         actionSetPageTitle('Lihat Rekap')
         handleFetchJurnal()
     }, [])
+
+
 
     return (
         <>
@@ -28,6 +31,7 @@ const RekapKbm = () => {
                             <th>Kelas</th>
                             <th>Pengajar</th>
                             <th>Materi</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
@@ -42,6 +46,7 @@ const RekapKbm = () => {
                                     nama={jurnal.nama}
                                     hasil_belajar={jurnal.hasil_belajar}
                                     tanggal={jurnal.tanggal}
+
                                 />
                             ))
                         ) : (

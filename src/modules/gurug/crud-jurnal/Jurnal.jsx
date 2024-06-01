@@ -1,28 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLayout } from '../../layout/LayoutContext';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
 import PresensiItem from '../crud-presensi/PresensiItem';
-import { apiGetJurnal, apiGetJurnalByTanggal } from './requestsJurnal';
-import { faSync } from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2'
+import { apiGetSiswaByIdKelas } from '../crud-presensi/request';
+import Swal from 'sweetalert2';
+import { useSiswa } from '../../admin/crud-siswa/SiswaProvider';
 
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, handleCheckKbm, jurnalList, handleFetchJurnal, isLoading } = useJurnal();
+    const { handleAdd, handleCheckKbm, handleUpdate, handleFetchJurnal } = useJurnal();
     const [tanggal, setTanggal] = useState("");
-    const { kelas_id, guru_id } = useParams();
-    const refKelas_id = useRef('');
-    const refHasil_belajar = useRef('');
+    const { kelas_id } = useParams();
     const [namaGuru, setNamaGuru] = useState("");
     const [namaKelas, setNamaKelas] = useState("");
     const [kategori, setKategori] = useState("");
-    const kelas = (`${namaKelas} - ${kategori}`);
     const [isChecking, setIsChecking] = useState(true);
     const [jurnalIsAvailable, setJurnalIsAvailable] = useState();
+    const [materi, setMateri] = useState("");
+    const { siswaList, setSiswaList } = useSiswa();
+    const [fetchedSiswaList, setFetchedSiswaList] = useState([]);
 
     useEffect(() => {
         actionSetPageTitle('Isi Jurnal & Presensi');
@@ -32,11 +30,20 @@ const Jurnal = () => {
         handleFetchJurnal()
     }, []);
 
+    useEffect(() => {
+        const fetchSiswa = async () => {
+            const response = await apiGetSiswaByIdKelas(kelas_id);
+            setFetchedSiswaList(response);
+        };
+
+        fetchSiswa();
+    }, [kelas_id]);
+
     const checkJurnal = async (kelas_id, tanggal) => {
         if (!tanggal) {
             Swal.fire({
                 title: 'Perhatian',
-                text: 'mohon isi tanggal terlebih dahulu',
+                text: 'Mohon isi tanggal terlebih dahulu',
                 icon: 'warning',
                 confirmButtonText: 'Oke'
             });
@@ -49,12 +56,13 @@ const Jurnal = () => {
             setJurnalIsAvailable(false);
             Swal.fire({
                 title: 'Informasi',
-                text: 'belum ada jurnal, silahkan isi',
+                text: 'Belum ada jurnal, silahkan isi',
                 icon: 'info',
                 confirmButtonText: 'Oke'
             })
         } else {
-            setJurnalIsAvailable(true)
+            setJurnalIsAvailable(true);
+            setMateri(result[0].hasil_belajar);
             Swal.fire({
                 title: 'Informasi',
                 text: 'Ditemukan jurnal, silahkan update',
@@ -63,35 +71,27 @@ const Jurnal = () => {
             });
         };
         setIsChecking(false)
-        // if (jurnalList != 0) { // jika data kbm itu sudah ada maka set true
-        //     setJurnalIsAvailable(true)
-        // } else if (jurnalList == 0) { // jika data kbm pada tanggal itu belum ada maka set false
-        //     setJurnalIsAvailable(false)
-        // }
     }
 
     const handleIsiJurnal = async () => {
-        if (!refHasil_belajar.current.value || !tanggal) {
+        if (!materi || !tanggal) {
             Swal.fire({
                 title: 'Perhatian',
-                text: 'mohon isi semua form',
+                text: 'Mohon isi semua form',
                 icon: 'warning',
                 confirmButtonText: 'Oke'
             })
             return;
         }
-        const hasil_belajar = refHasil_belajar.current.value;
-        const result = await handleAdd(kelas_id, guru_id, hasil_belajar, tanggal);
+        const result = await handleAdd(kelas_id, guru_id, materi, tanggal);
         if (result) {
-            console.log(result)
-            navigate('/guru/rekap/lihat');
+            navigate(`/guru/kelas/${kelas_id}/rekap`);
         }
-        refHasil_belajar.current.value = "";
+        setMateri("");
     };
 
     const handleChangePresensi = () => {
-        navigate('/guru')
-        console.log('selesai presensi')
+        navigate('/guru');
     }
 
     return (
@@ -99,7 +99,6 @@ const Jurnal = () => {
             <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8" >
                 {isChecking ? (
                     <>
-
                         <div className='flex gap-6 relative'>
                             <input
                                 type='date'
@@ -111,7 +110,7 @@ const Jurnal = () => {
                                 Cek Jurnal
                             </button>
                             <span
-                                onClick={() => navigate('/guru/rekap/lihat')}
+                                onClick={() => navigate(`/guru/kelas/${kelas_id}/rekap`)}
                                 className='absolute right-0 bottom-0 text-[#078DCC] hover:underline cursor-pointer'>
                                 Lihat jurnal
                             </span>
@@ -122,8 +121,6 @@ const Jurnal = () => {
                         <div className='flex flex-col'>
                             <form className='flex flex-col gap-4'>
                                 <div
-                                    // type='date'
-                                    // defaultValue={tanggal}
                                     onChange={(e) => setTanggal(e.target.value)}
                                     className='outline-none text-left py-2 rounded border w-full px-3 bg-[#DCE5F1]'
                                     id='tanggal'>
@@ -133,14 +130,18 @@ const Jurnal = () => {
                                     name="materi"
                                     id="materi"
                                     placeholder='Materi - chapter'
-                                    ref={refHasil_belajar}
+                                    value={materi}
+                                    onChange={(e) => setMateri(e.target.value)}
                                     className='px-3 py-2 font-poppins text-[16px] text-[#3F3F3F] border-2 bg-[#DCE5F1] rounded-md outline-none hover:border-[#078DCC]'
                                 ></textarea>
                                 {jurnalIsAvailable ? (
                                     <>
                                         <div className='flex gap-4' >
                                             <button type="button"
-                                                onClick={handleIsiJurnal}
+
+                                                onClick={() => {
+                                                    handleUpdate()
+                                                }}
                                                 className="mt-[100px] grow py-2 font-poppins text-[16px] bg-green-400 text-white rounded-md outline-none">
                                                 Update Jurnal
                                             </button>
@@ -150,7 +151,7 @@ const Jurnal = () => {
                                                     setTanggal("")
                                                 }}
                                                 className='bg-red-400 py-2 px-6 text-white mt-[100px] rounded-md '>
-                                                batal
+                                                Batal
                                             </button>
                                         </div>
                                     </>
@@ -158,7 +159,10 @@ const Jurnal = () => {
                                     <>
                                         <div className='flex gap-4'>
                                             <button type="button"
-                                                onClick={handleIsiJurnal}
+                                                onClick={() => {
+                                                    handleIsiJurnal()
+                                                    setTanggal("")
+                                                }}
                                                 className="mt-[100px] grow py-2 font-poppins bg-[#078DCC] text-white rounded-md outline-none">
                                                 Buat Jurnal
                                             </button>
@@ -168,7 +172,7 @@ const Jurnal = () => {
                                                     setTanggal("")
                                                 }}
                                                 className='bg-red-400 py-2 px-6 text-white mt-[100px] rounded-md '>
-                                                batal
+                                                Batal
                                             </button>
                                         </div>
                                     </>
@@ -176,33 +180,18 @@ const Jurnal = () => {
                             </form>
                         </div>
                         <div className='self-end text-right'>
-                            <button onClick={() => navigate('/guru/rekap/lihat')} className='text-[#078DCC] hover:underline'>
+                            <button onClick={() => navigate(`/guru/kelas/${kelas_id}/rekap`)} className='text-[#078DCC] hover:underline'>
                                 Lihat Jurnal
                             </button>
                         </div>
                     </div>
                 )}
-
             </div>
             <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[30px] p-8 ">
                 <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
-                    <div className="item-container flex justify-between w-full border-2 rounded-lg px-4 py-1">
-                        <div className="nama">Dwi Saputra</div>
-                        <div className="status flex gap-10">
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">hadir</button>
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">izin</button>
-                            <button className="bg-green-400 text-white px-[15px] py-[3px] rounded ">sakit</button>
-                        </div>
-                    </div>
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
-                    <PresensiItem />
+                    {fetchedSiswaList.map(siswa => (
+                        <PresensiItem key={siswa.id} siswa={siswa} />
+                    ))}
                 </div>
                 <div className="flex justify-end">
                     <button onClick={handleChangePresensi} className="bg-[#078DCC] text-white px-[70px] py-[5px] rounded mr-[20px] mt-[20px] self-end">
