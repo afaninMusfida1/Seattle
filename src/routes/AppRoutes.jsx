@@ -67,6 +67,7 @@ const AppRoutes = () => {
               <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
               <Route path="/guru/rekap" element={<RekapGuru />} />
               <Route path="/guru/kelas/:kelas_id/rekap" element={<RekapKbm />} />
+              
             </Route>
 
             <Route element={<SiswaLayout />}>
@@ -95,7 +96,7 @@ const AppRoutes = () => {
                 <Route path="tambah" element={<TambahSiswa />} />
               </Route>
 
-              <Route path='rekap' element={<RekapProvider><RekapWrapper /></RekapProvider>} >
+              <Route path='rekap' element={<KelasProvider><JurnalProvider><RekapWrapper /></JurnalProvider></KelasProvider>} >
                 <Route path="" element={<Rekap />} />
                 <Route path="absen" element={<RekapAdmin />} />
                 <Route path="jurnal" element={<RekapJurnal />} />
