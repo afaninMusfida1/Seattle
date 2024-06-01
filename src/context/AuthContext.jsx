@@ -116,11 +116,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     const doLogoutSiswa = () => {
-        if(apiResult.data.token == 'siswaToken') {
-            localStorage.removeItem('siswaToken');
-        }
-        localStorage.removeItem('siswToken');
+        // Hapus token dari local storage dan set status logged out
+        localStorage.removeItem('siswaToken');
         setIsLoggedIn(false);
+        
     };
 
     return (

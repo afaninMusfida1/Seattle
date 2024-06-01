@@ -50,7 +50,7 @@ const AppRoutes = () => {
         {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} />
         <Route path="/guru" element={<LoginGuru />} />        
-        <Route path="/siswa" element={<LoginOrtuSiswa/>}/>
+        <Route path="/siswa/ortu" element={<LoginOrtuSiswa/>}/>
         <Route path="*" element={<Navigate to="/auth" />} />
 
         {isLoggedIn && (

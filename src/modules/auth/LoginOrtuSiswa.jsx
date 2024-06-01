@@ -5,9 +5,9 @@ import { useAuth } from "../../context/AuthContext";
 const LoginOrtuSiswa = () => {
     const navigate = useNavigate();
     const { doLoginOrtuSiswa } = useAuth();
-    const [namaSiswa, setNamaSiswa] = useState("Ana Ismatul");
-    const [email, setEmail] = useState("ana@gmail.com");
-    const [password, setPassword] = useState("ana123456");
+    const [namaSiswa, setNamaSiswa] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loginError, setLoginError] = useState(null)
 
@@ -32,7 +32,7 @@ const LoginOrtuSiswa = () => {
     return (
         <div className="bg-[#FBFBFB] h-full min-h-screen flex flex-col items-center justify-center">
             <div className="logo absolute top-0 left-0 pt-5">
-                <img className="mx-5 w-auto h-[70px]" src="src/assets/logo - Copy.png" alt="" />
+                <img className="mx-5 w-auto h-[70px]" src="/src/assets/logo - Copy.png" alt="" />
             </div>
             <h1 className="text-center text-[#06357A] font-poppins font-bold text-[40px] my-[25px]">
                 Login Siswa
