@@ -98,7 +98,7 @@ const AppRoutes = () => {
                 <Route path="tambah" element={<TambahSiswa />} />
               </Route>
 
-              <Route path='rekap' element={<KelasProvider><RekapWrapper /></KelasProvider>} >
+              <Route path='rekap' element={<KelasProvider><RekapProvider><RekapWrapper /></RekapProvider></KelasProvider>} >
                 <Route path="" element={<Rekap />} />
                 <Route path="absen/kelas/:kelas_id" element={<RekapAdmin />} />
                 <Route path="jurnal/kelas/:kelas_id" element={<RekapJurnal />} />

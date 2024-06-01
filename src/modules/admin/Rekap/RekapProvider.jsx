@@ -14,7 +14,7 @@ const initRekapState = {
     handleGetJurnalByKelas: () => { },
 }
 
-const RekapContext = createContext();
+const RekapContext = createContext(initRekapState);
 
 export const useRekap = () => useContext(RekapContext);
 
