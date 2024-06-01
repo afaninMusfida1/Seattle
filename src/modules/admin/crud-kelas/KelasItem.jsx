@@ -120,4 +120,3 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id
 };
 
 export default KelasItem;
-

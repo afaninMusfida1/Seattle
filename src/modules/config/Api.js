@@ -144,3 +144,18 @@ export const editGuru = async (id, nama, email, password) => {
 //     });
 // };
 
+export const handleLoginSiswa= async (email, password) => {
+  const token = localStorage.getItem("siswaToken");
+  return axios.post(`${http}/auth/siswa`, {
+    email: email,
+    password: password,
+  })
+    .then((response) => {
+      console.log("Login response data:", response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Login failed:", error);
+      return error.response?.data ?? { message: "Unknown error" };
+    });
+};

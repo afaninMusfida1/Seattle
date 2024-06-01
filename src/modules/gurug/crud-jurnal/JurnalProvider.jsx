@@ -12,6 +12,7 @@ const initJurnalState = {
     handleFetchJurnal: () => { },
     handleGetJurnalByKelas: () => { },
     handleCheckKbm: () => { },
+    handleGetKbmId: () => { },
     handleFetchKelas: () => { },
     handleAdd: () => { },
     handleDelete: () => { },
@@ -28,7 +29,7 @@ export const JurnalProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [location, setLocation] = useState('');
     const [selectedKelas, setSelectedKelas] = useState(null);
-    const {kelas_id} = useParams();
+    const { kelas_id } = useParams();
 
     const handleFetchJurnal = async (kelas_id) => {
         const data = await apiGetJurnal(kelas_id);
@@ -50,15 +51,25 @@ export const JurnalProvider = ({ children }) => {
 
     };
 
-    //comming soon code
     const handleCheckKbm = async (kelas_id, tanggal) => {
         if (isLoading) return
         setIsLoading(true)
 
         const apiCall = await apiGetJurnalByTanggal(kelas_id, tanggal);
-        setIsLoading(false)
+        setIsLoading(false);
 
-        return apiCall
+        return apiCall;
+    };
+
+    const handleGetKbmId = async (kelas_id, tanggal) => {
+        if (isLoading) return
+        setIsLoading(true)
+
+        const apiCall = await apiGetJurnalByTanggal(kelas_id, tanggal);
+        const kbmId = apiCall.id
+        setIsLoading(false);
+
+        return kbmId;
     };
 
     const handleGetJurnalByKelas = async (kelas_id) => {
@@ -70,7 +81,7 @@ export const JurnalProvider = ({ children }) => {
         setIsLoading(false)
 
         return data;
-    }
+    };
 
     const handleDelete = async (id) => {
         if (isLoading) return
@@ -107,6 +118,7 @@ export const JurnalProvider = ({ children }) => {
             location,
             selectedKelas,
             setSelectedKelas,
+            handleGetKbmId,
             handleAdd,
             handleFetchJurnal,
             handleGetJurnalByKelas,

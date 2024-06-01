@@ -39,7 +39,7 @@ export const addSiswa = (nama, kelas_id, no_telp_ortu, email, password) => {
     })
     .catch(error => {
         handleUnauthorizedError(error);
-        return { success: false, message: error.response ? error.response.data.message : error.message };
+        // return { success: false, message: error.response ? error.response.data.message : error.message };
     });
 };
 
@@ -77,9 +77,9 @@ export const deleteSiswa = (id) => {
         });
 };
 
-export const editSiswa = async (id, updatedSiswa) => {
+export const editSiswa = async (id, updatedDataSiswa) => {
     const token = getToken();
-    return axios.put(`${API_URL}/siswa/${id}`, updatedSiswa, {
+    return axios.put(`${API_URL}/siswa/${id}`, updatedDataSiswa, {
         headers: {
             Authorization: `Bearer ${token}`
         }

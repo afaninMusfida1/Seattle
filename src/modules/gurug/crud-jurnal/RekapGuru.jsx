@@ -6,7 +6,7 @@ import KelasItem from '../../admin/crud-kelas/KelasItem';
 import { useKelas } from '../../admin/crud-kelas/KelasProvider';
 import { useJurnal } from './JurnalProvider';
 
-const Rekap = (props) => {
+const RekapGuru = (props) => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
     const { daftarKelas, location, setLocation, handleFetchKelas } = useJurnal();
@@ -80,7 +80,7 @@ const Rekap = (props) => {
         </div>
     );
 };
-export default Rekap;
+export default RekapGuru;
 
 
 // import { useNavigate, Outlet } from 'react-router-dom';
