@@ -28,7 +28,7 @@ const MainLayout = () => {
     
     
   
-    <div className="flex">
+    <div className="relative flex">
       <Sidebar isSidebarVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
       <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarVisible ? 'ml-[250px]' : 'ml-0'}`}>
         <Navbar />

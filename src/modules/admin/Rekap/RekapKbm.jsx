@@ -5,32 +5,36 @@ import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
 import { useParams } from "react-router-dom";
 
-
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout();
-    const { jurnalList, setJurnalList, handleFetchJurnal, handleDelete } = useJurnal();
+    const { jurnalList, setJurnalList, handleFetchJurnal, handleGetJurnalByKelas } = useJurnal();
+    const { kelas_id } = useParams();
 
     useEffect(() => {
-        actionSetPageTitle('Lihat Rekap')
-        handleFetchJurnal()
-    }, [])
+        actionSetPageTitle('Rekap Jurnal dan Presensi');
+        if (kelas_id) {
+            handleGetJurnalByKelas(kelas_id);
+            console.log(kelas_id)
+        }
+    }, [kelas_id]);
 
     return (
         <>
-            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px]  p-8 ">
-                <div>
-
+            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8 relative">
+                <div className="font-medium text-xl text-sky-500 opacity-60 mb-4">
+                    Jurnal
                 </div>
-                <table aria-rowspan={1} className="text-center table-fixed w-full overflow-hidden ">
-                    <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
+                <table aria-rowspan={1} className="text-center table-fix w-full">
+                    <thead className="h-[60px] rounded-xl text-white bg-[#078DCC]">
                         <tr>
                             <th className="">Tanggal</th >
                             <th>Kelas</th>
                             <th>Pengajar</th>
-                            <th>Materi</th>
+                            <th className="text-left pl-[40px]">Materi</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody className="max-h-[300px] ">
+                    <tbody className="max-h-[300px]">
                         {jurnalList.length > 0 ? (
                             jurnalList.map(jurnal => (
                                 <RekapItem
@@ -46,35 +50,92 @@ const RekapKbm = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={4} className="text-center border-2">Belum ada jurnal</td>
+                                <td colSpan={5} className="text-center border-2 opacity-50">Belum ada jurnal</td>
                             </tr>
                         )}
-                        {/* <RekapItem /> */}
                     </tbody>
                 </table>
-                {/* <div className="header w-full flex justify-between rounded-lg py-3 px-9 text-white bg-[#06357A]">
-                    <div>Tanggal</div>
-                    <div>Kehadiran</div>
-                    <div>Pengajar</div>
-                    <div>Chapter</div>
-                    <div>Materi</div>
+            </div>
+            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8">
+                <div className="font-medium text-xl text-sky-500 opacity-60 mb-4">
+                    Presensi
                 </div>
-                <div className="rekap-item items-center mt-[20px] w-full flex  rounded-lg py-3 px-9 border-2">
-                    <div className="font-semibold bg-red-300 w-[590px]">2/05/2024</div>
-                    <div className="bg-green-300 ml-[10px] w-[800px]">16</div>
-                    <div className="bg-purple-300 ml-[10px] w-[700px]">Namaaaaa Pengajar</div>
-                    <div className="bg-red-300 ml-[10px] w-[400px]">1</div>
-                    <div className="overflow-clip">Belajar konversasi dasar bahasa inggris inggrisinggrisinggrisinggrisinggris</div>
-                </div>
-                <div className="rekap-item items-center mt-[20px] w-full grid grid-rows-1 grid-flow-col rounded-lg py-3 px-9 border-2">
-                    <div className="font-semibold">22/05/2024</div>
-                    <div>16</div>
-                    <div>Diana</div>
-                    <div>1</div>
-                    <div className="">basic conversation</div>
-                </div> */}
             </div>
         </>
-    )
+    );
 }
 export default RekapKbm;
+
+
+// import { useEffect } from "react";
+// import { useJurnal } from "../../gurug/crud-jurnal/JurnalProvider";
+// import { useLayout } from "../../layout/LayoutContext";
+// import Button from "../../siswa/Button";
+// import RekapItem from "./RekapItem";
+// import { useParams } from "react-router-dom";
+// import { apiGetJurnalByKelas } from "../../gurug/crud-jurnal/requestsJurnal";
+
+
+// const RekapKbm = () => {
+//     const { actionSetPageTitle } = useLayout();
+//     const { jurnalList, setJurnalList, handleFetchJurnal, handleDelete } = useJurnal();
+
+//     useEffect(() => {
+//         actionSetPageTitle('Rekap Jurnal dan Presensi')
+//         handleFetchJurnal()
+//     }, [])
+
+//     return (
+//         <>
+//             <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8 relative">
+//                 <div className="font-medium text-xl text-sky-500 opacity-60 mb-4">
+//                     Jurnal
+//                 </div>
+//                 <input
+//                     type='date'
+//                     onChange={(e) => setTanggal(e.target.value)}
+//                     className='outline-none w-[15rem] text-left py-2 rounded-md border-2 px-3'
+//                     id='tanggal' />
+//                 <table aria-rowspan={1} className="text-center table-fix w-full  ">
+//                     <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
+//                         <tr>
+//                             <th className="">Tanggal</th >
+//                             <th>Kelas</th>
+//                             <th>Pengajar</th>
+//                             <th className="text-left pl-[40px]">Materi</th>
+//                             <th>Action</th>
+//                         </tr>
+//                     </thead>
+//                     <tbody className="max-h-[300px] ">
+//                         {jurnalList.length > 0 ? (
+//                             jurnalList.map(jurnal => (
+//                                 <RekapItem
+//                                     key={jurnal.id}
+//                                     id={jurnal.id}
+//                                     kelas_id={jurnal.kelas_id}
+//                                     nama_kelas={jurnal.nama_kelas}
+//                                     guru_id={jurnal.guru_id}
+//                                     nama={jurnal.nama}
+//                                     hasil_belajar={jurnal.hasil_belajar}
+//                                     tanggal={jurnal.tanggal}
+
+//                                 />
+//                             ))
+//                         ) : (
+//                             <tr>
+//                                 <td colSpan={5} className="text-center border-2">Belum ada jurnal</td>
+//                             </tr>
+//                         )}
+//                         {/* <RekapItem /> */}
+//                     </tbody>
+//                 </table>
+//             </div>
+//             <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px]  p-8">
+//                 <div className="font-medium text-xl text-sky-500 opacity-60 mb-4">
+//                     Presensi
+//                 </div>
+//             </div>
+//         </>
+//     )
+// }
+// export default RekapKbm;

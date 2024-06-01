@@ -1,7 +1,8 @@
 import { React, createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { http } from '../../config/Url';
-import { addJurnal, apiGetJurnal, apiGetKelas, apiGetJurnalByTanggal, deleteJurnal, editJurnal } from './requestsJurnal';
+import { addJurnal, apiGetJurnal, apiGetKelas, apiGetJurnalByTanggal, deleteJurnal, editJurnal, apiGetJurnalByKelas } from './requestsJurnal';
+import { useParams } from 'react-router-dom';
 
 const initJurnalState = {
     jurnalList: [],
@@ -9,6 +10,7 @@ const initJurnalState = {
     isLoading: false,
     location: '',
     handleFetchJurnal: () => { },
+    handleGetJurnalByKelas: () => { },
     handleCheckKbm: () => { },
     handleFetchKelas: () => { },
     handleAdd: () => { },
@@ -25,9 +27,11 @@ export const JurnalProvider = ({ children }) => {
     const [daftarKelas, setDaftarKelas] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [location, setLocation] = useState('');
+    const [selectedKelas, setSelectedKelas] = useState(null);
+    const {kelas_id} = useParams();
 
-    const handleFetchJurnal = async () => {
-        const data = await apiGetJurnal();
+    const handleFetchJurnal = async (kelas_id) => {
+        const data = await apiGetJurnal(kelas_id);
         setJurnalList(data);
     };
 
@@ -40,9 +44,9 @@ export const JurnalProvider = ({ children }) => {
         if (isLoading) return
         setIsLoading(true)
 
-        const apiCall = await addJurnal(guru_id, kelas_id, hasil_belajar, tanggal)
+        const data = await addJurnal(guru_id, kelas_id, hasil_belajar, tanggal)
         setIsLoading(false)
-        return apiCall;
+        return data;
 
     };
 
@@ -57,6 +61,17 @@ export const JurnalProvider = ({ children }) => {
         return apiCall
     };
 
+    const handleGetJurnalByKelas = async (kelas_id) => {
+        if (isLoading) return
+        setIsLoading(true)
+
+        const data = await apiGetJurnalByKelas(kelas_id);
+        setJurnalList(data)
+        setIsLoading(false)
+
+        return data;
+    }
+
     const handleDelete = async (id) => {
         if (isLoading) return
         const token = localStorage.getItem('guruToken');
@@ -67,16 +82,18 @@ export const JurnalProvider = ({ children }) => {
         setIsLoading(true)
         const apiCall = await deleteJurnal(id);
         setIsLoading(false);
+        handleGetJurnalByKelas(kelas_id)
         return apiCall;
     };
 
-    const handleUpdate = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
+    const handleUpdate = async (id, kelas_id, hasil_belajar) => {
         if (isLoading) return
         const token = localStorage.getItem('guruToken');
-   
+
         setIsLoading(true)
-        const apiCall = await editJurnal(kelas_id, guru_id, hasil_belajar, tanggal);
+        const apiCall = await editJurnal(id, kelas_id, hasil_belajar);
         setIsLoading(false)
+        // handleFetchJurnal()
         return apiCall
     };
 
@@ -85,10 +102,14 @@ export const JurnalProvider = ({ children }) => {
         <JurnalContext.Provider value={{
             daftarKelas,
             jurnalList,
+            setJurnalList,
             isLoading,
             location,
+            selectedKelas,
+            setSelectedKelas,
             handleAdd,
             handleFetchJurnal,
+            handleGetJurnalByKelas,
             handleCheckKbm,
             handleFetchKelas,
             handleDelete,

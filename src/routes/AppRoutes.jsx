@@ -34,7 +34,12 @@ import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
 import ListKelas from '../modules/admin/crud-kelas/ListKelas';
 import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
+
 import { SiswaProvider } from '../modules/admin/crud-siswa/SiswaProvider';
+import RejulSiswa from '../modules/siswa/RejulSiswa';
+import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
+import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
+import LoginOrtuSiswa from '../modules/auth/LoginOrtuSiswa';
 
 
 
@@ -44,12 +49,14 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<Navigate to="/auth" />} />
         <Route path="/auth/admin" element={<Login />} />
         {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
-        <Route path="/auth" element={<LoginGuruSiswa />} >
-          <Route path="/auth/guru" element={<Login />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route path="/auth" element={<LoginGuruSiswa />} />
+
+        <Route path="/guru" element={<LoginGuru />} />
+        <Route path="/siswa" element={<LoginOrtuSiswa />} />
+        <Route path="/siswa-rekap" element={<RejulSiswa />} />
 
         {isLoggedIn && (
           <>
@@ -64,7 +71,7 @@ const AppRoutes = () => {
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
               <Route path="/guru/kelas/:kelas_id/jurnal" element={<Jurnal />} />
               <Route path="/guru/rekap" element={<RekapGuru />} />
-              <Route path="/guru/rekap/lihat" element={<RekapKbm />} />
+              <Route path="/guru/kelas/:kelas_id/rekap" element={<RekapKbm />} />
             </Route>
 
             <Route element={<SiswaLayout />}>
@@ -84,7 +91,7 @@ const AppRoutes = () => {
 
             <Route path='/admin' element={<KelasProvider><GuruProvider><SiswaProvider><MainLayout /></SiswaProvider></GuruProvider></KelasProvider>}>
               <Route index element={<Dashboard />} />
-              <Route path="" element={<Dashboard />} />
+              {/* <Route path="" element={<Dashboard />} /> */}
               <Route path="tambah-kelas" element={<TambahKelas />} />
               <Route path="kelas" element={<ListKelas />} />
 
@@ -93,9 +100,9 @@ const AppRoutes = () => {
                 <Route path="tambah" element={<TambahSiswa />} />
               </Route>
 
-              <Route path='rekap' element={<RekapWrapper />} >
+              <Route path='rekap' element={<RekapProvider><RekapWrapper /></RekapProvider>} >
                 <Route path="" element={<Rekap />} />
-                <Route path="absen" element={<RekapAbsen />} />
+                <Route path="absen" element={<RekapAdmin />} />
                 <Route path="jurnal" element={<RekapJurnal />} />
               </Route>
 
