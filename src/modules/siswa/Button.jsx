@@ -16,8 +16,8 @@ const Button = () => {
     return (
         <div>
             <div className="flex gap-6 py-[20px]">
-                <button onClick={handleChangeJadwal} className="grow py-[20px] rounded-[10px] bg-[#8970C8] font-poppins font-semibold text-left text-white px-[20px]">Jadwal</button>
-                <button onClick={handleChangeRekab} className="grow py-[20px] rounded-[10px] bg-[#DA9053] font-poppins font-semibold text-left text-white px-[20px]">Rekap</button>
+                <button onClick={handleChangeJadwal} className="grow py-[20px] rounded-[10px] bg-[#F0A160] font-poppins font-semibold text-left text-white px-[30px]">Rekap Absen</button>
+                <button onClick={handleChangeRekab} className="grow py-[20px] rounded-[10px] bg-[#078DCC] font-poppins font-semibold text-left text-white px-[30px]">Rekap Jurnal</button>
             </div>
         </div>
     )
