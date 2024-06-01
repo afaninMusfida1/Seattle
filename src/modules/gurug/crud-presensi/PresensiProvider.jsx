@@ -1,32 +1,50 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { apiGetKelas } from "./request";
+import { createContext, useContext, useState } from "react";
+import { apiGetKelas, apiGetSiswaByIdKelas } from "./request";
 
-const initKelasState = {
-    handleFetch: () => { },
+const initPresensiState = {
+    handleFetch: () => {},
+    handleFetchSiswaByIdKelas: () => {},
+    handleAddPresensi: () => {},
     isLoading: false
 };
 
-const KelasContext = createContext(initKelasState)
-export const useKelas = () => useContext(KelasContext)
+const PresensiContext = createContext(initPresensiState);
+export const usePresensi = () => useContext(PresensiContext);
 
-export const KelasProvider = ({ children }) => {
-    const [daftarKelas, setDaftarKelas] = useState([]);
+export const PresensiProvider = ({ children }) => {
+    const [presensiList, setPresensiList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleFetch = async () => {
-        const data = await apiGetKelas(); // Ambil data kelas dari API
-        console.log(data)
-        setDaftarKelas(data); // Setel data kelas ke dalam state
+        const data = await apiGetKelas();
+        console.log(data);
+        setPresensiList(data);
     };
 
-    useEffect(() => {
-        handleFetch()
-    }, []) //dikosongkan untuk menghindari infinte loop pada console
+    const handleAddPresensi = async (kbm_id, siswa_id, keterangan) => {
+        setIsLoading(true);
+        return addPresensi(kbm_id, siswa_id, keterangan)
+            .then(newPresensi => {
+                setPresensiList(prevList => [...prevList, newPresensi]);
+                setIsLoading(false);
+                return true; // Indicate success
+            })
+            .catch(error => {
+                console.error('Error adding presensi:', error);
+                setIsLoading(false);
+                return false; // Indicate failure
+            });
+    };
+
+    const handleFetchSiswaByIdKelas = async (kelas_id) => {
+        const data = await apiGetSiswaByIdKelas(kelas_id);
+        console.log(data);
+        setPresensiList(data);
+    };
 
     return (
-        <KelasContext.Provider value={{ daftarKelas, handleFetch, handleAdd }}>
+        <PresensiContext.Provider value={{ presensiList, handleAddPresensi, handleFetch, handleFetchSiswaByIdKelas, setPresensiList, isLoading, setIsLoading }}>
             {children}
-        </KelasContext.Provider>
-    )
-
-}
+        </PresensiContext.Provider>
+    );
+};

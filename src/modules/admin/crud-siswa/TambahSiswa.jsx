@@ -61,7 +61,23 @@ const TambahSiswa = () => {
             return;
         }
 
+        // if (!validatePhoneNumber(no_telp_ortu)) {
+        //     alert('Nomor telepon tidak valid. Harus berupa angka dan antara 10 hingga 15 digit.');
+        //     return;
+        // }
+
+        // if (!validateEmail(email)) {
+        //     alert('Email tidak valid.');
+        //     return;
+        // }
+
+        // if (!validatePassword(password)) {
+        //     alert('Password tidak valid. Harus setidaknya 8 karakter.');
+        //     return;
+        // }
+
         console.log("Input values:", { nama, kelas_id, no_telp_ortu, email, password });
+
 
         handleAdd(nama, kelas_id, no_telp_ortu, email, password)
             .then(result => {
@@ -69,6 +85,8 @@ const TambahSiswa = () => {
                     console.log('Siswa ditambahkan');
                     alert('Siswa ditambahkan');
                     navigate('/admin/siswa');
+                } else {
+                    console.error('Error menambahkan siswa:', result.message);
                 }
             })
             .catch(error => {
@@ -86,7 +104,8 @@ const TambahSiswa = () => {
         alert('Siswa ditambahkan');
         navigate('/admin/siswa');
     };
-
+    
+    
 
     return (
         <div className="bg-white rounded-[30px] ml-[350px] mr-[100px] mt-[100px] p-8">

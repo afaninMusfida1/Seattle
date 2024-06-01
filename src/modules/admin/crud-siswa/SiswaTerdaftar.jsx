@@ -157,7 +157,7 @@ const SiswaTerdaftar = () => {
                     </table>
                 )}
             </div>
-            <button onClick={handleChange} className="text-[#078DCC] text-[20px] font-bold hover:underline absolute right-[100px] bottom-[10px]">Tambahkan Siswa</button>
+            <button onClick={handleChange} className="text-[#078DCC] text-[20px] font-bold hover:underline fixed right-[100px] bottom-[40px]">Tambahkan Siswa</button>
         </>
     );
 };

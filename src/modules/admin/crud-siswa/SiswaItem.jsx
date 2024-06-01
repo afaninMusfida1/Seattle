@@ -5,18 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Popup from "reactjs-popup";
 
-const SiswaItem = ({ id, nama, kategori, no_telp_ortu, email, nama_kelas, kelas_id, password }) => {
+const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
     const { handleDelete, handleUpdate } = useSiswa();
-    const { daftarKelas } = useKelas();
+    const { daftarKelas, getNamaKelas } = useKelas();
     const [editedNama, setEditedNama] = useState(nama);
-    const [editedKelasId, setEditedKelasId] = useState(kelas_id);
+    // const [editedKategori, setEditedKategori] = useState(kategori);
+    const [editedKelasId, setEditedKelasId] = useState(nama_kelas);
     const [editedNoTelpOrtu, setEditedNoTelpOrtu] = useState(no_telp_ortu);
     const [editedEmail, setEditedEmail] = useState(email);
     const [editedPassword, setEditedPassword] = useState(password);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const confirmDelete = () => {
-        const konfirm = window.confirm("Apakah Anda Yakin Ingin Menghapusnya?");
+        const konfirm = confirm("Apakah Anda Yakin Ingin Menghapusnya?");
         if (konfirm) {
             handleDelete(id);
         }
@@ -24,12 +25,13 @@ const SiswaItem = ({ id, nama, kategori, no_telp_ortu, email, nama_kelas, kelas_
 
     useEffect(() => {
         setEditedPassword(password);
-    }, [password]);
+    }, []);
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
         const updatedDataSiswa = {
             nama: editedNama,
+            // kategori: editedKategori,
             kelas_id: editedKelasId,
             no_telp_ortu: editedNoTelpOrtu,
             email: editedEmail,
@@ -73,6 +75,20 @@ const SiswaItem = ({ id, nama, kategori, no_telp_ortu, email, nama_kelas, kelas_
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
                                 />
                             </div>
+                            {/* <div>
+                                <label htmlFor="kategori">Kategori:</label>
+                                <select
+                                    id="kategori"
+                                    value={editedKategori}
+                                    onChange={(e) => setEditedKategori(e.target.value)}
+                                    className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
+                                >
+                                    <option value="" hidden>Pilih Kategori</option>
+                                    {daftarKelas.map((kelas) => (
+                                        <option key={kelas.kategori} value={kelas.kategori}>{kelas.kategori}</option>
+                                    ))}
+                                </select>
+                            </div> */}
                             <div>
                                 <label htmlFor="kelas">Kelas:</label>
                                 <select
@@ -84,7 +100,7 @@ const SiswaItem = ({ id, nama, kategori, no_telp_ortu, email, nama_kelas, kelas_
                                     <option value="" hidden>Pilih Kelas</option>
                                     {daftarKelas.length > 0 ? (
                                         daftarKelas.map((kelas) => (
-                                            <option key={kelas.nama_kelas} value={kelas.id}>{kelas.nama_kelas}</option>
+                                            <option key={kelas.nama_kelas} value={kelas.nama_kelas}>{kelas.nama_kelas}</option>
                                         ))
                                     ) : (
                                         <option value="">Tidak ada kelas tersedia</option>
