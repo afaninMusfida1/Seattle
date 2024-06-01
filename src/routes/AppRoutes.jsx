@@ -34,16 +34,10 @@ import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
 import ListKelas from '../modules/admin/crud-kelas/ListKelas';
 import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
-<<<<<<< HEAD
 import LoginOrtuSiswa from '../modules/auth/LoginOrtuSiswa';
-=======
 import { SiswaProvider } from '../modules/admin/crud-siswa/SiswaProvider';
-import RejulSiswa from '../modules/siswa/RejulSiswa';
 import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
 import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
-
-
->>>>>>> ad801568b42c6336c1b28cabb8bc43cf73f0b663
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -55,14 +49,9 @@ const AppRoutes = () => {
         <Route path="/auth/admin" element={<Login />} />
         {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} />
-<<<<<<< HEAD
         <Route path="/guru" element={<LoginGuru />} />        
-        <Route path="/login-ortu-siswa" element={<LoginOrtuSiswa/>}/>
+        <Route path="/siswa" element={<LoginOrtuSiswa/>}/>
         <Route path="*" element={<Navigate to="/auth" />} />
-=======
-        <Route path="/guru" element={<LoginGuru />} />
-        <Route path="/siswa" element={<RejulSiswa />} />
->>>>>>> ad801568b42c6336c1b28cabb8bc43cf73f0b663
 
         {isLoggedIn && (
           <>

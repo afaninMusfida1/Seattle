@@ -7,7 +7,7 @@ const Login = () => {
   const { doLoginAdmin, error, isLoggedIn, setIsLoggedIn } = useAuth();
   const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("admin123");
-  const navigate = useNavigate();
+  const navigate = useNavigate();s
   const [loginError, setLoginError] = useState(null);
 
   const handleClick = async () => {

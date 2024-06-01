@@ -9,7 +9,7 @@ const LoginGuruSiswa = () => {
   };
 
   const handleClickSiswa = () => {
-    navigate('/login-ortu-siswa');
+    navigate('/siswa');
   };
 
   return (
