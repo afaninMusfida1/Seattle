@@ -63,7 +63,7 @@ export const apiGetSiswa = async () => {
         });
 };
 
-export const deleteSiswa = async (id) => {
+export const deleteSiswa = (id) => {
     const token = getToken();
     return axios.delete(`${API_URL}/siswa/${id}`, {
         headers: {

@@ -10,17 +10,18 @@ import { useSiswa } from '../../admin/crud-siswa/SiswaProvider';
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, handleCheckKbm, handleUpdate, handleFetchJurnal } = useJurnal();
+    const { handleAdd, handleCheckKbm, handleUpdate, jurnalList, handleFetchJurnal, handleGetJurnalByKelas, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
     const { kelas_id } = useParams();
     const [namaGuru, setNamaGuru] = useState("");
     const [namaKelas, setNamaKelas] = useState("");
     const [kategori, setKategori] = useState("");
     const [isChecking, setIsChecking] = useState(true);
-    const [jurnalIsAvailable, setJurnalIsAvailable] = useState();
+    const [jurnalIsAvailable, setJurnalIsAvailable] = useState(false);
     const [materi, setMateri] = useState("");
     const { siswaList, setSiswaList } = useSiswa();
     const [fetchedSiswaList, setFetchedSiswaList] = useState([]);
+    const [id, setId] = useState();
 
     useEffect(() => {
         actionSetPageTitle('Isi Jurnal & Presensi');
@@ -52,7 +53,7 @@ const Jurnal = () => {
 
         const result = await handleCheckKbm(kelas_id, tanggal)
 
-        if (result.length === 0) {
+        if (!result) {
             setJurnalIsAvailable(false);
             Swal.fire({
                 title: 'Informasi',
@@ -62,7 +63,8 @@ const Jurnal = () => {
             })
         } else {
             setJurnalIsAvailable(true);
-            setMateri(result[0].hasil_belajar);
+            setMateri(result.hasil_belajar);
+            setId(result.id)
             Swal.fire({
                 title: 'Informasi',
                 text: 'Ditemukan jurnal, silahkan update',
@@ -85,9 +87,12 @@ const Jurnal = () => {
         }
         const result = await handleAdd(kelas_id, guru_id, materi, tanggal);
         if (result) {
+            console.log(result)
             navigate(`/guru/kelas/${kelas_id}/rekap`);
         }
+        setTanggal("");
         setMateri("");
+
     };
 
     const handleChangePresensi = () => {
@@ -138,9 +143,11 @@ const Jurnal = () => {
                                     <>
                                         <div className='flex gap-4' >
                                             <button type="button"
-
-                                                onClick={() => {
-                                                    handleUpdate()
+                                                onClick={async () => {
+                                                    await handleUpdate(id, kelas_id, materi, tanggal)
+                                                    setTanggal("")
+                                                    setMateri("")
+                                                    navigate(`/guru/kelas/${kelas_id}/rekap`)
                                                 }}
                                                 className="mt-[100px] grow py-2 font-poppins text-[16px] bg-green-400 text-white rounded-md outline-none">
                                                 Update Jurnal
@@ -159,10 +166,14 @@ const Jurnal = () => {
                                     <>
                                         <div className='flex gap-4'>
                                             <button type="button"
-                                                onClick={() => {
-                                                    handleIsiJurnal()
+                                                onClick={async () => {
+                                                    await handleIsiJurnal()
                                                     setTanggal("")
-                                                }}
+                                                    setMateri("")
+                                                    navigate(`/guru/kelas/${kelas_id}/rekap`)
+                                                    handleGetJurnalByKelas(kelas_id)
+                                                }
+                                                }
                                                 className="mt-[100px] grow py-2 font-poppins bg-[#078DCC] text-white rounded-md outline-none">
                                                 Buat Jurnal
                                             </button>
@@ -170,6 +181,7 @@ const Jurnal = () => {
                                                 onClick={() => {
                                                     setIsChecking(true)
                                                     setTanggal("")
+                                                    setMateri("")
                                                 }}
                                                 className='bg-red-400 py-2 px-6 text-white mt-[100px] rounded-md '>
                                                 Batal
@@ -187,7 +199,7 @@ const Jurnal = () => {
                     </div>
                 )}
             </div>
-            <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[30px] p-8 ">
+            <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mb-[100px] mt-[30px] p-8 ">
                 <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
                     {fetchedSiswaList.map(siswa => (
                         <PresensiItem key={siswa.id} siswa={siswa} />

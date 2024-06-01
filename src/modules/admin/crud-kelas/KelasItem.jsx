@@ -54,10 +54,69 @@ const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id
                 <div className="absolute top-0 right-0 text-[12px] bg-green-200 text-green-600 font-medium px-2 py-1 rounded mt-2 mr-2">
                     {jadwal_kelas}
                 </div>
+                {/* <div className="flex items-center mt-2">
+                    <button onClick={handleEdit} className="text-[20px] mr-2">
+                        <FontAwesomeIcon icon={faPenToSquare} style={{ color: "#6a6d76" }} />
+                    </button>
+                    <button onClick={() => confirmDelete(id)} className="text-[20px]">
+                        <FontAwesomeIcon icon={faTrashAlt} style={{ color: "#6a6d76" }} />
+                    </button>
+                </div> */}
             </div>
+            {/* <Popup open={isPopupOpen} onClose={() => setIsPopupOpen(false)}>
+                <div className="modal text-center bg-white max-w-fit border p-4 drop-shadow-2xlp-[40px] px-[50px] rounded-[20px] drop-shadow-2xl">
+                    <h1 className="font-semibold text-2xl my-5">Edit Kelas</h1>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        handleEditSubmit();
+                    }}>
+                        <div>
+                            <input
+                                type="text"
+                                value={editedNama}
+                                onChange={(e) => setEditedNama(e.target.value)}
+                                placeholder="Nama Kelas"
+                                className="bg-slate-200 rounded px-3 py-2 w-full mb-3 outline-none"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                type="text"
+                                value={editedKategori}
+                                onChange={(e) => setEditedKategori(e.target.value)}
+                                placeholder="Kategori"
+                                className="bg-slate-200 rounded px-3 py-2 w-full mb-3 outline-none"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                type="text"
+                                value={editedPeriode}
+                                onChange={(e) => setEditedPeriode(e.target.value)}
+                                placeholder="Periode"
+                                className="bg-slate-200 rounded px-3 py-2 w-full mb-3 outline-none"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                type="text"
+                                value={editedJadwal}
+                                onChange={(e) => setEditedJadwal(e.target.value)}
+                                placeholder="Jadwal"
+                                className="bg-slate-200 rounded px-3 py-2 w-full mb-3 outline-none"
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="bg-green-500 text-white font-semibold rounded-[20px] px-6 py-2 hover:bg-green-600"
+                        >
+                            Simpan
+                        </button>
+                    </form>
+                </div>
+            </Popup> */}
         </>
     );
 };
 
 export default KelasItem;
-

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Popup from "reactjs-popup";
 
-const SiswaItem = ({ id, nama, kategori, no_telp_ortu, email, nama_kelas, password }) => {
+const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
     const { handleDelete, handleUpdate } = useSiswa();
     const { daftarKelas, getNamaKelas } = useKelas();
     const [editedNama, setEditedNama] = useState(nama);
@@ -121,7 +121,6 @@ const SiswaItem = ({ id, nama, kategori, no_telp_ortu, email, nama_kelas, passwo
                                 <label htmlFor="email">Email:</label>
                                 <input
                                     id="email"
-                                    // type="email"
                                     value={editedEmail}
                                     onChange={(e) => setEditedEmail(e.target.value)}
                                     className="bg-gray-200 rounded px-3 py-2 outline-none w-full"
