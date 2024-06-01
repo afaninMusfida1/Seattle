@@ -45,9 +45,6 @@ const TambahKelas = () => {
         refPeriode.current.value = ''; 
     };
 
-
-    
-
     return (
         <>
             <div className="bg-white max-w-[500px] rounded-[30px] ml-[100px] mr-[100px] mt-[50px] flex flex-col gap-10 p-8">

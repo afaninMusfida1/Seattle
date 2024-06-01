@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-const RekapItem = ({ kelas_id, guru_id, hasil_belajar, tanggal }) => {
+const RekapItem = ({ key, kelas_id, guru_id, hasil_belajar, tanggal }) => {
 
 
     return (

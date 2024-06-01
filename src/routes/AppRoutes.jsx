@@ -17,7 +17,7 @@ import { useAuth } from '../context/AuthContext';
 import KelasSiswa from '../modules/gurug/crud-presensi/KelasSiswa';
 import PresensiSiswa from '../modules/gurug/crud-presensi/PresensiSiswa';
 import Jurnal from '../modules/gurug/crud-jurnal/Jurnal';
-import RekapGuru from '../modules/gurug/RekapGuru';
+import RekapGuru from '../modules/gurug/crud-jurnal/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
 import RekapSiswa from '../modules/siswa/RekapSiswa';
 import GuruWrapper from '../modules/admin/crud-guru/GuruWrapper';
@@ -33,8 +33,8 @@ import LoginGuru from '../modules/auth/LoginGuru/LoginGuru';
 import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
 import ListKelas from '../modules/admin/crud-kelas/ListKelas';
-
-
+import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
+import LoginOrtuSiswa from '../modules/auth/LoginOrtuSiswa';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -45,7 +45,8 @@ const AppRoutes = () => {
         <Route path="/auth/admin" element={<Login />} />
         {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} />
-        <Route path="/guru" element={<LoginGuru />} />
+        <Route path="/guru" element={<LoginGuru />} />        
+        <Route path="/login-ortu-siswa" element={<LoginOrtuSiswa/>}/>
         <Route path="*" element={<Navigate to="/auth" />} />
 
         {isLoggedIn && (
@@ -79,7 +80,7 @@ const AppRoutes = () => {
               <Route path="/siswa-jadwal" element={<JadwalMapel />} />
             </Route>
 
-            <Route path='/admin' element={<KelasProvider><MainLayout /></KelasProvider>}>
+            <Route path='/admin' element={<KelasProvider><GuruProvider><MainLayout /></GuruProvider></KelasProvider>}>
               <Route index element={<Dashboard />} />
               {/* <Route path="" element={<Dashboard />} /> */}
               <Route path="tambah-kelas" element={<TambahKelas />} />

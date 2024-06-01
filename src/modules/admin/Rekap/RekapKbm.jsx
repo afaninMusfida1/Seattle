@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout();
-    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal();
+    const { jurnalList, setJurnalList, handleFetchJurnal, handleDelete } = useJurnal();
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
-        handleFetch();
+        handleFetchJurnal()
     }, [])
 
     return (
@@ -35,7 +35,7 @@ const RekapKbm = () => {
                             jurnalList.map(jurnal => (
                                 <RekapItem
                                     key={jurnal.id}
-                                   
+                                    id={jurnal.id}
                                     kelas_id={jurnal.kelas_id}
                                     guru_id={jurnal.guru_id}
                                     hasil_belajar={jurnal.hasil_belajar}

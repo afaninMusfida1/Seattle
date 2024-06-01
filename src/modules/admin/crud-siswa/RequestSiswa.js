@@ -1,74 +1,54 @@
 import axios from "axios";
 import { getToken } from "../../config/Api";
 import { API_URL } from "../../config/Url";
+import { useNavigate } from 'react-router-dom';
 
-export const addSiswa = async (nama, kelas_id, level, no_telp_ortu, email, password) => {
-    const token = localStorage.getItem('adminToken');
+const handleUnauthorizedError = (error) => {
+    if (error.response && error.response.status === 401) {
+        console.error("Token expired. Please login again.");
+        alert("Session expired. Please login again.");
+        localStorage.removeItem('adminToken');
+
+        const navigate = useNavigate(); // Menggunakan useNavigate untuk navigasi
+        navigate('/login');
+    }
+};
+
+//get kelas
+
+export const addSiswa = (nama, kelas_id, no_telp_ortu, email, password) => {
+    const token = getToken();
     if (!token) {
         console.error("Token not found. Please login again.");
-        return Promise.resolve({ success: false, message: "Token not found. Please login again." });
+        return Promise.reject({ message: "Token not found. Please login again." });
     }
 
-
-    const newSiswa = { nama, kelas_id, level, no_telp_ortu, email, password };
+    const newSiswa = { nama, kelas_id, no_telp_ortu, email, password };
 
     return axios.post(`${API_URL}/siswa`, newSiswa, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     })
-        .then(response => {
-            return response.data; // Pastikan bahwa nilai yang diharapkan dikembalikan di sini
-        })
-        .catch(error => {
-            console.error("Error adding siswa:", error.response ? error.response.data : error.message);
-            return { success: false, message: error.response ? error.response.data.message : error.message };
-        });
-
+    .then(response => {
+        if (response.status === 200) {
+            return { success: true, data: response.data };
+        } else {
+            return { success: false, message: "Unexpected response from server" };
+        }
+    })
+    .catch(error => {
+        handleUnauthorizedError(error);
+        return { success: false, message: error.response ? error.response.data.message : error.message };
+    });
 };
 
 
-// export const addSiswa = async (nama, kelas_id, level, no_telp_ortu, email, password) => {
-//     setIsLoading(true);
-//     const token = localStorage.getItem('adminToken');
-//     if (!token) {
-//         console.error("Token not found. Please login again.");
-//         setIsLoading(false);
-//         return { success: false, message: "Token not found. Please login again." };
-//     }
-
-//     const response = await axios.post(`${API_URL}/siswa`, {
-//         nama,
-//         kelas_id,
-//         level,
-//         no_telp_ortu,
-//         email,
-//         password
-//     }, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     });
-
-//     if (response.status === 201) {
-//         const newData = response.data.data.dataSiswa;
-//         setSiswaList(prevSiswaList => [...prevSiswaList, newData]);
-//         setIsLoading(false);
-//         return { success: true, data: newData };
-//     } else {
-//         console.error("Error adding siswa:", response.data.message);
-//         setIsLoading(false);
-//         return { success: false, message: response.data.message };
-//     }
-// };
-
-
-
-export const apiGetSiswa = () => {
+export const apiGetSiswa = async () => {
     const token = getToken();
     if (!token) {
         console.error("Token not found. Please login again.");
-        return { message: "Token not found. Please login again." };
+        return Promise.resolve({ message: "Token not found. Please login again." });
     }
 
     return axios.get(`${API_URL}/siswa`, {
@@ -76,50 +56,63 @@ export const apiGetSiswa = () => {
             Authorization: `Bearer ${token}`
         }
     })
-        .then((response) => {
-            console.log(response.data.data.dataSiswa);
-            return response.data.data.dataSiswa;
-        })
-        .catch((error) => {
-            console.error("Error fetching data: ", error);
+        .then(response => response.data.data.dataSiswa)
+        .catch(error => {
+            handleUnauthorizedError(error);
             return error.response?.data ?? { message: "Unknown error" };
         });
 };
 
 export const deleteSiswa = async (id) => {
     const token = getToken();
-    const deletes = await axios
-        .delete(API_URL + "/siswa/3" + id, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        .then((response) => {
-            return response;
-        })
-        .catch((eror) => {
-            return eror.response;
+    return axios.delete(`${API_URL}/siswa/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => response)
+        .catch(error => {
+            handleUnauthorizedError(error);
+            return error.response;
         });
-    return deletes;
 };
 
-export const editSiswa = async (id, nama, kelas_id, level, no_telp_ortu, email, password) => {
+export const editSiswa = async (id, updatedSiswa) => {
     const token = getToken();
-    const edits = await axios
-        .put(
-            API_URL + "/siswa/2" + id,
-            { id, nama, kelas_id, level, no_telp_ortu, email, password },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-        .then((response) => {
-            return response;
-        })
-        .catch((eror) => {
-            return eror.response
+    return axios.put(`${API_URL}/siswa/${id}`, updatedSiswa, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => response.data)
+        .catch(error => {
+            handleUnauthorizedError(error);
+            return error.response;
         });
-    return edits;
+};
+
+export const searchSiswaApi = (kategori, kelas, nama) => {
+    const token = getToken();
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return Promise.resolve({ message: "Token not found. Please login again." });
+    }
+
+    const params = {
+        kategori,
+        kelas,
+        nama
+    };
+
+    return axios.get(`${API_URL}/siswa`, {
+        params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(response => response.data.data.dataSiswa)
+    .catch(error => {
+        handleUnauthorizedError(error);
+        return error.response?.data ?? { message: "Unknown error" };
+    });
 };

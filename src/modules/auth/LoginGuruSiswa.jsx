@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const LoginGuruSiswa = () => {
   const navigate = useNavigate();
 
@@ -10,19 +9,19 @@ const LoginGuruSiswa = () => {
   };
 
   const handleClickSiswa = () => {
-    navigate('/siswa');
+    navigate('/login-ortu-siswa');
   };
 
   return (
     <>
-      <div className="bg-[#FBFBFB] w-screen h-screen">
-        <div className="logo">
-          <img className="mx-10 pt-5 w-auto h-20" src="src/assets/logo - Copy.png" alt="" />
+      <div className="bg-[#FBFBFB] w-screen h-screen flex flex-col items-center justify-center">
+        <div className="absolute top-0 left-0 mt-5 ml-5">
+          <img className="w-auto h-[70px]" src="src/assets/logo - Copy.png" alt="" />
         </div>
-        <h1 className="text-center text-[#06357A] font-poppins font-bold md:text-[40px] text-[20px] p-5 mt-[50px] my-[25px]">Masuk sebagai</h1>
-        <div className=" flex-col max-w-fit mx-auto">
-          <button onClick={handleClickGuru} className="bg-[#078DCC] text-center block w-full px-[180px] my-6 font-poppins text-[#fbfbfb] md:text-[20px] text-[16px] rounded-[16px] py-3" >Guru</button>
-          <button onClick={handleClickSiswa} className="bg-[#078DCC] text-center block w-full px-[180px] my-6 font-poppins text-[#fbfbfb] md:text-[20px] text-[16px] rounded-[16px] py-3" >Siswa</button>
+        <h1 className="text-center text-[#06357A] font-poppins font-bold text-2xl md:text-5xl p-5">Masuk sebagai</h1>
+        <div className="flex flex-col items-center">
+          <button onClick={handleClickGuru} className="bg-[#078DCC] text-center w-full md:w-96 px-[120px] py-3 my-6 font-poppins text-[#fbfbfb] text-lg md:text-xl rounded-[16px] mb-[5px]">Guru</button>
+          <button onClick={handleClickSiswa} className="bg-[#078DCC] text-center w-full md:w-96 px-[120px] py-3 my-6 font-poppins text-[#fbfbfb] text-lg md:text-xl rounded-[16px]">Siswa</button>
         </div>
       </div>
     </>

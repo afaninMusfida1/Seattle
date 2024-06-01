@@ -1,4 +1,4 @@
-import { getToken, getTokenGuru } from "../../config/Api";
+import { getToken, getTokenGuru, removeToken } from "../../config/Api";
 import { API_URL } from "../../config/Url";
 import axios from "axios";
 
@@ -28,7 +28,7 @@ export const addKelas = async (nama_kelas, kategori, periode, jadwal_kelas) => {
 
 export const apiGetKelas = async (role) => {
   const token = role == 'Admin' ? getToken() : getTokenGuru()
-  
+  console.log(`role: `, role)
   if (!token) {
     console.error("Token not found. Please login again.");
     return { message: "Token not found. Please login again." };
