@@ -50,7 +50,7 @@ const RekapKbm = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={5} className="text-center border-2">Belum ada jurnal</td>
+                                <td colSpan={5} className="text-center border-2 opacity-50">Belum ada jurnal</td>
                             </tr>
                         )}
                     </tbody>

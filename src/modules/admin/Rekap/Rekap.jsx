@@ -1,4 +1,4 @@
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useLayout } from '../../layout/LayoutContext';
 import KelasGrouping from '../../admin/crud-kelas/KelasGrouping';
@@ -13,6 +13,7 @@ const Rekap = (props) => {
     const { daftarKelas, location, setLocation, handleFetchKelas } = useJurnal();
     const [filters, setFilters] = useState({});
     const [groupedKelas, setGroupedKelas] = useState({});
+    const {kelas_id} = useParams()
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap Admin');
@@ -70,7 +71,7 @@ const Rekap = (props) => {
                                         kategori={kelas.kategori}
                                         periode={kelas.periode}
                                         jadwal_kelas={kelas.jadwal_kelas}
-                                        navigateTo={'absen'}
+                                        navigateTo={`absen/kelas/${kelas_id}`}
                                         // onClick={() => handleKelasClick(kelas.id)}
                                     />
                                 ))}

@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, handleCheckKbm, handleUpdate, jurnalList, handleFetchJurnal, isLoading } = useJurnal();
+    const { handleAdd, handleCheckKbm, handleUpdate, jurnalList, handleFetchJurnal, handleGetJurnalByKelas, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
     const { kelas_id, guru_id } = useParams();
     const refKelas_id = useRef('');
@@ -22,7 +22,7 @@ const Jurnal = () => {
     const [kategori, setKategori] = useState("");
     const kelas = (`${namaKelas} - ${kategori}`);
     const [isChecking, setIsChecking] = useState(true);
-    const [jurnalIsAvailable, setJurnalIsAvailable] = useState();
+    const [jurnalIsAvailable, setJurnalIsAvailable] = useState(false);
     const [materi, setMateri] = useState("");
     const [id, setId] = useState();
 
@@ -82,9 +82,11 @@ const Jurnal = () => {
         const result = await handleAdd(kelas_id, guru_id, materi, tanggal);
         if (result) {
             console.log(result)
-            navigate('/guru/kelas/:kelas_id/rekap');
+            navigate(`/guru/kelas/${kelas_id}/rekap`);
         }
+        setTanggal("");
         setMateri("");
+
     };
 
     const handleChangePresensi = () => {
@@ -139,11 +141,11 @@ const Jurnal = () => {
                                     <>
                                         <div className='flex gap-4' >
                                             <button type="button"
-                                                onClick={() => {
-                                                    handleUpdate(id, kelas_id, materi, tanggal)
+                                                onClick={async () => {
+                                                    await handleUpdate(id, kelas_id, materi, tanggal)
                                                     setTanggal("")
                                                     setMateri("")
-                                                    navigate('/guru/kelas/:kelas_id/rekap')
+                                                    navigate(`/guru/kelas/${kelas_id}/rekap`)
                                                 }}
                                                 className="mt-[100px] grow py-2 font-poppins text-[16px] bg-green-400 text-white rounded-md outline-none">
                                                 Update Jurnal
@@ -162,10 +164,12 @@ const Jurnal = () => {
                                     <>
                                         <div className='flex gap-4'>
                                             <button type="button"
-                                                onClick={() => {
-                                                    handleIsiJurnal()
+                                                onClick={async () => {
+                                                    await handleIsiJurnal()
                                                     setTanggal("")
-                                                    navigate('/guru/kelas/:kelas_id/rekap')
+                                                    setMateri("")
+                                                    navigate(`/guru/kelas/${kelas_id}/rekap`)
+                                                    handleGetJurnalByKelas(kelas_id)
                                                 }
                                                 }
                                                 className="mt-[100px] grow py-2 font-poppins bg-[#078DCC] text-white rounded-md outline-none">
@@ -175,6 +179,7 @@ const Jurnal = () => {
                                                 onClick={() => {
                                                     setIsChecking(true)
                                                     setTanggal("")
+                                                    setMateri("")
                                                 }}
                                                 className='bg-red-400 py-2 px-6 text-white mt-[100px] rounded-md '>
                                                 batal

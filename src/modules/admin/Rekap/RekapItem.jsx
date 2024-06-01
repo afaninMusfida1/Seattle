@@ -10,7 +10,8 @@ const RekapItem = ({ id, kelas_id, nama_kelas, nama, hasil_belajar, tanggal }) =
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [editedTanggal, setEditedTanggal] = useState(tanggal);
     const [editedHasilBelajar, setEditedHasilBelajar] = useState(hasil_belajar);
-    const { jurnalList, handleDelete, handleUpdate } = useJurnal();
+    const { jurnalList, handleGetJurnalByKelas, handleDelete, handleUpdate } = useJurnal();
+    // const {kelas_id} = useParams()
 
     const handleEdit = () => {
         setIsPopupOpen(true)
@@ -35,12 +36,12 @@ const RekapItem = ({ id, kelas_id, nama_kelas, nama, hasil_belajar, tanggal }) =
                 <td className="text-center font-semibold text-blue-700">{nama}</td>
                 <td className="max-w-[160px] truncate cursor-pointer pl-[40px]">{hasil_belajar}</td>
                 <td className="text-center">
-                    <button onClick={handleEdit}>
+                    {/* <button onClick={handleEdit}>
                         <FontAwesomeIcon icon={faPenToSquare} className="text-sky-500" />
-                    </button>
+                    </button> */}
                     <button onClick={() => {
                         handleDelete(id)
-                        
+                        // handleGetJurnalByKelas(kelas_id)
                         Swal.fire({
                             title: 'Informasi',
                             text: 'Jurnal berhasil dihapus',
