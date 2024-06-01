@@ -1,10 +1,12 @@
 import { createContext, useContext, useState } from "react";
-import { apiGetKelas, apiGetSiswaByIdKelas } from "./request";
+import { apiGetJurnalByTanggal, apiGetKelas, apiGetSiswaByIdKelas, addPresensi } from "./requestPresensi";
+import { useParams } from "react-router-dom";
 
 const initPresensiState = {
-    handleFetch: () => {},
-    handleFetchSiswaByIdKelas: () => {},
-    handleAddPresensi: () => {},
+    handleFetch: () => { },
+    handleGetKbmId: () => { },
+    handleFetchSiswaByIdKelas: () => { },
+    handleAddPresensi: () => { },
     isLoading: false
 };
 
@@ -14,6 +16,7 @@ export const usePresensi = () => useContext(PresensiContext);
 export const PresensiProvider = ({ children }) => {
     const [presensiList, setPresensiList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const { kelas_id } = useParams()
 
     const handleFetch = async () => {
         const data = await apiGetKelas();
@@ -21,9 +24,21 @@ export const PresensiProvider = ({ children }) => {
         setPresensiList(data);
     };
 
+    const handleGetKbmId = async (kelas_id, tanggal) => {
+        if (isLoading) return
+        setIsLoading(true)
+
+        const apiCall = await apiGetJurnalByTanggal(kelas_id, tanggal);
+        const kbmId = apiCall.id
+        setIsLoading(false);
+
+        return kbmId;
+    };
+
     const handleAddPresensi = async (kbm_id, siswa_id, keterangan) => {
         setIsLoading(true);
-        return addPresensi(kbm_id, siswa_id, keterangan)
+    
+        const data = await addPresensi(kbm_id, siswa_id, keterangan)
             .then(newPresensi => {
                 setPresensiList(prevList => [...prevList, newPresensi]);
                 setIsLoading(false);
@@ -34,6 +49,7 @@ export const PresensiProvider = ({ children }) => {
                 setIsLoading(false);
                 return false; // Indicate failure
             });
+        return data;
     };
 
     const handleFetchSiswaByIdKelas = async (kelas_id) => {
@@ -43,7 +59,7 @@ export const PresensiProvider = ({ children }) => {
     };
 
     return (
-        <PresensiContext.Provider value={{ presensiList, handleAddPresensi, handleFetch, handleFetchSiswaByIdKelas, setPresensiList, isLoading, setIsLoading }}>
+        <PresensiContext.Provider value={{ presensiList, handleAddPresensi, handleGetKbmId, handleFetch, handleFetchSiswaByIdKelas, setPresensiList, isLoading, setIsLoading }}>
             {children}
         </PresensiContext.Provider>
     );

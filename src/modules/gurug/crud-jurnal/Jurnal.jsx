@@ -3,14 +3,14 @@ import { useLayout } from '../../layout/LayoutContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
 import PresensiItem from '../crud-presensi/PresensiItem';
-import { apiGetSiswaByIdKelas } from '../crud-presensi/request';
+import { apiGetSiswaByIdKelas } from '../crud-presensi/requestPresensi';
 import Swal from 'sweetalert2';
 import { useSiswa } from '../../admin/crud-siswa/SiswaProvider';
 
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { handleAdd, handleCheckKbm, handleUpdate, jurnalList, handleFetchJurnal, handleGetJurnalByKelas, isLoading } = useJurnal();
+    const { handleAdd, handleCheckKbm, handleGetKbmId, handleUpdate, jurnalList, handleFetchJurnal, handleGetJurnalByKelas, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
     const { kelas_id } = useParams();
     const [namaGuru, setNamaGuru] = useState("");
@@ -51,7 +51,9 @@ const Jurnal = () => {
             return;
         }
 
-        const result = await handleCheckKbm(kelas_id, tanggal)
+        const idKbm = await handleGetKbmId(kelas_id, tanggal)
+        console.log(`ini adalah id kbm dari cek jurnal`, idKbm)
+        const result = handleCheckKbm(kelas_id, tanggal)
 
         if (!result) {
             setJurnalIsAvailable(false);
@@ -202,7 +204,7 @@ const Jurnal = () => {
             <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mb-[100px] mt-[30px] p-8 ">
                 <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
                     {fetchedSiswaList.map(siswa => (
-                        <PresensiItem key={siswa.id} siswa={siswa} />
+                        <PresensiItem key={siswa.id} siswa={siswa}  />
                     ))}
                 </div>
                 <div className="flex justify-end">

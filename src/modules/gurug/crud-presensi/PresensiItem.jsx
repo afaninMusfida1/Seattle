@@ -1,10 +1,20 @@
 import React from 'react';
-import { addPresensi } from './request';
+import { addPresensi, apiGetJurnalByTanggal } from './requestPresensi';
+import { usePresensi } from './PresensiProvider';
+import KelasGrouping from '../../admin/crud-kelas/KelasGrouping';
+import { useParams } from 'react-router-dom';
 
 const PresensiItem = ({ siswa, kbm_id }) => {
-    const handlePresensiChange = async (e) => {
+    const {handleAddPresensi, handleGetKbmId} = usePresensi();
+    const {kelas_id} = useParams(); 
+    
+    const handlePresensiChange = async (e, kelas_id, tanggal) => {
         const keterangan = e.target.value;
-        addPresensi(kbm_id, siswa.id, keterangan)
+
+        const idKbm = await handleGetKbmId(kelas_id, tanggal)
+        console.log(`ini adalah id kbm dari add presensi`, idKbm)
+
+        handleAddPresensi(kbm_id, siswa.id, keterangan)
             .then(() => {
                 console.log('Presensi added successfully');
             })
