@@ -81,7 +81,7 @@ export const JurnalProvider = ({ children }) => {
         setIsLoading(false)
 
         return data;
-    }
+    };
 
     const handleDelete = async (id) => {
         if (isLoading) return
