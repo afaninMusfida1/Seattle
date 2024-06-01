@@ -89,9 +89,13 @@ const Jurnal = () => {
 
     };
 
-    const handleChangePresensi = () => {
+    const handleConfirmPresensi = () => {
         navigate('/guru')
-        console.log('selesai presensi')
+        Swal.fire({
+            title: 'Selesai Presensi',
+            icon: 'success',
+            confirmButtonText: 'Lanjut'
+        })
     }
 
     return (
@@ -209,7 +213,7 @@ const Jurnal = () => {
                     <PresensiItem />
                 </div>
                 <div className="flex justify-end">
-                    <button onClick={handleChangePresensi} className="bg-[#078DCC] text-white px-[70px] py-[5px] rounded mr-[20px] mt-[20px] self-end">
+                    <button onClick={handleConfirmPresensi} className="bg-[#078DCC] text-white px-[70px] py-[5px] rounded mr-[20px] mt-[20px] self-end">
                         Selesai
                     </button>
                 </div>
