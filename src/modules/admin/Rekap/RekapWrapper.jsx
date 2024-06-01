@@ -1,9 +1,14 @@
 import { Outlet } from "react-router-dom"
+import { RekapProvider } from "./RekapProvider"
+import { KelasProvider } from "../crud-kelas/KelasProvider"
 
 const RekapWrapper = ({ children }) => {
     return (
-
-        <Outlet />
+        <KelasProvider>
+        <RekapProvider>
+            <Outlet />
+        </RekapProvider>
+        </KelasProvider>
 
     )
 }
