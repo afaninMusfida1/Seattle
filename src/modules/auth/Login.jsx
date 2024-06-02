@@ -36,7 +36,7 @@ const Login = () => {
           src="/src/assets/logo - Copy.png"
           alt="Seattle Logo"
         />
-      </div>
+      </div>``
       <h1 className="text-center text-[#06357A] font-poppins font-bold text-[24px] sm:text-[40px] p-5 my-[25px]">
         Welcome, Admin
       </h1>
