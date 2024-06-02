@@ -3,12 +3,16 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 
-const PresensiItem = ({ siswa, handleAddPresensi }) => {
+const PresensiItem = ({ siswa, handleAddPresensi, jurnalIsAvailable, idPresensi }) => {
 
-    const handlePresensiChange = (e) => {
+    const handlePresensiSubmit = (e) => {
         const keterangan = e.target.value;
         handleAddPresensi(siswa.id, keterangan);
     };
+
+    // const handlePresensiUpdate = () => {
+    //     const keterangan = 
+    // }
 
     return (
         <div className="item-container flex justify-between w-full border-2 rounded-lg px-4 py-1">
@@ -16,14 +20,13 @@ const PresensiItem = ({ siswa, handleAddPresensi }) => {
                     <div>
                         <FontAwesomeIcon icon={faSquareCheck} />   
                     </div>
-
                 <div className="status flex gap-6">
                 <input
                     type="radio"
                     id="hadir"
                     name={`keterangan_${siswa.id}`}
                     value="H"
-                    onChange={handlePresensiChange}
+                    onChange={handlePresensiSubmit}
                 />
                 <label htmlFor="hadir">H</label><br />
                 <input
@@ -31,7 +34,7 @@ const PresensiItem = ({ siswa, handleAddPresensi }) => {
                     id="izin"
                     name={`keterangan_${siswa.id}`}
                     value="I"
-                    onChange={handlePresensiChange}
+                    onChange={handlePresensiSubmit}
                 />
                 <label htmlFor="izin">I</label><br />
                 <input
@@ -39,7 +42,7 @@ const PresensiItem = ({ siswa, handleAddPresensi }) => {
                     id="sakit"
                     name={`keterangan_${siswa.id}`}
                     value="S"
-                    onChange={handlePresensiChange}
+                    onChange={handlePresensiSubmit}
                 />
                 <label htmlFor="sakit">S</label><br />
             </div>

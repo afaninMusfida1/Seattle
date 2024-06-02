@@ -3,18 +3,16 @@ import { useLayout } from '../../layout/LayoutContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useJurnal } from './JurnalProvider';
 import PresensiItem from '../crud-presensi/PresensiItem';
-import { apiGetSiswaByIdKelas } from '../crud-presensi/requestPresensi';
+import { apiGetPresensiByTanggal, apiGetSiswaByIdKelas, addPresensi } from '../crud-presensi/requestPresensi';
 import Swal from 'sweetalert2';
 import { useSiswa } from '../../admin/crud-siswa/SiswaProvider';
-import { addPresensi } from '../crud-presensi/requestPresensi';
-
 
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
     const { handleAdd, handleCheckKbm, handleGetKbmId, handleUpdate, jurnalList, handleFetchJurnal, handleGetJurnalByKelas, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
-    const { kelas_id, guru_id} = useParams();
+    const { kelas_id, guru_id } = useParams();
     const [namaGuru, setNamaGuru] = useState("");
     const [namaKelas, setNamaKelas] = useState("");
     const [kategori, setKategori] = useState("");
@@ -24,7 +22,8 @@ const Jurnal = () => {
     const { siswaList, setSiswaList } = useSiswa();
     const [fetchedSiswaList, setFetchedSiswaList] = useState([]);
     const [id, setId] = useState();
-    const [doPresensi, setDoPresensi] = useState(false);
+    const [idPresensi, setIdPresensi] = useState();
+    const [keterangan, setKeterangan] = useState("");
 
     useEffect(() => {
         actionSetPageTitle('Isi Jurnal & Presensi');
@@ -55,9 +54,9 @@ const Jurnal = () => {
         }
 
         const result = await handleCheckKbm(kelas_id, tanggal)
-        
+        const resultPresensi = apiGetPresensiByTanggal(kelas_id, tanggal)
 
-        if (!result) {
+        if (!result && !resultPresensi) {
             setJurnalIsAvailable(false);
             Swal.fire({
                 title: 'Informasi',
@@ -69,6 +68,8 @@ const Jurnal = () => {
             setJurnalIsAvailable(true);
             setMateri(result.hasil_belajar);
             setId(result.id)
+            setIdPresensi(resultPresensi.id)
+            keterangan(resultPresensi.keterangan)
             Swal.fire({
                 title: 'Informasi',
                 text: 'Ditemukan jurnal, silahkan update',
@@ -77,7 +78,7 @@ const Jurnal = () => {
             });
         };
         setIsChecking(false)
-    }
+    };
 
     const handleIsiJurnal = async () => {
         if (!materi || !tanggal) {
@@ -99,16 +100,18 @@ const Jurnal = () => {
 
     };
 
-    const handleConfirmPresensi = () => {
-        // navigate('/guru')
-        setIsChecking(true)
-        setTanggal("")
-        Swal.fire({
-            title: 'Selesai Presensi',
-            icon: 'success',
-            confirmButtonText: 'Lanjut'
-        })
-    }
+    // const handleConfirmPresensi = () => {
+    //     // navigate('/guru')
+    //     setIsChecking(true)
+    //     setTanggal("")
+    //     Swal.fire({
+    //         title: 'Selesai Presensi',
+    //         icon: 'success',
+    //         confirmButtonText: 'Lanjut'
+    //     })
+    // }
+
+    const handleUpdatePresensi = async ()
 
     const handleAddPresensi = async (siswa_id, keterangan) => {
         const idKbm = await handleGetKbmId(kelas_id, tanggal);
@@ -124,8 +127,7 @@ const Jurnal = () => {
                 icon: 'error',
                 confirmButtonText: 'Coba lagi'
             });
-
-        }
+        };
     };
 
     return (
@@ -239,7 +241,7 @@ const Jurnal = () => {
                     <>
                         <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
                             {fetchedSiswaList.map(siswa => (
-                                <PresensiItem key={siswa.id} siswa={siswa} tanggal={tanggal} handleAddPresensi={handleAddPresensi} doPresensi={doPresensi} setDoPresensi={setDoPresensi} />
+                                <PresensiItem key={siswa.id} siswa={siswa} tanggal={tanggal} idPresensi={idPresensi} handleAddPresensi={handleAddPresensi} jurnalIsAvailable={jurnalIsAvailable} />
                             ))}
                         </div>
                         <div className="flex justify-end">
