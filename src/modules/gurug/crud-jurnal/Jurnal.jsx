@@ -111,7 +111,7 @@ const Jurnal = () => {
     //     })
     // }
 
-    const handleUpdatePresensi = async ()
+    // const handleUpdatePresensi = async ()
 
     const handleAddPresensi = async (siswa_id, keterangan) => {
         const idKbm = await handleGetKbmId(kelas_id, tanggal);

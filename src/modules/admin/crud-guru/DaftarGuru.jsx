@@ -39,7 +39,7 @@ const DaftarGuru = () => {
             </div>
             <button 
                 onClick={handleChange} 
-                className="text-[#078DCC] text-[20px] font-bold hover:underline absolute right-[100px] bottom-[50px]"
+                className="text-[#078DCC] text-[20px] font-bold hover:underline fixed right-[100px] bottom-[50px]"
             >
                 Tambahkan Guru
             </button>

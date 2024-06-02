@@ -101,7 +101,7 @@ const AppRoutes = () => {
               </KelasProvider>}>
               <Route index element={<Dashboard />} />
               {/* <Route path="" element={<Dashboard />} /> */}
-              <Route path="tambah-kelas" element={<TambahKelas />} />
+              <Route path="tambah/kelas" element={<TambahKelas />} />
               <Route path="kelas" element={<ListKelas />} />
 
               <Route path="siswa" element={<SiswaWrapper />}>
