@@ -140,7 +140,7 @@ export const editGuru = async (id, nama, email, password) => {
 //     });
 // };
 
-export const handleLoginSiswa= async (email, password) => {
+export const handleLoginSiswa = async (email, password) => {
   const token = localStorage.getItem("siswaToken");
   return axios.post(`${http}/auth/siswa`, {
     email: email,
@@ -160,45 +160,66 @@ import axios from "axios";
 import { http, API_URL } from "./Url";
 
 export const fetchPengumuman = async () => {
-    const token = localStorage.getItem("adminToken") || localStorage.getItem("guruToken") || localStorage.getItem("siswaToken");
-    if (!token) {
-        console.error("Token not found. Please login again.");
-        return { message: "Token not found. Please login again." };
+  const token = localStorage.getItem("adminToken") || localStorage.getItem("guruToken") || localStorage.getItem("siswaToken");
+  if (!token) {
+    console.error("Token not found. Please login again.");
+    return { message: "Token not found. Please login again." };
+  }
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
+  };
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    };
-
-    return axios.get(`${API_URL}/pengumuman`, config)
-        .then(response => response.data)
-        .catch(error => {
-            console.error("Error fetching announcement: ", error);
-            return error.response?.data ?? { message: "Unknown error" };
-        });
+  return axios.get(`${API_URL}/pengumuman`, config)
+    .then(response => response.data)
+    .catch(error => {
+      console.error("Error fetching announcement: ", error);
+      return error.response?.data ?? { message: "Unknown error" };
+    });
 };
 
 export const handleAddPengumuman = async (title, content) => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-        console.error("Token not found. Please login again.");
-        return { message: "Token not found. Please login again." };
-    }
+  const token = localStorage.getItem("adminToken");
+  if (!token) {
+    console.error("Token not found. Please login again.");
+    return { message: "Token not found. Please login again." };
+  }
 
-    return axios.post(`${API_URL}/pengumuman`, {
-        title: title,
-        content: content,
-    }, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-        .then(response => response.data)
-        .catch(error => {
-            console.error("Pengumuman failed:", error);
-            return error.response?.data ?? { message: "Unknown error" };
-        });
+  return axios.post(`${API_URL}/pengumuman`, {
+    title: title,
+    content: content,
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(response => response.data)
+    .catch(error => {
+      console.error("Pengumuman failed:", error);
+      return error.response?.data ?? { message: "Unknown error" };
+    });
 };
 
+export const deleteAnnouncement = async (announcementId) => {
+  const token = localStorage.getItem("adminToken");
+  if (!token) {
+    console.error("Token not found. Please login again.");
+    return { message: "Token not found. Please login again." };
+  }
+
+  return axios
+    .delete(`${API_URL}/pengumuman/${announcementId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Error deleting announcement:", error);
+      return { message: "Error deleting announcement" };
+    });
+};

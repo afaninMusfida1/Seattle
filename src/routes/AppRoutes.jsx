@@ -41,6 +41,7 @@ import RejulSiswa from '../modules/siswa/RejulSiswa';
 import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
 import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
 import ReAbSiswa from '../modules/siswa/ReAbSiswa';
+import { HalamanSiswaProvider } from '../modules/siswa/HalamanSiswaProvider';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -83,10 +84,10 @@ const AppRoutes = () => {
 
             </Route>
 
-            <Route path="/siswa/*" element={<SiswaLayout />}>
+            <Route path="/siswa/*" element={<HalamanSiswaProvider><SiswaLayout /></HalamanSiswaProvider>}>
               <Route index element={<HalamanSiswa />} />
               <Route path="rekap" element={<ReAbSiswa />} />
-              <Route path="jadwal" element={<JadwalMapel />} />
+              <Route path="jurnal" element={<RejulSiswa />} />
             </Route>
 
             <Route path='/admin' element={<KelasProvider><JurnalProvider><GuruProvider><SiswaProvider><MainLayout /></SiswaProvider></GuruProvider></JurnalProvider></KelasProvider>}>
