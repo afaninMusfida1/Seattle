@@ -17,8 +17,6 @@ const initGuruState = {
 const GuruContext = createContext(initGuruState);
 export const useGuru = () => useContext(GuruContext);
 
-
-
 export const GuruProvider = ({ children }) => {
     const [guruList, setGuruList] = useState([]);
     const [nama, setNama] = useState("");
@@ -28,6 +26,7 @@ export const GuruProvider = ({ children }) => {
     const handleFetch = async () => {
         const data = await apiGetGuru(); 
         setGuruList(data); 
+        // console.log(guruList)
     };
 
     const handleAdd = async (nama, email, password) => {
@@ -94,6 +93,8 @@ export const GuruProvider = ({ children }) => {
             alert("Gagal mengupdate guru");
         });
     };
+
+    
 
     return (
         <GuruContext.Provider value={{ guruList, nama, setGuruList, handleDelete, handleUpdate, handleFetch, handleAdd }}>

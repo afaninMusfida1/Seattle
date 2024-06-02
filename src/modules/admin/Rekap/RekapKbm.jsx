@@ -8,12 +8,11 @@ import { useParams } from "react-router-dom";
 
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout();
-    const { jurnalList, setJurnalList, handleFetch, handleDelete } = useJurnal();
-    const { kelas_id, guru_id } = useParams();
+    const { jurnalList, setJurnalList, handleFetchJurnal, handleDelete } = useJurnal();
 
     useEffect(() => {
         actionSetPageTitle('Lihat Rekap')
-        handleFetch();
+        handleFetchJurnal()
     }, [])
 
     return (
@@ -26,30 +25,29 @@ const RekapKbm = () => {
                     <thead className="h-[60px]  rounded-xl text-white bg-[#078DCC]">
                         <tr>
                             <th className="">Tanggal</th >
-                            <th>Kehadiran</th>
+                            <th>Kelas</th>
                             <th>Pengajar</th>
                             <th>Materi</th>
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px] ">
                         {jurnalList.length > 0 ? (
-                            jurnalList.map(jurnal => {
+                            jurnalList.map(jurnal => (
                                 <RekapItem
                                     key={jurnal.id}
                                     id={jurnal.id}
-                                    kelas_id={kelas_id}
-                                    guru_id={guru_id}
+                                    kelas_id={jurnal.kelas_id}
+                                    guru_id={jurnal.guru_id}
                                     hasil_belajar={jurnal.hasil_belajar}
                                     tanggal={jurnal.tanggal}
-
                                 />
-                            })
+                            ))
                         ) : (
                             <tr>
                                 <td colSpan={4} className="text-center border-2">Belum ada jurnal</td>
                             </tr>
                         )}
-                        <RekapItem />
+                        {/* <RekapItem /> */}
                     </tbody>
                 </table>
                 {/* <div className="header w-full flex justify-between rounded-lg py-3 px-9 text-white bg-[#06357A]">

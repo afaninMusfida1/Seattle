@@ -1,10 +1,13 @@
 
 import axios from 'axios';
 import { API_URL, http } from '../../config/Url';
+import { getToken, getTokenGuru } from '../../config/Api';
+// import { useParams } from 'react-router-dom';
 
+// const { kelas_id } = useParams()
 
 // Fungsi untuk menambahkan jurnal
-export const addJurnal = async (kelas_id, guru_id,  hasil_belajar, tanggal) => {
+export const addJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
     const token = localStorage.getItem('guruToken');
     if (!token) {
         console.error('Token not found. Please login again.');
@@ -23,7 +26,7 @@ export const addJurnal = async (kelas_id, guru_id,  hasil_belajar, tanggal) => {
             alert('isi jurnal berhasil')
             // console.log(guru_id)
             console.log('isi jurnal berhasil')
-            return response.data.data.dataKbm;
+            return response.data.dataKbm;
         })
         .catch(error => {
             console.error('Error adding jurnal:', error.response ? error.response.data : error.message);
@@ -31,26 +34,34 @@ export const addJurnal = async (kelas_id, guru_id,  hasil_belajar, tanggal) => {
         });
 };
 
-export const setTokens = (token) => {
-    console.log("Setting token:", token);
-    localStorage.setItem("guruToken", token);
-};
+//memanggil api kelas
+export const apiGetKelas = async (role) => {
+    const token = role == 'Admin' ? getToken() : getTokenGuru()
 
-export const getToken = () => {
-    const token = localStorage.getItem("guruToken") ?? null;
-    return token;
-};
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
 
-export const removeToken = () => {
-    console.log("Removing token");
-    localStorage.removeItem('guruToken');
+    return axios.get(`${API_URL}/kelas`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then((response) => {
+            console.log(`respon get kelas: `, response)
+            return response.data.data.kelas;
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
 };
-
 
 // Fungsi untuk mengambil data jurnal
 export const apiGetJurnal = () => {
 
-    const token = getToken();
+    const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error("Token not found. Please login again.");
         return { message: "Token not found. Please login again." };
@@ -60,8 +71,8 @@ export const apiGetJurnal = () => {
         headers: { Authorization: `Bearer ${token}` }
     })
         .then(response => {
-            console.log(`respon apiGetjurnal: ${response}`);
-            return response;
+            console.log(`respon apiGetjurnal:`, response);
+            return response.data.data.dataKbm;
         })
         .catch(error => {
             console.error("Error fetching data: ", error);
@@ -69,15 +80,60 @@ export const apiGetJurnal = () => {
         });
 };
 
+//memanggil api jurnal by id jurnal
+export const apiGetJurnalById = () => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${API_URL}/kbm/${id}`, {
+        headers: {
+            Authorization: ` Bearer ${token}`
+        }
+    })
+        .then(response => {
+            console.log(`respon apiGetjurnalbyid : ${response}`);
+            return response;
+        })
+        .catch(error => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+}
+
+export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, {tanggal}, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(response => {
+            console.log(`respon cek jurnal`,response)
+            return response.data.data.dataKbm;
+        })
+        .catch(error => {
+            console.error('Error checking jurnal:', error.response ? error.response.data : error.message);
+            return { success: false, message: error.response ? error.response.data.message : error.message };
+        });
+}
+
+
+
 // Fungsi untuk menghapus jurnal
 export const deleteJurnal = async (id) => {
-    const token = getToken();
+    const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error('Token not found. Please login again.');
         return { message: 'Token not found. Please login again.' };
     }
 
-    const deletes = await axios.delete(`${API_URL}/kbm/5${id}`, {
+    const deletes = await axios.delete(`${API_URL}/kbm/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         },
@@ -92,19 +148,20 @@ export const deleteJurnal = async (id) => {
 };
 
 // Fungsi untuk mengedit jurnal
-export const editJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal ) => {
-    const token = getToken();
+export const editJurnal = async (kelas_id, guru_id, hasil_belajar, tanggal) => {
+    const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error('Token not found. Please login again.');
         return { message: 'Token not found. Please login again.' };
     }
 
-    const edits = await axios.put(`${API_URL}/kbm/4${id}`, { date, pengajar, kelas, materi }, {
+    const edits = await axios.put(`${API_URL}/kbm/${id}`, { kelas_id, guru_id, hasil_belajar, tanggal }, {
         headers: {
             Authorization: `Bearer ${token}`
         },
     })
         .then((response) => {
+            console.log(response)
             return response;
         })
         .catch((error) => {

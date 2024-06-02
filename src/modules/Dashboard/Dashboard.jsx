@@ -4,11 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Popup from 'reactjs-popup';
 import '/src/index.css'
 import { useGuru } from "../admin/crud-guru/GuruProvider";
-import { act } from "react-dom/test-utils";
 
 function Dashboard() {
     const { actionSetPageTitle } = useLayout();
-    const { guruList, handleFetch } = useGuru ();
+    const {guruList, handleFetch} = useGuru();
     const [makeTitle, setMakeTitle] = useState('Pengumuman');
     const [makeContent, setMakeContent] = useState('Belum ada pengumuman')
     const title = useRef();
@@ -17,11 +16,9 @@ function Dashboard() {
     useEffect(() => {
         actionSetPageTitle('Dashboard')
         handleFetch();
-    }, [actionSetPageTitle, handleFetch])
+    }, [])
 
     const handleSubmit = () => {
-
-
         if (title.current.value == '' || content.current.value == '') {
             alert(`mohon isi keduanya`)
             return
@@ -30,20 +27,19 @@ function Dashboard() {
         setMakeContent(content.current.value)
         console.log(`pengumuman:`, title.current.value, content.current.value)
     }
-
-    console.log('guruList:', guruList); 
+    // console.log('guruList:', guruList);
 
     return (
         <div className=" mt-[50px] ml-[100px] mr-[100px] grid gap-8">
             <div className="">
                 <Popup trigger=
-                    {<button className="pengumuman bg-[#078DCC] rounded-[30px] p-8 flex justify-between w-full overflow-hidden h-[230px]">
+                    {<div className="pengumuman cursor-pointer bg-[#078DCC] rounded-[30px] p-8 flex justify-between w-full overflow-hidden h-[230px]">
                         <div className="self-end ">
                             <h1 className="font-poppins font-semibold text-[#FBFBFB] text-left pt-20 text-4xl">{makeTitle}</h1>
                             <h1 className=" font-poppins text-[#FFFFFF] text-lg pt-3 mr-8  max-h-11 overflow-hidden text-left">{makeContent}</h1>
                         </div>
                         <button onClick={() => alert`awas`()} className="bg-white opacity-50 rounded-full p-2 text-center self-end text-6xl font-bold text-slate-400 ">+</button>
-                    </button>}
+                    </div>}
                     modal nested >
                     {
                         close => (

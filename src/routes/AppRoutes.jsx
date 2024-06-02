@@ -17,7 +17,7 @@ import { useAuth } from '../context/AuthContext';
 import KelasSiswa from '../modules/gurug/crud-presensi/KelasSiswa';
 import PresensiSiswa from '../modules/gurug/crud-presensi/PresensiSiswa';
 import Jurnal from '../modules/gurug/crud-jurnal/Jurnal';
-import RekapGuru from '../modules/gurug/RekapGuru';
+import RekapGuru from '../modules/gurug/crud-jurnal/RekapGuru';
 import JadwalMapel from '../modules/siswa/JadwalMapel';
 import RekapSiswa from '../modules/siswa/RekapSiswa';
 import GuruWrapper from '../modules/admin/crud-guru/GuruWrapper';
@@ -34,7 +34,7 @@ import RekapKbm from '../modules/admin/Rekap/RekapKbm';
 import SiswaWrapper from '../modules/admin/crud-siswa/SiswaWrapper';
 import ListKelas from '../modules/admin/crud-kelas/ListKelas';
 import { GuruProvider } from '../modules/admin/crud-guru/GuruProvider';
-
+import ReAbSiswa from '../modules/siswa/ReAbSiswa';
 
 
 
