@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addSiswa, apiGetSiswa, deleteSiswa, editSiswa, searchSiswaApi } from './RequestSiswa';
 
@@ -20,8 +20,12 @@ export const SiswaProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate(); // Tambahkan useNavigate di sini
 
-   //get kelas
-   
+    //get kelas
+
+    useEffect(() => {
+        handleFetch();
+    }, []);
+
     const handleFetch = () => {
         setIsLoading(true);
         apiGetSiswa()
@@ -40,28 +44,35 @@ export const SiswaProvider = ({ children }) => {
 
     const handleAdd = (nama, kelas_id, no_telp_ortu, email, password) => {
         if (isLoading) return;
-
+    
         setIsLoading(true);
-
-        addSiswa(nama, kelas_id, no_telp_ortu, email, password)
+    
+        return addSiswa(nama, kelas_id, no_telp_ortu, email, password)
             .then(apiCall => {
-                if (apiCall && apiCall.success) {
-                    setSiswaList(prevSiswaList => [...prevSiswaList, apiCall.data]);
-                    alert("Siswa ditambahkan");
+                // console.log("API Response:", apiCall); 
+                if (apiCall && apiCall.status === 'success') {
+                    alert(apiCall.message || "Siswa ditambahkan");
+                    setSiswaList(prevSiswaList => [...prevSiswaList, { nama, kelas_id, no_telp_ortu, email }]);
+                    setIsLoading(false);
+                    return { success: true };
                 } else {
-                    alert("Gagal menambahkan siswa. Terjadi kesalahan.");
+                    // alert("Gagal menambahkan siswa. Terjadi kesalahan.");
+                    setIsLoading(false);
+                    return { success: false };
                 }
-                setIsLoading(false);
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
                     localStorage.removeItem('adminToken');
-                    navigate('/login'); // Navigasi ke halaman login
+                    navigate('/login'); 
                 }
                 alert("Gagal menambahkan siswa. Terjadi kesalahan: " + error);
                 setIsLoading(false);
+                return { success: false };
             });
     };
+    
+
 
     const handleDelete = (id) => {
         if (isLoading) return;
@@ -95,9 +106,9 @@ export const SiswaProvider = ({ children }) => {
                         siswa.id === id ? { ...siswa, ...updatedDataSiswa } : siswa
                     ));
                     alert("Berhasil mengupdate");
-                } else {
-                    alert("Gagal mengupdate siswa");
-                }
+                    window.location.reload();
+                } alert("Berhasil mengupdate");
+                window.location.reload();
                 setIsLoading(false);
             })
             .catch(error => {

@@ -1,16 +1,22 @@
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import KelasItem from '../../admin/crud-kelas/KelasItem';
 import { useLayout } from '../../layout/LayoutContext';
 import GuruLayout from '../../layout/GuruLayout';
 import { useJurnal } from './JurnalProvider';
 import KelasGrouping from '../../admin/crud-kelas/KelasGrouping';
+import { apiGetJurnalByKelas } from './requestsJurnal';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 
 
 const JurnalGuru = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
-    const { daftarKelas, handleFetchJurnal, handleFetchKelas } = useJurnal()
+    const { daftarKelas, jurnalList, setJurnalList, handleFetchJurnal, location, setLocation, handleFetchKelas, handleGetJurnalByKelas } = useJurnal();
+    const [filters, setFilters] = useState({});
+    const [groupedKelas, setGroupedKelas] = useState({});
+    const { id } = useParams();
     // const { daftarKelas, setDaftarKelas, location, setLocation } = useKelas()
 
     useEffect(() => {
@@ -23,48 +29,94 @@ const JurnalGuru = () => {
         navigate('/isi-jurnal');
     }
 
-    const groupedKelas = daftarKelas.length == 0 ? [] :
-        Object.groupBy(daftarKelas, ({ kategori }) => kategori)
+    // setLocation(`/guru/kelas/${kelas.id}/jurnal`)
 
+    const handleFilterChange = (event, kategori) => {
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [kategori]: event.target.value,
+        }));
+    };
+
+    // useEffect(() => {
+    //     // Mengambil data jurnal berdasarkan ID kelas
+    //     const fetchDataJurnal = async (id) => {
+    //         try {
+    //             const data = await handleGetJurnalByKelas(id);
+    //             setJurnalList(data);
+    //         } catch (error) {
+    //             console.error("Error fetching jurnal data:", error);
+    //         }
+    //     };
+
+    //     fetchDataJurnal();
+    // }, [id]);
+
+
+    useEffect(() => {
+        const grouped = daftarKelas.reduce((acc, curr) => {
+            const { kategori } = curr;
+            if (!acc[kategori]) {
+                acc[kategori] = [];
+            }
+            acc[kategori].push(curr);
+            return acc;
+        }, {});
+        setGroupedKelas(grouped);
+    }, [daftarKelas]);
 
     return (
-
-        <div className="mt-[50px]">
-
-            {
-                Object.entries(groupedKelas).map(
-                    (value, key) =>
-                        <KelasGrouping key={key} location={location} kategori={value[0]} />)
-            }
-
-            {/* <div className="rekap-absen bg-white rounded-[30px] p-8">
-                <div className="kategori text-sky-400 font-bold text-lg mb-[20px] bg-sky-100 max-w-fit py-1 px-5 rounded-md">English Starters</div>
-                <div className="flex flex-wrap gap-x-2 gap-y-4">
-                    <button onClick={handleChangeAbsen} className="bg-white font-poppins text-[16px] text-left border-2 py-2 pr-[140px] pl-[15px] rounded-[10px] hover:bg-[#DCE5F1] hover:border-[#078DCC]">
-                        <h1 className="font-bold text-[#6A6D76]">Kelas A</h1>
-                        <p className="text-[#6A6D76] mt-[10px]">English beginner</p>
-                    </button>
-                    <h1 className='font-bold text-xl'>Pre Starters</h1>
-                    
-                        {daftarKelas.length > 0 ? (
-                            daftarKelas.map(kelas => (
-                                <KelasItem
-                                    key={kelas.id}
-                                    id={kelas.id}
-                                    nama_kelas={kelas.nama_kelas}
-                                    kategori={kelas.kategori}
-                                    periode={kelas.periode}
-                                    jadwal_kelas={kelas.jadwal_kelas}
-                                    navigateTo={'/guru-isi-jurnal'}
-                                />
-                            ))
-                        ) : (
-                            <p>belum ada kelas</p>
-                        )}
-                </div>
-            </div> */}
-        </div>
-
+        <>
+            <div className='flex justify-between gap-10 bg-sky-500 rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8'>
+                <section>
+                    <div className="title text-white font-semibold text-2xl">
+                        PPDB Tahun 2025
+                    </div>
+                    <div className="content text-white opacity-90">
+                        pendaftaran siswa baru tahun ajaran 2025
+                    </div>
+                </section>
+                <span className='text-white self-end opacity-70'>
+                    Pengumuman
+                    <FontAwesomeIcon icon={faBullhorn} />
+                </span>
+            </div>
+            <div className="">
+                {Object.entries(groupedKelas).map(([kategori, kelasArray], index) => (
+                    <div key={index} className="rekap-absen bg-white rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[50px]">
+                        <div className="flex flex-col gap-6">
+                            <div className="flex justify-between">
+                                <div className="kategori text-sky-400 font-bold text-lg content-center bg-sky-100 max-w-fit py-1 px-5 rounded-md">{kategori}</div>
+                                <div className='border-2 bg-white rounded-[10px] max-w-fit px-6 py-2'>
+                                    <select onChange={(event) => handleFilterChange(event, kategori)} className="ml-2 border-none outline-none">
+                                        <option value="">Semua Kelas</option>
+                                        <option value="pagi">Pagi</option>
+                                        <option value="siang">Siang</option>
+                                        <option value="sore">Sore</option>
+                                        <option value="malam">Malam</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="max-h-[350px] overflow-auto flex flex-wrap gap-x-2 gap-y-4">
+                                {kelasArray
+                                    .filter(kelas => !filters[kategori] || kelas.jadwal_kelas.toLowerCase() === filters[kategori])
+                                    .map((kelas) => (
+                                        <KelasItem
+                                            key={kelas.id}
+                                            id={kelas.id}
+                                            nama_kelas={kelas.nama_kelas}
+                                            kategori={kelas.kategori}
+                                            periode={kelas.periode}
+                                            jadwal_kelas={kelas.jadwal_kelas}
+                                            navigateTo={`/guru/kelas/${kelas.id}/jurnal`}
+                                        />
+                                    ))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </>
     );
 };
 

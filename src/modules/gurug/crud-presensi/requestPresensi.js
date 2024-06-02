@@ -44,8 +44,28 @@ export const addPresensi = async (kbm_id, siswa_id, keterangan) => {
         });
 }
 
+export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, { tanggal }, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(response => {
+            console.log(`respon cek jurnal`, response.data.data.dataKbm)
+            return response.data.data.dataKbm;
+        })
+        .catch(error => {
+            console.error('Error checking jurnal:', error.response ? error.response.data : error.message);
+            return { success: false, message: error.response ? error.response.data.message : error.message };
+        });
+}
+
 export const apiGetKelas = async () => {
-    const token = localStorage.getItem("guruToken") ;
+    const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error("Token not found. Please login again.");
         return { message: "Token not found. Please login again." };
@@ -65,3 +85,24 @@ export const apiGetKelas = async () => {
         });
 };
 
+
+export const apiGetSiswaByIdKelas = async (id) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${API_URL}/siswa/kelas/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then((response) => {
+            return response.data.data.dataSiswa;
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+}

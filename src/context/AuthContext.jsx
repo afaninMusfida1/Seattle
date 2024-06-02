@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from "react"
-import { handleLoginAdmin } from "../modules/config/Api";
+import { handleLoginAdmin, handleLoginSiswa } from "../modules/config/Api";
 import { handleLoginGuru } from "../modules/auth/LoginGuru/request"
 
 const initContext = {
     doLoginAdmin: () => { },
     doLoginGuru: () => { },
     doLogout: () => { },
+    doLoginOrtuSiswa: ()=> {},
     role: "",
     error: "",
     isLoggedIn: []
@@ -85,11 +86,49 @@ export const AuthProvider = ({ children }) => {
         setIsLoggedIn(false);
     };
 
+    const doLoginOrtuSiswa = async (email, password) => {
+        // Call the login API
+        return handleLoginSiswa(email, password)
+            .then(apiResult => {
+                console.log('test login siswa', apiResult); // Check response structure
+                // If token exists in response data, handle login
+                if (apiResult && apiResult.data.token) {
+                    // Save token to local storage
+                    localStorage.setItem('siswaToken', apiResult.data.token);
+                    // Set logged in state
+                    setIsLoggedIn(true);
+                    setRole("Siswa")
+                    return { token: apiResult.data.token }; // Return token for further use
+                } else {
+                    // Handle invalid response from server
+                    console.error('Login failed: Unexpected response from server');
+                    return { message: 'Unexpected response from server' };
+                }
+            })
+            .catch(error => {
+                // Handle network errors or other exceptions
+                console.error('Error occurred while logging in:', error);
+                const message = error.response?.data?.message || 'Error occurred while logging in';
+                setError(message);
+                return { message };
+            });
+            console.log(email)
+    };
+
+    const doLogoutSiswa = () => {
+        // Hapus token dari local storage dan set status logged out
+        localStorage.removeItem('siswaToken');
+        setIsLoggedIn(false);
+        
+    };
+
     return (
         <authContext.Provider value={{
             doLoginAdmin,
             doLoginGuru,
             doLogout,
+            doLoginOrtuSiswa,
+            doLogoutSiswa,
             role,
             error,
             isLoggedIn,
