@@ -3,6 +3,7 @@ import axios from 'axios';
 import { http } from '../../config/Url';
 import { addJurnal, apiGetJurnal, apiGetKelas, apiGetJurnalByTanggal, deleteJurnal, editJurnal, apiGetJurnalByKelas } from './requestsJurnal';
 import { useParams } from 'react-router-dom';
+import { apiGetPresensi } from '../crud-presensi/requestPresensi';
 
 const initJurnalState = {
     jurnalList: [],
@@ -10,6 +11,7 @@ const initJurnalState = {
     isLoading: false,
     location: '',
     handleFetchJurnal: () => { },
+    handleFetchPresensi: () => { },
     handleGetJurnalByKelas: () => { },
     handleCheckKbm: () => { },
     handleGetKbmId: () => { },
@@ -25,6 +27,7 @@ export const useJurnal = () => useContext(JurnalContext);
 
 export const JurnalProvider = ({ children }) => {
     const [jurnalList, setJurnalList] = useState([]);
+    const [presensiList, setPresensiList] = useState([]);
     const [daftarKelas, setDaftarKelas] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [location, setLocation] = useState('');
@@ -35,6 +38,12 @@ export const JurnalProvider = ({ children }) => {
         const data = await apiGetJurnal();
         setJurnalList(data);
     };
+
+    const handleFetchPresensi = async () => {
+        const data = await apiGetPresensi();
+        console.log(data);
+        setPresensiList(data);
+    }
 
     const handleFetchKelas = async () => {
         const data = await apiGetKelas();
@@ -117,6 +126,7 @@ export const JurnalProvider = ({ children }) => {
             isLoading,
             location,
             selectedKelas,
+            handleFetchPresensi,
             setSelectedKelas,
             handleGetKbmId,
             handleAdd,

@@ -29,7 +29,7 @@ export const apiGetPresensi = () => {
     })
         .then(response => {
             console.log(`respon apiGetPresensi:`, response);
-            return response.data.dataPresensi;
+            return response.data.data.dataPresensi;
         })
         .catch(error => {
             console.error("Error fetching data: ", error);

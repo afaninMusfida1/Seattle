@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from "react";
-import { apiGetKelas, apiGetSiswaByIdKelas, addPresensi } from "./requestPresensi";
+import { apiGetKelas, apiGetSiswaByIdKelas, addPresensi, apiGetPresensi } from "./requestPresensi";
 import { useParams } from "react-router-dom";
 import { apiGetJurnalByTanggal } from "../crud-jurnal/requestsJurnal";
 
 const initPresensiState = {
     handleFetch: () => { },
+    handleFetchPresensi: () => { },
     handleGetKbmId: () => { },
     handleFetchSiswaByIdKelas: () => { },
     handleAddPresensi: () => { },
@@ -25,6 +26,12 @@ export const PresensiProvider = ({ children }) => {
         console.log(data);
         setPresensiList(data);
     };
+
+    const handleFetchPresensi = async () => {
+        const data = await apiGetPresensi();
+        console.log(data);
+        setPresensiList(data);
+    }
 
     const handleGetKbmId = async (kelas_id, tanggal) => {
         if (isLoading) return
@@ -71,7 +78,7 @@ export const PresensiProvider = ({ children }) => {
     };
 
     return (
-        <PresensiContext.Provider value={{ presensiList, handleCekPresensi, handleAddPresensi, handleGetKbmId, handleFetch, handleFetchSiswaByIdKelas, setPresensiList, isLoading, setIsLoading }}>
+        <PresensiContext.Provider value={{ presensiList, handleFetchPresensi, handleCekPresensi, handleAddPresensi, handleGetKbmId, handleFetch, handleFetchSiswaByIdKelas, setPresensiList, isLoading, setIsLoading }}>
             {children}
         </PresensiContext.Provider>
     );
