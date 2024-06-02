@@ -1,26 +1,34 @@
 import { useEffect, useState } from "react";
-import { useJurnal } from "../../gurug/crud-jurnal/JurnalProvider";
-import { useLayout } from "../../layout/LayoutContext";
-import Button from "../../siswa/Button";
-import RekapItem from "./RekapItem";
 import { useParams } from "react-router-dom";
+import { useLayout } from "../../layout/LayoutContext";
+import RekapItemAdmin from "./RekapItemAdmin";
 import { useRekap } from "./RekapProvider";
+import { apiGetSiswaByIdKelas } from "../../gurug/crud-presensi/requestPresensi";
 
 const RekapAdmin = () => {
     const { actionSetPageTitle } = useLayout();
-    const { jurnalList, handleGetJurnalByKelas } = useRekap();
+    const { jurnalList, handleGetJurnalByKelas, handleFetchJurnal } = useRekap();
     const { kelas_id } = useParams();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         actionSetPageTitle('Rekap Admin');
         if (kelas_id) {
-            setIsLoading(true);
-            handleGetJurnalByKelas(kelas_id)
-                .then(() => setIsLoading(false))
-                .catch(() => setIsLoading(false));
+            handleGetJurnalByKelas(kelas_id);
+            console.log(kelas_id)
         }
     }, [kelas_id]);
+
+    // useEffect(() => {
+
+    //     console.log('kelas_id from useParams:', kelas_id);  // Tambahkan log ini untuk memastikan `kelas_id` diambil dengan benar
+    //     if (kelas_id) {
+    //         setIsLoading(true);
+    //         handleGetJurnalByKelas(kelas_id)
+    //             .then(() => setIsLoading(false))
+    //             .catch(() => setIsLoading(false));
+    //     }
+    // }, [kelas_id]);
 
     return (
         <>
@@ -43,7 +51,7 @@ const RekapAdmin = () => {
                         <tbody className="max-h-[300px]">
                             {jurnalList.length > 0 ? (
                                 jurnalList.map(jurnal => (
-                                    <RekapItem
+                                    <RekapItemAdmin
                                         key={jurnal.id}
                                         id={jurnal.id}
                                         kelas_id={jurnal.kelas_id}
@@ -56,7 +64,7 @@ const RekapAdmin = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={5} className="text-center border-2">Belum ada jurnal</td>
+                                    <td colSpan={4} className="text-center border-2">Belum ada jurnal</td>
                                 </tr>
                             )}
                         </tbody>

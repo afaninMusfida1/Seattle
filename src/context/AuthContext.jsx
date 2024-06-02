@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react"
-import { handleLoginAdmin, handleLoginSiswa } from "../modules/config/Api";
+import { fetchPengumuman, handleAddPengumuman, handleLoginAdmin, handleLoginSiswa } from "../modules/config/Api";
 import { handleLoginGuru } from "../modules/auth/LoginGuru/request"
 
 const initContext = {
@@ -9,7 +9,10 @@ const initContext = {
     doLoginOrtuSiswa: ()=> {},
     role: "",
     error: "",
-    isLoggedIn: []
+    isLoggedIn: [],
+    announcements: [],
+    fetchAnnouncement: () => {},
+    addAnnouncement: () => {},
 }
 
 const authContext = createContext(initContext);
@@ -22,6 +25,7 @@ export const AuthProvider = ({ children }) => {
     const [error, setError] = useState("")
     const [role, setRole] = useState("")
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [announcements, setAnnouncements] = useState([]);
 
     const doLoginAdmin = async (username, password) => {
         // Call the login API
@@ -122,6 +126,31 @@ export const AuthProvider = ({ children }) => {
         
     };
 
+    const fetchAnnouncement = async () => {
+        try {
+            const data = await fetchPengumuman();
+            if (data && data.data && data.data.announcement) {
+                setAnnouncements(data.data.announcement);
+                console.log("Data pengumuman:", data.data.announcement);
+            }
+        } catch (error) {
+            console.error('Error fetching announcement:', error);
+            setError('Failed to fetch announcements');
+        }
+    };
+
+    const addAnnouncement = async (title, content) => {
+        try {
+            const response = await handleAddPengumuman(title, content);
+            if (response && response.data) {
+                setAnnouncements(prevAnnouncements => [...prevAnnouncements, response.data]);
+            }
+        } catch (error) {
+            console.error('Error adding announcement:', error);
+            setError('Failed to add announcement');
+        }
+    };
+
     return (
         <authContext.Provider value={{
             doLoginAdmin,
@@ -132,7 +161,10 @@ export const AuthProvider = ({ children }) => {
             role,
             error,
             isLoggedIn,
-            setIsLoggedIn
+            setIsLoggedIn,
+            announcements,
+            fetchAnnouncement,
+            addAnnouncement,
         }}>
             {children}
         </authContext.Provider>
