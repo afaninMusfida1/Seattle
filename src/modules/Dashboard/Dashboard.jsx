@@ -1,8 +1,6 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useLayout } from "../layout/LayoutContext";
-import { useEffect } from "react";
 import Popup from 'reactjs-popup';
-import '/src/index.css';
 import { useGuru } from "../admin/crud-guru/GuruProvider";
 import { useSiswa } from "../admin/crud-siswa/SiswaProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,15 +11,18 @@ function Dashboard() {
     const { actionSetPageTitle } = useLayout();
     const { guruList, handleFetch: fetchGuru } = useGuru();
     const { siswaList, handleFetch: fetchSiswa } = useSiswa();
-    const { announcement, addAnnouncement, fetchAnnouncement } = useAuth();
+    const { announcements, addAnnouncement, fetchAnnouncement } = useAuth();
     const title = useRef();
     const content = useRef();
 
     useEffect(() => {
-        actionSetPageTitle('Dashboard');
-        fetchGuru();
-        fetchSiswa();
-        fetchAnnouncement();
+        const initializeData = async () => {
+            actionSetPageTitle('Dashboard');
+            await fetchGuru();
+            await fetchSiswa();
+            await fetchAnnouncement();
+        };
+        initializeData();
     }, []);
 
     const handleSubmit = () => {
@@ -31,12 +32,14 @@ function Dashboard() {
         }
         addAnnouncement(title.current.value, content.current.value)
             .then(() => {
-                console.log(announcement);
+                fetchAnnouncement(); // Refresh announcements after adding a new one
             })
             .catch(error => {
                 console.error('Error adding announcement:', error);
             });
     };
+
+    const latestAnnouncement = announcements && announcements.length > 0 ? announcements[0] : null;
 
     return (
         <div className="mt-[50px] ml-[100px] mr-[100px] grid gap-8">
@@ -44,8 +47,12 @@ function Dashboard() {
                 <Popup trigger={
                     <div className="pengumuman cursor-pointer bg-[#078DCC] rounded-[30px] p-8 flex justify-between w-full overflow-hidden h-[230px]">
                         <div className="self-end">
-                            <h1 className="font-poppins font-semibold text-[#FBFBFB] text-left pt-20 text-4xl">{announcement.title}</h1>
-                            <h1 className="font-poppins text-[#FFFFFF] text-lg pt-3 mr-8 max-h-11 overflow-hidden text-left">{announcement.content}</h1>
+                            <h1 className="font-poppins font-semibold text-[#FBFBFB] text-left pt-20 text-4xl">
+                                {latestAnnouncement ? latestAnnouncement.title : 'Loading...'}
+                            </h1>
+                            <h1 className="font-poppins text-[#FFFFFF] text-lg pt-3 mr-8 max-h-11 overflow-hidden text-left">
+                                {latestAnnouncement ? latestAnnouncement.content : 'Loading...'}
+                            </h1>
                         </div>
                         <button onClick={() => alert('Isi Form')} className="bg-white opacity-50 rounded-full p-2 text-center self-end text-6xl font-bold text-slate-400">+</button>
                     </div>}
@@ -77,7 +84,7 @@ function Dashboard() {
             <div className="flex gap-8">
                 <div className="bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px]">
                     <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center">
-                        <FontAwesomeIcon icon={faChalkboardUser} style={{color: "#ffffff"}} className="text-[30px]" />
+                        <FontAwesomeIcon icon={faChalkboardUser} style={{ color: "#ffffff" }} className="text-[30px]" />
                     </div>
                     <div className="status flex items-end justify-between">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Guru terdaftar</h1>
@@ -86,7 +93,7 @@ function Dashboard() {
                 </div>
                 <div className="bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px]">
                     <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center">
-                        <FontAwesomeIcon icon={faAddressCard} style={{color: "#ffffff"}} className="text-[30px]" />
+                        <FontAwesomeIcon icon={faAddressCard} style={{ color: "#ffffff" }} className="text-[30px]" />
                     </div>
                     <div className="status flex items-end justify-between">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Siswa terdaftar</h1>

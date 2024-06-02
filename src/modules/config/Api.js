@@ -1,7 +1,3 @@
-import axios from "axios";
-import { http } from "./Url";
-import { API_URL } from "./Url";
-
 export const handleLoginAdmin = async (username, password) => {
   return axios.post(`${http}/auth/admin`, {
     username: username,
@@ -68,9 +64,9 @@ export const tampilkan = async () => {
 
 //   const newGuru = { nama, email, password };
 
-//   return axios.post(`${http}/guru`, newGuru, {
+//   return axios.post(${http}/guru, newGuru, {
 //     headers: {
-//       Authorization: `Bearer ${token}`
+//       Authorization: Bearer ${token}
 //     }
 //   })
 //     .then(response => {
@@ -130,9 +126,9 @@ export const editGuru = async (id, nama, email, password) => {
 
 //   const newKelas = {nama_kelas, kategori, periode, jadwal_kelas};
 
-//   return axios.post(`${http}/kelas`, newKelas, {
+//   return axios.post(${http}/kelas, newKelas, {
 //     headers: {
-//       Authorization: `Bearer ${token}`
+//       Authorization: Bearer ${token}
 //     }
 //   })  
 //     .then(response => {
@@ -160,52 +156,49 @@ export const handleLoginSiswa= async (email, password) => {
     });
 };
 
+import axios from "axios";
+import { http, API_URL } from "./Url";
+
+export const fetchPengumuman = async () => {
+    const token = localStorage.getItem("adminToken") || localStorage.getItem("guruToken") || localStorage.getItem("siswaToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    return axios.get(`${API_URL}/pengumuman`, config)
+        .then(response => response.data)
+        .catch(error => {
+            console.error("Error fetching announcement: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+};
+
 export const handleAddPengumuman = async (title, content) => {
-  const token = localStorage.getItem("adminToken");
-  if (!token) {
-    console.error("Token not found. Please login again.");
-    return { message: "Token not found. Please login again." };
-  }
-
-  return axios.post(`${http}/pengumuman`, {
-    title: title,
-    content: content,
-  }, {
-    headers: {
-      Authorization: `Bearer ${token}`
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
     }
-  })
-    .then((response) => {
-      console.log("Pengumuman response data:", response.data);
-      return response.data;
+
+    return axios.post(`${API_URL}/pengumuman`, {
+        title: title,
+        content: content,
+    }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     })
-    .catch((error) => {
-      console.error("Pengumuman failed:", error);
-      return error.response?.data ?? { message: "Unknown error" };
-    });
+        .then(response => response.data)
+        .catch(error => {
+            console.error("Pengumuman failed:", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
 };
 
-export const fetchPengumuman = async (title, content) => {
-  const token = localStorage.getItem("adminToken");
-  if (!token) {
-    console.error("Token not found. Please login again.");
-    return { message: "Token not found. Please login again." };
-  }
-
-  const config = {
-    params: {
-      title: title,
-      content: content
-    },
-    headers: {
-      Authorization:` Bearer ${token}`
-    }
-  };
-
-  return axios.get(`${API_URL}/pengumuman`, config)
-    .then(response => response.data)
-    .catch(error => {
-      console.error("Error fetching announcement: ", error);
-      return error.response?.data ?? { message: "Unknown error" };
-    });
-};

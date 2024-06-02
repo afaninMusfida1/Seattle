@@ -6,6 +6,8 @@ import GuruLayout from '../../layout/GuruLayout';
 import { useJurnal } from './JurnalProvider';
 import KelasGrouping from '../../admin/crud-kelas/KelasGrouping';
 import { apiGetJurnalByKelas } from './requestsJurnal';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 
 
 const JurnalGuru = () => {
@@ -64,43 +66,57 @@ const JurnalGuru = () => {
     }, [daftarKelas]);
 
     return (
-
-        <div className="">
-            {Object.entries(groupedKelas).map(([kategori, kelasArray], index) => (
-                <div key={index} className="rekap-absen bg-white rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[50px]">
-                    <div className="flex flex-col gap-6">
-                        <div className="flex justify-between">
-                            <div className="kategori text-sky-400 font-bold text-lg content-center bg-sky-100 max-w-fit py-1 px-5 rounded-md">{kategori}</div>
-                            <div className='border-2 bg-white rounded-[10px] max-w-fit px-6 py-2'>
-                                <select onChange={(event) => handleFilterChange(event, kategori)} className="ml-2 border-none outline-none">
-                                    <option value="">Semua Kelas</option>
-                                    <option value="pagi">Pagi</option>
-                                    <option value="siang">Siang</option>
-                                    <option value="sore">Sore</option>
-                                    <option value="malam">Malam</option>
-                                </select>
+        <>
+            <div className='flex justify-between gap-10 bg-sky-500 rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8'>
+                <section>
+                    <div className="title text-white font-semibold text-2xl">
+                        PPDB Tahun 2025
+                    </div>
+                    <div className="content text-white opacity-90">
+                        pendaftaran siswa baru tahun ajaran 2025
+                    </div>
+                </section>
+                <span className='text-white self-end opacity-70'>
+                    Pengumuman
+                    <FontAwesomeIcon icon={faBullhorn} />
+                </span>
+            </div>
+            <div className="">
+                {Object.entries(groupedKelas).map(([kategori, kelasArray], index) => (
+                    <div key={index} className="rekap-absen bg-white rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[50px]">
+                        <div className="flex flex-col gap-6">
+                            <div className="flex justify-between">
+                                <div className="kategori text-sky-400 font-bold text-lg content-center bg-sky-100 max-w-fit py-1 px-5 rounded-md">{kategori}</div>
+                                <div className='border-2 bg-white rounded-[10px] max-w-fit px-6 py-2'>
+                                    <select onChange={(event) => handleFilterChange(event, kategori)} className="ml-2 border-none outline-none">
+                                        <option value="">Semua Kelas</option>
+                                        <option value="pagi">Pagi</option>
+                                        <option value="siang">Siang</option>
+                                        <option value="sore">Sore</option>
+                                        <option value="malam">Malam</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="max-h-[350px] overflow-auto flex flex-wrap gap-x-2 gap-y-4">
+                                {kelasArray
+                                    .filter(kelas => !filters[kategori] || kelas.jadwal_kelas.toLowerCase() === filters[kategori])
+                                    .map((kelas) => (
+                                        <KelasItem
+                                            key={kelas.id}
+                                            id={kelas.id}
+                                            nama_kelas={kelas.nama_kelas}
+                                            kategori={kelas.kategori}
+                                            periode={kelas.periode}
+                                            jadwal_kelas={kelas.jadwal_kelas}
+                                            navigateTo={`/guru/kelas/${kelas.id}/jurnal`}
+                                        />
+                                    ))}
                             </div>
                         </div>
-                        <div className="max-h-[350px] overflow-auto flex flex-wrap gap-x-2 gap-y-4">
-                            {kelasArray
-                                .filter(kelas => !filters[kategori] || kelas.jadwal_kelas.toLowerCase() === filters[kategori])
-                                .map((kelas) => (
-                                    <KelasItem
-                                        key={kelas.id}
-                                        id={kelas.id}
-                                        nama_kelas={kelas.nama_kelas}
-                                        kategori={kelas.kategori}
-                                        periode={kelas.periode}
-                                        jadwal_kelas={kelas.jadwal_kelas}
-                                        navigateTo={`/guru/kelas/${kelas.id}/jurnal`}
-                                    />
-                                ))}
-                        </div>
                     </div>
-                </div>
-            ))}
-        </div>
-
+                ))}
+            </div>
+        </>
     );
 };
 
