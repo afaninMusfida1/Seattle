@@ -8,16 +8,21 @@ import { useEffect } from "react";
 const HalamanSiswa = () => {
     const { doLogoutSiswa, announcements, fetchAnnouncement } = useAuth();
     const navigate = useNavigate();
+    const username = localStorage.getItem('namaSiswa')
 
     useEffect(() => {
         fetchAnnouncement();
+
     }, []);
 
     const handleClick = () => {
         doLogoutSiswa();
         navigate('/siswa/ortu');
+        localStorage.removeItem('namaSiswa')
         console.log("logout");
     };
+
+ 
 
     const latestAnnouncement = announcements && announcements.length > 0 ? announcements[0] : null;
 
@@ -32,7 +37,7 @@ const HalamanSiswa = () => {
                         <span className="text-white text-xl">A</span>
                     </div>
                     <div className="text-right flex items-center space-x-2">
-                        <div className="text-gray-600">Ana Ismatul Hawa</div>
+                        <div className="text-gray-600">{username}</div>
                         <div className="logout" onClick={handleClick}>
                             <button className="px-10 text-[#078DCC]">
                                 <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "#078dcc" }} className="px-4" />
@@ -54,7 +59,7 @@ const HalamanSiswa = () => {
                     </div>
                     <div className="flex gap-12 py-[40px]">
                     <Link to="/siswa/rekap" className="grow py-[20px] rounded-[10px] bg-[#F0A160] font-poppins font-semibold text-left text-white px-[40px]">Rekap Absen</Link>
-                        <button className="grow py-[20px] rounded-[10px] bg-[#078DCC] font-poppins font-semibold text-left text-white px-[40px]">Rekap Jurnal</button>
+                        <Link to="/siswa/jurnal" className="grow py-[20px] rounded-[10px] bg-[#078DCC] font-poppins font-semibold text-left text-white px-[40px]">Rekap Jurnal</Link>
                     </div>
                     <div className="border border-gray-300 rounded-lg p-4 mb-[10px] max-w-xl font-sans">
                         <div className="text-left">

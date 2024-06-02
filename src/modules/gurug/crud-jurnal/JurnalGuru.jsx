@@ -67,7 +67,7 @@ const JurnalGuru = () => {
 
     return (
         <>
-            <div className='flex justify-between gap-10 bg-sky-500 rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8'>
+            {/* <div className='flex justify-between gap-10 bg-sky-500 rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8'>
                 <section>
                     <div className="title text-white font-semibold text-2xl">
                         PPDB Tahun 2025
@@ -80,7 +80,7 @@ const JurnalGuru = () => {
                     Pengumuman
 
                 </span>
-            </div>
+            </div> */}
             <div className="">
                 {Object.entries(groupedKelas).map(([kategori, kelasArray], index) => (
                     <div key={index} className="rekap-absen bg-white rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[50px]">

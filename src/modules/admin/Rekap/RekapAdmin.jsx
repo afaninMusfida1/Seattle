@@ -71,11 +71,6 @@ const RekapAdmin = () => {
                     </table>
                 )}
             </div>
-            <div className="bg-white rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8">
-                <div className="font-medium text-xl text-sky-500 opacity-60 mb-4">
-                    Presensi
-                </div>
-            </div>
         </>
     );
 }

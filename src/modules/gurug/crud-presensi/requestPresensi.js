@@ -17,6 +17,26 @@ import axios from "axios";
 //     localStorage.removeItem('guruToken');
 // };
 
+export const apiGetPresensi = () => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${API_URL}/presensi`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(response => {
+            console.log(`respon apiGetPresensi:`, response);
+            return response.data.dataPresensi;
+        })
+        .catch(error => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+};
+
 export const addPresensi = async (kbm_id, siswa_id, keterangan) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {
@@ -44,7 +64,7 @@ export const addPresensi = async (kbm_id, siswa_id, keterangan) => {
         });
 }
 
-export const updatePresensi = (id, kbm_id, siswa_id, keterangan) => {
+export const updatePresensi = async (id, kbm_id, siswa_id, keterangan) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error('Token not found. Please login again.');
@@ -79,7 +99,7 @@ export const apiGetPresensiByTanggal = async (kelas_id, tanggal) => {
         }
     })
         .then(response => {
-            console.log(response)
+            console.log(response.data.data.dataPresensi)
             return response.data.dataPresensi;
         })
         .catch(error => {

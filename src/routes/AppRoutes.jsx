@@ -67,8 +67,8 @@ const AppRoutes = () => {
               {/* <Route path="/guru/kelas" element={<KelasSiswa />} /> */}
               <Route path="/guru/jurnal" element={<JurnalGuru />} />
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
-              <Route path="/guru/kelas/:kelas_id/jurnal" element={<JurnalProvider><PresensiProvider><SiswaProvider><Jurnal /></SiswaProvider></PresensiProvider></JurnalProvider>} />
               <Route path="/guru/rekap" element={<RekapGuru />} />
+              <Route path="/guru/kelas/:kelas_id/jurnal" element={<JurnalProvider><PresensiProvider><SiswaProvider><Jurnal /></SiswaProvider></PresensiProvider></JurnalProvider>} />
               <Route path="/guru/kelas/:kelas_id/rekap" element={<RekapProvider><RekapKbm /></RekapProvider>} />
 
             </Route>
@@ -86,6 +86,7 @@ const AppRoutes = () => {
             <Route path="/siswa/*" element={<SiswaLayout />}>
               <Route index element={<HalamanSiswa />} />
               <Route path="rekap" element={<ReAbSiswa />} />
+              <Route path="jurnal" element={<RejulSiswa />} />
               <Route path="jadwal" element={<JadwalMapel />} />
             </Route>
 

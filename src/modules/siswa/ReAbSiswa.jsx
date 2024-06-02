@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import ReAbItem from "./ReAbItem";
 
 const ReAbSiswa = () => {
+  const username = localStorage.getItem('namaSiswa')
+
   return (
     <div>
       <div className="bg-gray min-h-screen flex flex-col">
@@ -13,13 +15,13 @@ const ReAbSiswa = () => {
             <span className="text-white text-xl">A</span>
           </div>
           <div className="text-right flex items-center space-x-2">
-            <div className="text-gray-600">Ana Ismatul Hawa</div>
+            <div className="text-gray-600">{username}</div>
           </div>
         </div>
 
         <div className="flex gap-6 py-[40px] mx-[50px]">
           <Link to="/siswa/rekap" className="grow py-[20px] rounded-[10px] bg-[#F0A160] font-poppins font-semibold text-left text-white px-[40px]">Rekap Absen</Link>
-          <button className="grow py-[20px] rounded-[10px] bg-[#078DCC] font-poppins font-semibold text-left text-white px-[40px]">Rekap Jurnal</button>
+          <Link to="/siswa/jurnal" className="grow py-[20px] rounded-[10px] bg-[#078DCC] font-poppins font-semibold text-left text-white px-[40px]">Rekap Jurnal</Link>
         </div>
 
         <div className="bg-white rounded-[15px] mx-[50px] mt-[50px]">

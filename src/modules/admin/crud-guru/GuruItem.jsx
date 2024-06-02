@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrashAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useGuru } from "./GuruProvider";
 import Popup from "reactjs-popup";
 
@@ -26,8 +26,8 @@ const GuruItem = ({ id, nama, email, password }) => {
   return (
     <div className="  ">
       <div className="flex flex-col w-[180px]  bg-[#FBFBFB] rounded-lg shadow-xl items-center gap-2 py-5 relative">
-        <div className="  w-[100px] h-[100px] overflow-hidden rounded-full mt-[px]">
-          <img src="/src/assets/imgGuru.jpg" alt={nama} className="  rounded-full shadow-md" />
+        <div className=" bg-green-400 text-white text-center align-center text-[90px] w-[100px] h-[100px] overflow-hidden rounded-full mt-[px]">
+        <FontAwesomeIcon icon={faUser}  />
         </div>
         <div className="email text-[12px]">{email}</div>
         {/* <div className="password text-[12px]">{password}</div> */}
