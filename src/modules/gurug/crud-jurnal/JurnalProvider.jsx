@@ -31,8 +31,8 @@ export const JurnalProvider = ({ children }) => {
     const [selectedKelas, setSelectedKelas] = useState(null);
     const { kelas_id } = useParams();
 
-    const handleFetchJurnal = async (kelas_id) => {
-        const data = await apiGetJurnal(kelas_id);
+    const handleFetchJurnal = async () => {
+        const data = await apiGetJurnal();
         setJurnalList(data);
     };
 
