@@ -1,140 +1,125 @@
-import { createContext, useContext, useState } from "react"
-import { handleLoginAdmin, handleLoginSiswa } from "../modules/config/Api";
-import { handleLoginGuru } from "../modules/auth/LoginGuru/request"
+import { createContext, useContext, useState } from "react";
+import { handleLoginAdmin, handleLoginSiswa, handleAddPengumuman, fetchPengumuman } from "../modules/config/Api";
+import { handleLoginGuru } from "../modules/auth/LoginGuru/request";
 
 const initContext = {
     doLoginAdmin: () => { },
     doLoginGuru: () => { },
     doLogout: () => { },
-    doLoginOrtuSiswa: ()=> {},
+    doLoginOrtuSiswa: () => {},
+    fetchAnnouncement: () => {},
+    addAnnouncement: () => {},
     role: "",
     error: "",
-    isLoggedIn: []
-}
+    isLoggedIn: false
+};
 
 const authContext = createContext(initContext);
 
 export const useAuth = () => {
     return useContext(authContext);
-}
+};
 
 export const AuthProvider = ({ children }) => {
-    const [error, setError] = useState("")
-    const [role, setRole] = useState("")
+    const [error, setError] = useState("");
+    const [role, setRole] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [announcement, setAnnouncement] = useState({ title: '', content: '' });
 
-    const doLoginAdmin = async (username, password) => {
-        // Call the login API
+    const doLoginAdmin = (username, password) => {
         return handleLoginAdmin(username, password)
             .then(apiResult => {
-
-                // If token exists in response data, handle login
-                if (apiResult && apiResult.data.token) {
-                    // Save token to local storage
-                    localStorage.setItem('adminToken', apiResult.data.token);
-                    // Set logged in state
+                if (apiResult && apiResult.token) {
+                    localStorage.setItem('adminToken', apiResult.token);
                     setIsLoggedIn(true);
-                    setRole("Admin")
-                    return { token: apiResult.data.token }; // Return token for further use
+                    setRole("Admin");
+                    return { token: apiResult.token };
                 } else {
-                    // Handle invalid response from server
                     console.error('Login failed: Unexpected response from server');
                     return { message: 'Unexpected response from server' };
                 }
             })
             .catch(error => {
-                // Handle network errors or other exceptions
                 console.error('Error occurred while logging in:', error);
                 return { message: 'Error occurred while logging in' };
             });
     };
 
-    const doLoginGuru = async (email, password) => {
-        // Call the login API
+    const doLoginGuru = (email, password) => {
         return handleLoginGuru(email, password)
             .then(apiResult => {
-                console.log('test login guru', apiResult); // Check response structure
-                // If token exists in response data, handle login
-                if (apiResult && apiResult.data.token) {
-                    // Save token to local storage
-                    localStorage.setItem('guruToken', apiResult.data.token);
-                    // Set logged in state
+                if (apiResult && apiResult.token) {
+                    localStorage.setItem('guruToken', apiResult.token);
                     setIsLoggedIn(true);
-                    setRole("Guru")
-                    return { token: apiResult.data.token }; // Return token for further use
+                    setRole("Guru");
+                    return { token: apiResult.token };
                 } else {
-                    // Handle invalid response from server
                     console.error('Login failed: Unexpected response from server');
                     return { message: 'Unexpected response from server' };
                 }
             })
             .catch(error => {
-                // Handle network errors or other exceptions
                 console.error('Error occurred while logging in:', error);
                 const message = error.response?.data?.message || 'Error occurred while logging in';
                 setError(message);
                 return { message };
             });
-            console.log(email)
     };
 
     const doLogout = () => {
-        if(apiResult.data.token == 'adminToken') {
-            localStorage.removeItem('adminToken');
-        }
+        localStorage.removeItem('adminToken');
         localStorage.removeItem('guruToken');
         setIsLoggedIn(false);
     };
 
-    const doLoginOrtuSiswa = async (email, password) => {
-        // Call the login API
+    const doLoginOrtuSiswa = (email, password) => {
         return handleLoginSiswa(email, password)
             .then(apiResult => {
-                console.log('test login siswa', apiResult); // Check response structure
-                // If token exists in response data, handle login
-                if (apiResult && apiResult.data.token) {
-                    // Save token to local storage
-                    localStorage.setItem('siswaToken', apiResult.data.token);
-                    // Set logged in state
+                if (apiResult && apiResult.token) {
+                    localStorage.setItem('siswaToken', apiResult.token);
                     setIsLoggedIn(true);
-                    setRole("Siswa")
-                    return { token: apiResult.data.token }; // Return token for further use
+                    setRole("Siswa");
+                    return { token: apiResult.token };
                 } else {
-                    // Handle invalid response from server
                     console.error('Login failed: Unexpected response from server');
                     return { message: 'Unexpected response from server' };
                 }
             })
             .catch(error => {
-                // Handle network errors or other exceptions
                 console.error('Error occurred while logging in:', error);
                 const message = error.response?.data?.message || 'Error occurred while logging in';
                 setError(message);
                 return { message };
             });
-            console.log(email)
     };
 
-    const doLogoutSiswa = () => {
-        // Hapus token dari local storage dan set status logged out
-        localStorage.removeItem('siswaToken');
-        setIsLoggedIn(false);
-        
+    const fetchAnnouncement = () => {
+        fetchPengumuman()
+            .then(data => {
+                if (data && data.title && data.content) {
+                    setAnnouncement({ title: data.title, content: data.content });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching announcement:', error);
+            });
+    };
+
+    const addAnnouncement = (title, content) => {
+        return handleAddPengumuman(title, content)
+            .then(response => {
+                if (response && response.data) {
+                    setAnnouncement({ title, content });
+                }
+            })
+            .catch(error => {
+                console.error('Error adding announcement:', error);
+            });
     };
 
     return (
-        <authContext.Provider value={{
-            doLoginAdmin,
-            doLoginGuru,
-            doLogout,
-            doLoginOrtuSiswa,
-            doLogoutSiswa,
-            role,
-            error,
-            isLoggedIn,
-            setIsLoggedIn
-        }}>
+        <authContext.Provider value={{ doLoginAdmin, doLoginGuru, doLogout, doLoginOrtuSiswa, fetchAnnouncement, addAnnouncement, role, error, isLoggedIn, announcement }}>
             {children}
         </authContext.Provider>
-    )
-}
+    );
+};

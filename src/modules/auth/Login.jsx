@@ -33,7 +33,7 @@ const Login = () => {
       <div className="logo absolute top-0 left-0 pt-5 pl-5">
         <img
           className="w-30 h-20"
-          src="src/assets/seattleLogo.png"
+          src="/src/assets/logo - Copy.png"
           alt="Seattle Logo"
         />
       </div>

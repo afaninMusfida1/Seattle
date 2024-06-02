@@ -159,3 +159,53 @@ export const handleLoginSiswa= async (email, password) => {
       return error.response?.data ?? { message: "Unknown error" };
     });
 };
+
+export const handleAddPengumuman = async (title, content) => {
+  const token = localStorage.getItem("adminToken");
+  if (!token) {
+    console.error("Token not found. Please login again.");
+    return { message: "Token not found. Please login again." };
+  }
+
+  return axios.post(`${http}/pengumuman`, {
+    title: title,
+    content: content,
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((response) => {
+      console.log("Pengumuman response data:", response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Pengumuman failed:", error);
+      return error.response?.data ?? { message: "Unknown error" };
+    });
+};
+
+export const fetchPengumuman = async (title, content) => {
+  const token = localStorage.getItem("adminToken");
+  if (!token) {
+    console.error("Token not found. Please login again.");
+    return { message: "Token not found. Please login again." };
+  }
+
+  const config = {
+    params: {
+      title: title,
+      content: content
+    },
+    headers: {
+      Authorization:` Bearer ${token}`
+    }
+  };
+
+  return axios.get(`${API_URL}/pengumuman`, config)
+    .then(response => response.data)
+    .catch(error => {
+      console.error("Error fetching announcement: ", error);
+      return error.response?.data ?? { message: "Unknown error" };
+    });
+};
