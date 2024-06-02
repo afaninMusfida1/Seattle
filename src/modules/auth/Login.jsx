@@ -33,10 +33,10 @@ const Login = () => {
       <div className="logo absolute top-0 left-0 pt-5 pl-5">
         <img
           className="w-30 h-20"
-          src="src/assets/seattleLogo.png"
+          src="/src/assets/logo - Copy.png"
           alt="Seattle Logo"
         />
-      </div>
+      </div>``
       <h1 className="text-center text-[#06357A] font-poppins font-bold text-[24px] sm:text-[40px] p-5 my-[25px]">
         Welcome, Admin
       </h1>

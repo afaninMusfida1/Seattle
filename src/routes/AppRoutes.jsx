@@ -40,6 +40,7 @@ import { PresensiProvider } from '../modules/gurug/crud-presensi/PresensiProvide
 import RejulSiswa from '../modules/siswa/RejulSiswa';
 import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
 import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
+import ReAbSiswa from '../modules/siswa/ReAbSiswa';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -82,9 +83,10 @@ const AppRoutes = () => {
 
             </Route> */}
 
-            <Route path="/siswa" element={< HalamanSiswa />}>
-              <Route path="/siswa-rekap" element={<RekapSiswa />} />
-              <Route path="/siswa-jadwal" element={<JadwalMapel />} />
+            <Route path="/siswa/*" element={<SiswaLayout />}>
+              <Route index element={<HalamanSiswa />} />
+              <Route path="rekap" element={<ReAbSiswa />} />
+              <Route path="jadwal" element={<JadwalMapel />} />
             </Route>
 
             <Route path='/admin' element={
