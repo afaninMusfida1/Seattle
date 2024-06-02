@@ -8,12 +8,13 @@ import Swal from 'sweetalert2';
 import { useSiswa } from '../../admin/crud-siswa/SiswaProvider';
 import { addPresensi } from '../crud-presensi/requestPresensi';
 
+
 const Jurnal = () => {
     const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
     const { handleAdd, handleCheckKbm, handleGetKbmId, handleUpdate, jurnalList, handleFetchJurnal, handleGetJurnalByKelas, isLoading } = useJurnal();
     const [tanggal, setTanggal] = useState("");
-    const { kelas_id } = useParams();
+    const { kelas_id, guru_id} = useParams();
     const [namaGuru, setNamaGuru] = useState("");
     const [namaKelas, setNamaKelas] = useState("");
     const [kategori, setKategori] = useState("");
@@ -23,6 +24,7 @@ const Jurnal = () => {
     const { siswaList, setSiswaList } = useSiswa();
     const [fetchedSiswaList, setFetchedSiswaList] = useState([]);
     const [id, setId] = useState();
+    const [doPresensi, setDoPresensi] = useState(false);
 
     useEffect(() => {
         actionSetPageTitle('Isi Jurnal & Presensi');
@@ -34,8 +36,8 @@ const Jurnal = () => {
 
     useEffect(() => {
         const fetchSiswa = async () => {
-            const response = await apiGetSiswaByIdKelas(kelas_id);
-            setFetchedSiswaList(response);
+            const result = await apiGetSiswaByIdKelas(kelas_id);
+            setFetchedSiswaList(result);
         };
 
         fetchSiswa();
@@ -53,6 +55,7 @@ const Jurnal = () => {
         }
 
         const result = await handleCheckKbm(kelas_id, tanggal)
+        
 
         if (!result) {
             setJurnalIsAvailable(false);
@@ -97,7 +100,9 @@ const Jurnal = () => {
     };
 
     const handleConfirmPresensi = () => {
-        navigate('/guru')
+        // navigate('/guru')
+        setIsChecking(true)
+        setTanggal("")
         Swal.fire({
             title: 'Selesai Presensi',
             icon: 'success',
@@ -109,15 +114,17 @@ const Jurnal = () => {
         const idKbm = await handleGetKbmId(kelas_id, tanggal);
         try {
             await addPresensi(idKbm, siswa_id, keterangan);
-            console.log('Presensi added successfully');
+            console.log('Berasil menambahkan presensi');
+
         } catch (error) {
             console.error('Error adding presensi:', error);
             Swal.fire({
-                title: 'Error',
-                text: 'Gagal menambahkan presensi',
+                title: 'Oops..',
+                text: 'Gagal melakukan presensi',
                 icon: 'error',
-                confirmButtonText: 'Oke'
+                confirmButtonText: 'Coba lagi'
             });
+
         }
     };
 
@@ -222,16 +229,27 @@ const Jurnal = () => {
                 )}
             </div>
             <div className="bg-white max-h-[500px] rounded-[30px] ml-[100px] mr-[100px] mb-[100px] mt-[30px] p-8 ">
-                <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
-                    {fetchedSiswaList.map(siswa => (
-                        <PresensiItem key={siswa.id} siswa={siswa} tanggal={tanggal} handleAddPresensi={handleAddPresensi} />
-                    ))}
-                </div>
-                <div className="flex justify-end">
-                    <button onClick={handleConfirmPresensi} className="bg-[#078DCC] text-white px-[70px] py-[5px] rounded mr-[20px] mt-[20px] self-end">
-                        Selesai
-                    </button>
-                </div>
+                {isChecking ? (
+                    <>
+                        <div className='opacity-50 '>
+                            presensi akan muncul setelah cek jurnal
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="w-full max-h-[380px] overflow-auto flex flex-wrap gap-1">
+                            {fetchedSiswaList.map(siswa => (
+                                <PresensiItem key={siswa.id} siswa={siswa} tanggal={tanggal} handleAddPresensi={handleAddPresensi} doPresensi={doPresensi} setDoPresensi={setDoPresensi} />
+                            ))}
+                        </div>
+                        <div className="flex justify-end">
+                            <button onClick={handleConfirmPresensi} className="bg-[#078DCC] text-white px-[70px] py-[5px] rounded mr-[20px] mt-[20px] self-end">
+                                Selesai
+                            </button>
+                        </div>
+                    </>
+                )}
+
             </div>
         </>
     );

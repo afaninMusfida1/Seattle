@@ -44,6 +44,21 @@ export const addPresensi = async (kbm_id, siswa_id, keterangan) => {
         });
 }
 
+export const updatePresensi = (id, kbm_id, siswa_id, keterangan) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error('Token not found. Please login again.');
+        return Promise.resolve({ success: false, message: 'Token not found. Please login again.' });
+    }
+
+    return axios.put(`${API_URL}/presensi/${id}`, {kbm_id, siswa_id, keterangan} , {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+}
+
 export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {

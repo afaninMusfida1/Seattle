@@ -76,9 +76,9 @@ const JurnalGuru = () => {
                         pendaftaran siswa baru tahun ajaran 2025
                     </div>
                 </section>
-                <span className='text-white self-end opacity-70'>
+                <span className='text-white opacity-70'>
                     Pengumuman
-                    <FontAwesomeIcon icon={faBullhorn} />
+
                 </span>
             </div>
             <div className="">

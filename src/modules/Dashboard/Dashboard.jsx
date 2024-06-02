@@ -13,8 +13,8 @@ import { faAddressCard, faChalkboardUser } from "@fortawesome/free-solid-svg-ico
 
 function Dashboard() {
     const { actionSetPageTitle } = useLayout();
-    const {guruList, handleFetch: fetchGuru} = useGuru();
-    const {siswaList, handleFetch: fetchSiswa} = useSiswa();
+    const { guruList, handleFetch: fetchGuru } = useGuru();
+    const { siswaList, handleFetch: fetchSiswa } = useSiswa();
     const [makeTitle, setMakeTitle] = useState('Pengumuman');
     const [makeContent, setMakeContent] = useState('Belum ada pengumuman')
     const title = useRef();
@@ -77,14 +77,14 @@ function Dashboard() {
 
             <div className="flex gap-8">
                 <div className=" bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px] ">
-                    <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center"><FontAwesomeIcon icon={faChalkboardUser} style={{color: "#ffffff",}} className="text-[30px]"/></div>
+                    <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center"><FontAwesomeIcon icon={faChalkboardUser} style={{ color: "#ffffff", }} className="text-[30px]" /></div>
                     <div className="status flex items-end justify-between ">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Guru terdaftar</h1>
                         <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">{guruList.length}</h1>
                     </div>
                 </div>
                 <div className=" bg-[#FFFFFF] w-full h-[250px] grid p-7 rounded-[20px] ">
-                    <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center"><FontAwesomeIcon icon={faAddressCard} style={{color: "#ffffff",}} className="text-[30px]"/></div>
+                    <div className="icon bg-green-400 w-[70px] h-[70px] rounded-full overflow-hidden flex items-center justify-center"><FontAwesomeIcon icon={faAddressCard} style={{ color: "#ffffff", }} className="text-[30px]" /></div>
                     <div className="status flex items-end justify-between">
                         <h1 className="font-poppins font-semibold text-xl">Jumlah Siswa terdaftar</h1>
                         <h1 className="font-poppins font-semibold text-6xl text-[#078DCC]">{siswaList.length}</h1>

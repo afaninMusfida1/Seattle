@@ -193,3 +193,5 @@ export const editJurnal = async (id, kelas_id, hasil_belajar) => {
         });
     return edits;
 };
+
+// untuk melakukan request add presensi
