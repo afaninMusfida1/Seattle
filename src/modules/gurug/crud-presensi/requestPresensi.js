@@ -44,19 +44,43 @@ export const addPresensi = async (kbm_id, siswa_id, keterangan) => {
         });
 }
 
-export const apiGetJurnalByTanggal = async (kelas_id, tanggal) => {
+export const updatePresensi = (id, kbm_id, siswa_id, keterangan) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error('Token not found. Please login again.');
+        return Promise.resolve({ success: false, message: 'Token not found. Please login again.' });
+    }
+
+    return axios.put(`${API_URL}/presensi/${id}`, { kbm_id, siswa_id, keterangan }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            console.log(response)
+            return response;
+        })
+        .catch((error) => {
+            return error.response;
+        });
+
+}
+
+export const apiGetPresensiByTanggal = async (kelas_id, tanggal) => {
     const token = localStorage.getItem("guruToken");
     if (!token) {
         console.error("Token not found. Please login again.");
         return { message: "Token not found. Please login again." };
     }
 
-    return axios.post(`${API_URL}/kbm/kelas/${kelas_id}`, { tanggal }, {
-        headers: { Authorization: `Bearer ${token}` }
+    return axios.post(`${API_URL}/presensi/kelas/${kelas_id}/tanggal`, { tanggal }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
-            console.log(`respon cek jurnal`, response.data.data.dataKbm)
-            return response.data.data.dataKbm;
+            console.log(response)
+            return response.data.dataPresensi;
         })
         .catch(error => {
             console.error('Error checking jurnal:', error.response ? error.response.data : error.message);
@@ -106,3 +130,33 @@ export const apiGetSiswaByIdKelas = async (id) => {
             return error.response?.data ?? { message: "Unknown error" };
         });
 }
+
+export const apiGetPresensiBySiswa = (siswa_id) => {
+    const token = localStorage.getItem("siswaToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return Promise.resolve({ message: "Token not found. Please login again." });
+    }
+
+    return axios.get(`${API_URL}/presensi/siswa`, {
+        params: {
+            siswa_id: siswa_id
+        },
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(response => response.data)
+    .catch(error => {
+        console.error("Error fetching data: ", error);
+        return error.response?.data ?? { message: "Unknown error" };
+    });
+};
+
+
+
+
+
+
+
+

@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { API_URL, http } from '../../config/Url';
 import { getToken, getTokenGuru } from '../../config/Api';
@@ -193,3 +192,5 @@ export const editJurnal = async (id, kelas_id, hasil_belajar) => {
         });
     return edits;
 };
+
+// untuk melakukan request add presensi

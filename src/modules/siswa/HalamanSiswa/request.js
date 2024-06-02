@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../config/Url";
+import { API_URL } from "../../config/Url";
 
 export const getKelasBySiswaId = (siswaId) => {
     const token = localStorage.getItem('siswaToken');

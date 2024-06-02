@@ -5,9 +5,9 @@ import { KelasProvider } from "../crud-kelas/KelasProvider"
 const RekapWrapper = ({ children }) => {
     return (
         <KelasProvider>
-        <RekapProvider>
-            <Outlet />
-        </RekapProvider>
+            <RekapProvider>
+                <Outlet />
+            </RekapProvider>
         </KelasProvider>
 
     )

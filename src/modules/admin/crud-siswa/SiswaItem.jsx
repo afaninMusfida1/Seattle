@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Popup from "reactjs-popup";
 
-const SiswaItem = ({ id, nama, kategori, kelas, no_telp_ortu, email }) => {
+const SiswaItem = ({ id, nama, kategori, nama_kelas, no_telp_ortu, email, password }) => {
     const { handleDelete, handleUpdate } = useSiswa();
     const { daftarKelas, getNamaKelas } = useKelas();
     const [editedNama, setEditedNama] = useState(nama);

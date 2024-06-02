@@ -71,8 +71,8 @@ const Rekap = (props) => {
                                         kategori={kelas.kategori}
                                         periode={kelas.periode}
                                         jadwal_kelas={kelas.jadwal_kelas}
-                                        navigateTo={`absen/kelas/${kelas_id}`}
-                                        // onClick={() => handleKelasClick(kelas.id)}
+                                        navigateTo={`absen/kelas/${kelas.id}`}
+                                        onClick={() => handleKelasClick(kelas.id)}
                                     />
                                 ))}
                         </div>

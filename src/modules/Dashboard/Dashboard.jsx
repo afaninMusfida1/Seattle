@@ -12,6 +12,8 @@ function Dashboard() {
     const { actionSetPageTitle } = useLayout();
     const { guruList, handleFetch: fetchGuru } = useGuru();
     const { siswaList, handleFetch: fetchSiswa } = useSiswa();
+    const [makeTitle, setMakeTitle] = useState('Pengumuman');
+    const [makeContent, setMakeContent] = useState('Belum ada pengumuman')
     const { announcements, addAnnouncement, fetchAnnouncement } = useAuth();
     const title = useRef();
     const content = useRef();
