@@ -40,6 +40,7 @@ import { PresensiProvider } from '../modules/gurug/crud-presensi/PresensiProvide
 import RejulSiswa from '../modules/siswa/RejulSiswa';
 import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
 import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
+import ReAbSiswa from '../modules/siswa/ReAbSiswa';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -51,25 +52,25 @@ const AppRoutes = () => {
         <Route path="/auth/admin" element={<Login />} />
         {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} />
-        <Route path="/guru" element={<LoginGuru />} />        
-        <Route path="/siswa/ortu" element={<LoginOrtuSiswa/>}/>
+        <Route path="/guru" element={<LoginGuru />} />
+        <Route path="/siswa/ortu" element={<LoginOrtuSiswa />} />
         <Route path="*" element={<Navigate to="/auth" />} />
 
         {isLoggedIn && (
           <>
             <Route element={
-                <KelasProvider>
-                  <JurnalProvider>
-                    <GuruLayout />
-                  </JurnalProvider>
-                </KelasProvider>}>
+              <KelasProvider>
+                <JurnalProvider>
+                  <GuruLayout />
+                </JurnalProvider>
+              </KelasProvider>}>
               {/* <Route path="/guru/kelas" element={<KelasSiswa />} /> */}
               <Route path="/guru/jurnal" element={<JurnalGuru />} />
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
               <Route path="/guru/kelas/:kelas_id/jurnal" element={<JurnalProvider><PresensiProvider><SiswaProvider><Jurnal /></SiswaProvider></PresensiProvider></JurnalProvider>} />
               <Route path="/guru/rekap" element={<RekapGuru />} />
               <Route path="/guru/kelas/:kelas_id/rekap" element={<RekapKbm />} />
-              
+
             </Route>
 
             <Route element={<SiswaLayout />}>
@@ -82,9 +83,10 @@ const AppRoutes = () => {
 
             </Route>
 
-            <Route path="/siswa" element={< HalamanSiswa />}>
-              <Route path="/siswa-rekap" element={<RekapSiswa />} />
-              <Route path="/siswa-jadwal" element={<JadwalMapel />} />
+            <Route path="/siswa/*" element={<SiswaLayout />}>
+              <Route index element={<HalamanSiswa />} />
+              <Route path="rekap" element={<ReAbSiswa />} />
+              <Route path="jadwal" element={<JadwalMapel />} />
             </Route>
 
             <Route path='/admin' element={<KelasProvider><JurnalProvider><GuruProvider><SiswaProvider><MainLayout /></SiswaProvider></GuruProvider></JurnalProvider></KelasProvider>}>
