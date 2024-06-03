@@ -1,11 +1,11 @@
-const ReAbItem = ({ date, status }) => {
+const ReAbItem = ({ tanggal, keterangan }) => {
   return (
       <tr className="flex pt-[20px] justify-between w-full">
           <td className="text-poppins font-medium text-black text-lg">
-              <p>{date}</p>
+              <p>{tanggal}</p>
           </td>
           <td className="text-poppins font-medium text-black text-lg">
-              <p>{status}</p>
+              <p>{keterangan}</p>
           </td>
       </tr>
   );

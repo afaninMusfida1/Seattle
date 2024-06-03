@@ -15,7 +15,8 @@ const LoginOrtuSiswa = () => {
         const apiResult = await doLoginOrtuSiswa(email, password);
         console.log(email, password);
         if (apiResult && apiResult.token) {
-          localStorage.setItem("siswaToken", apiResult.token);
+          localStorage.setItem('siswaToken', apiResult.token);
+          localStorage.setItem('namaSiswa', namaSiswa)
           setIsLoggedIn(true);
           navigate("/siswa");
         } else if (apiResult && apiResult.message) {
