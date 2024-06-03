@@ -11,7 +11,7 @@ import RekapAbsen from '../modules/admin/Rekap/RekapKbm';
 import GuruLayout from '../modules/layout/GuruLayout';
 import RekapJurnal from '../modules/admin/Rekap/RekapJurnal';
 import RekapLayout from '../modules/layout/RekapLayout';
-import HalamanSiswa from '../modules/siswa/HalamanSiswa';
+import HalamanSiswa from '../modules/siswa/HalamanSiswa/HalamanSiswa';
 import SiswaLayout from '../modules/layout/SiswaLayout';
 import { useAuth } from '../context/AuthContext';
 import KelasSiswa from '../modules/gurug/crud-presensi/KelasSiswa';
@@ -40,7 +40,8 @@ import { PresensiProvider } from '../modules/gurug/crud-presensi/PresensiProvide
 import RejulSiswa from '../modules/siswa/RejulSiswa';
 import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
 import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
-import ReAbSiswa from '../modules/siswa/ReAbSiswa';
+import ReAbSiswa from '../modules/siswa/RekapSiswa/ReAbSiswa';
+import { HalamanSiswaProvider } from '../modules/siswa/HalamanSiswa/HalamanSiswaProvider';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -83,11 +84,11 @@ const AppRoutes = () => {
 
             </Route> */}
 
-            <Route path="/siswa/*" element={<SiswaLayout />}>
+            <Route path="/siswa/*" element={<HalamanSiswaProvider><PresensiProvider><SiswaLayout /></PresensiProvider></HalamanSiswaProvider>}>
               <Route index element={<HalamanSiswa />} />
               <Route path="rekap" element={<ReAbSiswa />} />
               <Route path="jurnal" element={<RejulSiswa />} />
-              <Route path="jadwal" element={<JadwalMapel />} />
+              <Route path="jurnal" element={<RejulSiswa />} />
             </Route>
 
             <Route path='/admin' element={

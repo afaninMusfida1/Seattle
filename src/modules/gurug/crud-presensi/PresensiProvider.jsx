@@ -1,15 +1,17 @@
 import { createContext, useContext, useState } from "react";
-import { apiGetKelas, apiGetSiswaByIdKelas, addPresensi, apiGetPresensi } from "./requestPresensi";
+import { apiGetKelas, apiGetSiswaByIdKelas, addPresensi, apiGetPresensiByTanggal, apiGetPresensiBySiswa, apiGetPresensi } from "./requestPresensi";
 import { useParams } from "react-router-dom";
 import { apiGetJurnalByTanggal } from "../crud-jurnal/requestsJurnal";
 
 const initPresensiState = {
+    presensiList: [],
     handleFetch: () => { },
     handleFetchPresensi: () => { },
     handleGetKbmId: () => { },
     handleFetchSiswaByIdKelas: () => { },
     handleAddPresensi: () => { },
     handleCekPresensi: () => { },
+    handleFetchPresensi: () => { },
     isLoading: false
 };
 
@@ -27,11 +29,11 @@ export const PresensiProvider = ({ children }) => {
         setPresensiList(data);
     };
 
-    const handleFetchPresensi = async () => {
-        const data = await apiGetPresensi();
-        console.log(data);
-        setPresensiList(data);
-    }
+    // const handleFetchPresensi = async () => {
+    //     const data = await apiGetPresensi();
+    //     console.log(data);
+    //     setPresensiList(data);
+    // }
 
     const handleGetKbmId = async (kelas_id, tanggal) => {
         if (isLoading) return
@@ -75,6 +77,33 @@ export const PresensiProvider = ({ children }) => {
         const data = await apiGetSiswaByIdKelas(kelas_id);
         console.log(data);
         setPresensiList(data);
+    };
+
+    // const handleFetchPresensi = (siswa_id) => {
+    //     setIsLoading(true);
+    //     apiGetPresensiBySiswa(siswa_id)
+    //         .then(response => {
+    //             setPresensiList(response.data.data.dataPresensi);
+    //             console.log(response.data.data.dataPresensi)
+    //             setIsLoading(false);
+    //         })
+    //         .catch(err => {
+    //             // console.error(err.message);
+    //             setIsLoading(false);
+    //         });
+    // };
+
+    const handleFetchPresensi = async (siswa_id) => {
+        // setIsLoading(true);
+        // setError(null);
+        try {
+            const data = await apiGetPresensiBySiswa(siswa_id);
+            setPresensiList(data);
+        } catch (err) {
+            setError(err.message || "Error fetching presensi data");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

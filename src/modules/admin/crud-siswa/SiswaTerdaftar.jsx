@@ -140,6 +140,7 @@ const SiswaTerdaftar = () => {
                                     <SiswaItem
                                         key={siswa.id}
                                         id={siswa.id}
+                                        kelas_id={siswa.kelas_id}
                                         nama={siswa.nama}
                                         kategori={siswa.kategori}
                                         nama_kelas={siswa.nama_kelas}

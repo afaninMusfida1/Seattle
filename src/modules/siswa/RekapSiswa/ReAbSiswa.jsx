@@ -1,8 +1,27 @@
-import { Link } from "react-router-dom";
-import ReAbItem from "./ReAbItem";
+import { Link } from 'react-router-dom';
+import ReAbItem from './ReAbItem';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { usePresensi } from '../../gurug/crud-presensi/PresensiProvider';
+import { apiGetPresensiBySiswa } from '../../gurug/crud-presensi/requestPresensi';
 
 const ReAbSiswa = () => {
-  const username = localStorage.getItem('namaSiswa')
+  const username = localStorage.getItem('namaSiswa');
+  const { handleFetchPresensi, presensiList, isLoading, error } = usePresensi();
+  const { siswa_id } = useParams();
+
+  useEffect(() => {
+    handleFetchPresensi(siswa_id);
+    apiGetPresensiBySiswa()
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div>
@@ -27,30 +46,28 @@ const ReAbSiswa = () => {
         <div className="bg-white rounded-[15px] mx-[50px] mt-[50px]">
           <p className="font-poppins font-semibold text-xl text-[#078DCC] ml-[70px] pt-[50px]">Rekap Absen</p>
 
-          <div className="flex pt-[50px] ml-[70px] ">
-            <table className="table-auto w-full ">
+          <div className="flex pt-[50px] ml-[70px]">
+            <table className="table-auto w-full">
               <thead className="text-poppins font-medium text-black text-xl">
                 <tr>
-                  <th className="text-left">Tanggal</th >
+                  <th className="text-left">Tanggal</th>
                   <th className="text-left">Keterangan</th>
                 </tr>
-
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
-                <ReAbItem />
               </thead>
+              <tbody>
+                {presensiList.length > 0 ? (
+                  presensiList.map((dataPresensi, siswa_id) => (
+                    <ReAbItem key={siswa_id} tanggal={dataPresensi.tanggal} keterangan={dataPresensi.keterangan} />
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="2" className="text-center">Tidak ada data presensi yang tersedia</td>
+                  </tr>
+                )}
+              </tbody>
             </table>
           </div>
         </div>
-
-
       </div>
     </div>
   );

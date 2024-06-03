@@ -71,7 +71,6 @@ const RekapKbm = () => {
                             <th>Kelas</th>
                             <th>Siswa</th>
                             <th>Keterangan</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px]">

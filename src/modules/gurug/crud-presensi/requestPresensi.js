@@ -76,13 +76,13 @@ export const updatePresensi = async (id, kbm_id, siswa_id, keterangan) => {
             Authorization: `Bearer ${token}`
         }
     })
-    .then(response => {
-        console.log(response)
-        return response;
-    })
-    .catch((error) => {
-        return error.response;
-    });
+        .then(response => {
+            console.log(response)
+            return response;
+        })
+        .catch((error) => {
+            return error.response;
+        });
 
 }
 
@@ -171,4 +171,37 @@ export const apiGetPresensiByKelas = async (id) => {
             return error.response?.data ?? { message: "Unknown error" };
         });
 }
+
+
+export const apiGetPresensiBySiswa = (siswa_id) => {
+    const token = localStorage.getItem("siswaToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return Promise.resolve({ message: "Token not found. Please login again." });
+    }
+
+    return axios.get(`${API_URL}/presensi/siswa`, {
+        params: {
+            siswa_id: siswa_id
+        },
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        console.log(response.data.data.dataPresensi);
+        return response.data.data.dataPresensi;
+    })
+    .catch(error => {
+        // console.error("Error fetching data: ", error);
+        return error.response?.data ?? { message: "Unknown error" };
+    });
+};
+
+
+
+
+
+
+
 

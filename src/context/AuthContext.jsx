@@ -6,13 +6,14 @@ const initContext = {
     doLoginAdmin: () => { },
     doLoginGuru: () => { },
     doLogout: () => { },
-    doLoginOrtuSiswa: ()=> {},
+    doLoginOrtuSiswa: () => { },
     role: "",
     error: "",
     isLoggedIn: [],
     announcements: [],
-    fetchAnnouncement: () => {},
-    addAnnouncement: () => {},
+    fetchAnnouncement: () => { },
+    addAnnouncement: () => { },
+    handleDelete: () => {}
 }
 
 const authContext = createContext(initContext);
@@ -79,11 +80,11 @@ export const AuthProvider = ({ children }) => {
                 setError(message);
                 return { message };
             });
-            console.log(email)
+        console.log(email)
     };
 
     const doLogout = () => {
-        if(apiResult.data.token == 'adminToken') {
+        if (apiResult.data.token == 'adminToken') {
             localStorage.removeItem('adminToken');
         }
         localStorage.removeItem('guruToken');
@@ -116,14 +117,14 @@ export const AuthProvider = ({ children }) => {
                 setError(message);
                 return { message };
             });
-            console.log(email)
+        console.log(email)
     };
 
     const doLogoutSiswa = () => {
         // Hapus token dari local storage dan set status logged out
         localStorage.removeItem('siswaToken');
         setIsLoggedIn(false);
-        
+
     };
 
     const fetchAnnouncement = async () => {
@@ -151,6 +152,31 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const handleDelete = (id) => {
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            console.error("Token not found. Please login again.");
+            return;
+        }
+
+        deleteAnnouncement(id, token) // Memanggil deleteAnnouncement dari API
+            .then(response => {
+                if (response.status === 200) {
+                    // Hapus pengumuman dari state setelah berhasil dihapus dari server
+                    setAnnouncements(prevAnnouncements => prevAnnouncements.filter(announcement => announcement.id !== id));
+                    alert("Berhasil menghapus pengumuman.");
+                } else {
+                    console.error("Failed to delete announcement:", response.data.message);
+                    alert("Gagal menghapus pengumuman.");
+                }
+            })
+            .catch(error => {
+                console.error("Error deleting announcement:", error);
+                alert("Gagal menghapus pengumuman.");
+            });
+    };
+
+
     return (
         <authContext.Provider value={{
             doLoginAdmin,
@@ -158,6 +184,7 @@ export const AuthProvider = ({ children }) => {
             doLogout,
             doLoginOrtuSiswa,
             doLogoutSiswa,
+            handleDelete,
             role,
             error,
             isLoggedIn,

@@ -1,18 +1,28 @@
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import Dashboard from "../Dashboard/Dashboard";
 import { useEffect } from "react";
+import { useSiswa } from "../../admin/crud-siswa/SiswaProvider";
+import { useAuth } from "../../../context/AuthContext";
+import { useHalamanSiswa } from "./HalamanSiswaProvider";
 
 const HalamanSiswa = () => {
     const { doLogoutSiswa, announcements, fetchAnnouncement } = useAuth();
+    const { fetchKelasBySiswaId, siswaList } = useHalamanSiswa();
     const navigate = useNavigate();
     const username = localStorage.getItem('namaSiswa')
 
     useEffect(() => {
         fetchAnnouncement();
+        // Replace `1` with the actual siswaId you need to fetch
+        fetchKelasBySiswaId(1);
+    }, []);
 
+    useEffect(() => {
+        console.log("siswaList:", siswaList);  // Logging to see the structure of siswaList
+        if (siswaList && siswaList.length > 0) {
+            setStudentName(siswaList[0].nama_siswa);
+        }
     }, []);
 
     const handleClick = () => {
@@ -64,17 +74,18 @@ const HalamanSiswa = () => {
                     <div className="border border-gray-300 rounded-lg p-4 mb-[10px] max-w-xl font-sans">
                         <div className="text-left">
                             <div className="text-sm text-gray-500">Kelas yang diikuti</div>
-                            <div className="text-lg font-bold text-blue-800">Nama Kelas anda</div>
+                            <div className="text-lg font-bold text-blue-800">{siswaList ? siswaList.nama_kelas : 'Loading...'}</div>
                             <br></br>
                             <div className="text-sm text-gray-500">Jadwal</div>
                             <div className="text-base text-gray-700 mt-1">
-                                Senin dan Rabu, jam 16.00 - 18.00
+                                {siswaList ? siswaList.jadwal_kelas : 'Loading...'}
                             </div>
                         </div>
                     </div>
                 </div>
             </div >
         </>
-    )
+    );
 }
+
 export default HalamanSiswa;
