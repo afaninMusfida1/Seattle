@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Popup from "reactjs-popup";
 
-const SiswaItem = ({ id, nama, kategori, nama_kelas, no_telp_ortu, email, password }) => {
+const SiswaItem = ({ id, nama, kategori, nama_kelas, no_telp_ortu, email, password, kelas_id }) => {
     const { handleDelete, handleUpdate } = useSiswa();
     const { daftarKelas, getNamaKelas } = useKelas();
     const [editedNama, setEditedNama] = useState(nama);
     // const [editedKategori, setEditedKategori] = useState(kategori);
-    const [editedKelasId, setEditedKelasId] = useState(nama_kelas);
+    const [editedKelasId, setEditedKelasId] = useState(kelas_id);
     const [editedNoTelpOrtu, setEditedNoTelpOrtu] = useState(no_telp_ortu);
     const [editedEmail, setEditedEmail] = useState(email);
     const [editedPassword, setEditedPassword] = useState(password);
@@ -64,7 +64,7 @@ const SiswaItem = ({ id, nama, kategori, nama_kelas, no_telp_ortu, email, passwo
                 <div className="modal text-center bg-white max-w-fit border p-[40px] px-[50px] rounded-[20px] drop-shadow-2xl">
                     <div className="content grid gap-10">
                         <h1 className="font-semibold text-2xl">Edit</h1>
-                        <form onSubmit={handleEditSubmit}>
+                        <form >
                             <div>
                                 <label htmlFor="nama">Nama:</label>
                                 <input
@@ -100,7 +100,7 @@ const SiswaItem = ({ id, nama, kategori, nama_kelas, no_telp_ortu, email, passwo
                                     <option value="" hidden>Pilih Kelas</option>
                                     {daftarKelas.length > 0 ? (
                                         daftarKelas.map((kelas) => (
-                                            <option key={kelas.nama_kelas} value={kelas.nama_kelas}>{kelas.nama_kelas}</option>
+                                            <option key={kelas.nama_kelas} value={kelas.id}>{kelas.nama_kelas}</option>
                                         ))
                                     ) : (
                                         <option value="">Tidak ada kelas tersedia</option>
@@ -136,7 +136,7 @@ const SiswaItem = ({ id, nama, kategori, nama_kelas, no_telp_ortu, email, passwo
                                 />
                             </div>
                             <div className="mt-4">
-                                <button type="submit" className="bg-blue-500 text-white rounded px-4 py-2">Simpan</button>
+                                <button type="submit" onClick={handleEditSubmit} className="bg-blue-500 text-white rounded px-4 py-2">Simpan</button>
                             </div>
                         </form>
                     </div>

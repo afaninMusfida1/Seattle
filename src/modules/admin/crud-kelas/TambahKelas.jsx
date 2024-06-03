@@ -18,7 +18,7 @@ const TambahKelas = () => {
     }, [])
 
     const handleTambahKelas = async () => {
-        if (refjadwal_kelas.current.value == '' || refnama_kelas.current.value == '') {
+        if (refKategori.current.value == "" || refPeriode.current.value == "" || refjadwal_kelas.current.value == '' || refnama_kelas.current.value == '' ) {
             alert(`mohon isi keduanya`)
             return;
         }
@@ -34,6 +34,7 @@ const TambahKelas = () => {
 
         if(result) {
             console.log(`kelas ditambahkan: ${result}`);
+            navigate('/admin/kelas')
             // console.log(refKategori.current.value, refjadwal_kelas.current.value, refnama_kelas.current.value, refPeriode.current.value)
         } else {
             console.error(`error menambahkan kelas: ${result.message}`);

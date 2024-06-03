@@ -146,9 +146,12 @@ export const apiGetPresensiBySiswa = (siswa_id) => {
             Authorization: `Bearer ${token}`
         }
     })
-    .then(response => response.data)
+    .then(response => {
+        console.log(response.data);
+        return response.data.dataPresensi;
+    })
     .catch(error => {
-        console.error("Error fetching data: ", error);
+        // console.error("Error fetching data: ", error);
         return error.response?.data ?? { message: "Unknown error" };
     });
 };

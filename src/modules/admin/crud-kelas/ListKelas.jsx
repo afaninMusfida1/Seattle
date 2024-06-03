@@ -17,7 +17,7 @@ const ListKelas = () => {
     }, []);
 
     const handleChange = () => {
-        navigate('/admin/tambah-kelas');
+        navigate('/admin/tambah/kelas');
     };
 
     const handleFilterChange = (event, kategori) => {

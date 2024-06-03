@@ -106,7 +106,7 @@ export const SiswaProvider = ({ children }) => {
                         siswa.id === id ? { ...siswa, ...updatedDataSiswa } : siswa
                     ));
                     alert("Berhasil mengupdate");
-                    window.location.reload();
+                    // window.location.reload();
                 } alert("Berhasil mengupdate");
                 window.location.reload();
                 setIsLoading(false);

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { apiGetJurnalByTanggal } from "../crud-jurnal/requestsJurnal";
 
 const initPresensiState = {
+    presensiList: [],
     handleFetch: () => { },
     handleGetKbmId: () => { },
     handleFetchSiswaByIdKelas: () => { },
@@ -75,11 +76,11 @@ export const PresensiProvider = ({ children }) => {
         setIsLoading(true);
         apiGetPresensiBySiswa(siswa_id)
             .then(response => {
-                setPresensiList(response.data);
+                setPresensiList(response.data.dataPresensi);
                 setIsLoading(false);
             })
             .catch(err => {
-                console.error(err.message);
+                // console.error(err.message);
                 setIsLoading(false);
             });
     };
