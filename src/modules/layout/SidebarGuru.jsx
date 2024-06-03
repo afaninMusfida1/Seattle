@@ -10,7 +10,7 @@ const SidebarGuru = ({isSidebarVisible, toggleSidebar}) => {
     <div className="bg-gray-200 flex h-screen">
       <div className={`fixed bg-white text-white h-full transition-transform duration-300 ease-in-out ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-4">
-          <img src="../src/assets/logo - Copy.png" className="mx-[40px] h-[60px] w-[130px]" />
+          <img src="../../../src/assets/logo - Copy.png" className="mx-[40px] h-[60px] w-[130px]" />
         </div>
         <nav className="mt-4 px-[25px] h-full overflow-y-auto">
           <section className="text-sm block px-4 py-2 font-bold text-[#A7B9D1]">Overview</section>

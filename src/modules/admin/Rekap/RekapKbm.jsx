@@ -5,10 +5,11 @@ import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
 import { useParams } from "react-router-dom";
 import { usePresensi } from "../../gurug/crud-presensi/PresensiProvider";
+import RekapPresensiItem from "./RekapPresensiItem"
 
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout();
-    const { jurnalList, setJurnalList, handleFetchJurnal, handleGetJurnalByKelas, handleFetchPresensi} = useJurnal();
+    const { jurnalList, setJurnalList, presensiList, handleFetchJurnal, handleGetJurnalByKelas, handleFetchPresensi} = useJurnal();
 
     const { kelas_id } = useParams();
 
@@ -68,23 +69,22 @@ const RekapKbm = () => {
                         <tr>
                             <th className="">Tanggal</th >
                             <th>Kelas</th>
-                            <th>Pengajar</th>
-                            <th className="text-left pl-[40px]">Materi</th>
+                            <th>Siswa</th>
+                            <th>Keterangan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody className="max-h-[300px]">
-                        {jurnalList.length > 0 ? (
-                            jurnalList.map(jurnal => (
-                                <RekapItem
-                                    key={jurnal.id}
-                                    id={jurnal.id}
-                                    kelas_id={jurnal.kelas_id}
-                                    nama_kelas={jurnal.nama_kelas}
-                                    guru_id={jurnal.guru_id}
-                                    nama={jurnal.nama}
-                                    hasil_belajar={jurnal.hasil_belajar}
-                                    tanggal={jurnal.tanggal}
+                        {presensiList.length > 0 ? (
+                            presensiList.map(presensi => (
+                                <RekapPresensiItem
+                                    key={presensi.id}
+                                    id={presensi.id}
+                                    nama_kelas={presensi.nama_kelas}
+                                    keterangan={presensi.keterangan}
+                                    nama={presensi.nama}
+                                    siswa_id={presensi.siswa_id}
+                                    tanggal={presensi.tanggal}
                                 />
                             ))
                         ) : (

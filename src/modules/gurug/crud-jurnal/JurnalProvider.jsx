@@ -7,6 +7,7 @@ import { apiGetPresensi } from '../crud-presensi/requestPresensi';
 
 const initJurnalState = {
     jurnalList: [],
+    presensiList: [],
     daftarKelas: [],
     isLoading: false,
     location: '',
@@ -81,6 +82,10 @@ export const JurnalProvider = ({ children }) => {
         return kbmId;
     };
 
+    const handleGetPresensiByKelas = async (kelas_id) => {
+        
+    }
+
     const handleGetJurnalByKelas = async (kelas_id) => {
         if (isLoading) return
         setIsLoading(true)
@@ -122,6 +127,7 @@ export const JurnalProvider = ({ children }) => {
         <JurnalContext.Provider value={{
             daftarKelas,
             jurnalList,
+            presensiList,
             setJurnalList,
             isLoading,
             location,

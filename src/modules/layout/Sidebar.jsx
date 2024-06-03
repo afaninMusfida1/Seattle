@@ -17,7 +17,7 @@ const Sidebar = ({ isSidebarVisible, toggleSidebar }) => {
   return (
     <div className={`fixed bg-white text-white h-screen transition-transform duration-300 ease-in-out ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'}`}>
       <div className="flex items-center p-4">
-        <img src="src/assets/logo - Copy.png" className="mx-[40px] h-[60px] w-[130px]" alt="Logo" />
+        <img src="../src/assets/logo - Copy.png" className="mx-[40px] h-[60px] w-[130px]" alt="Logo" />
         <button onClick={toggleSidebar} className='absolute'>
           {/* <FontAwesomeIcon icon={faXmark} style={{ color: "#3f3f3f" }} className='mb-[40px] ml-[200px] text-[20px]' /> */}
         </button>

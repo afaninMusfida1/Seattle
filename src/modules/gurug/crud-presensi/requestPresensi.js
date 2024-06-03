@@ -150,3 +150,25 @@ export const apiGetSiswaByIdKelas = async (id) => {
             return error.response?.data ?? { message: "Unknown error" };
         });
 }
+
+export const apiGetPresensiByKelas = async (id) => {
+    const token = localStorage.getItem("guruToken");
+    if (!token) {
+        console.error("Token not found. Please login again.");
+        return { message: "Token not found. Please login again." };
+    }
+
+    return axios.get(`${API_URL}/presensi/kelas/${id}`, {
+        headers: {  
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then((response) => {
+            return response.data.dataPresensi;
+        })
+        .catch((error) => {
+            console.error("Error fetching data: ", error);
+            return error.response?.data ?? { message: "Unknown error" };
+        });
+}
+
