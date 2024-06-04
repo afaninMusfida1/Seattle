@@ -1,8 +1,4 @@
-import { createContext, useContext, useState } from "react";
-const initPresensiState = {
-    handleFetchPresensi: () => { },
-};
-
+import { createContext, useContext } from "react";
 const RekapSiswaContext = createContext(initRekapSiswaState);
 export const useRekapSiswa = () => useContext(RekapSiswaContext);
 

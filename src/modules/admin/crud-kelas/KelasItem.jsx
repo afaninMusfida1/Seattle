@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import Popup from "reactjs-popup";
 import { useKelas } from "./KelasProvider";
 
 const KelasItem = ({ navigateTo, nama_kelas, kategori, jadwal_kelas, periode, id }) => {

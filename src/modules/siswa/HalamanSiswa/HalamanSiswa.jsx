@@ -2,7 +2,6 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useSiswa } from "../../admin/crud-siswa/SiswaProvider";
 import { useAuth } from "../../../context/AuthContext";
 import { useHalamanSiswa } from "./HalamanSiswaProvider";
 

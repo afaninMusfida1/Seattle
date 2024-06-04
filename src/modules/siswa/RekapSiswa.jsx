@@ -1,11 +1,7 @@
-import { useNavigate, Outlet } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import { useLayout } from '../layout/LayoutContext';
+import { useNavigate } from 'react-router-dom';
 import KelasItem from '../admin/crud-kelas/KelasItem';
 
 const Rekap = () => {
-    const navigate = useNavigate();
-
     return (
         <div className="mr-[100px] ml-[350px] mt-[50px] ">
             <div className="rekap-absen bg-white rounded-[30px] p-8 ">

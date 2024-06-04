@@ -5,7 +5,6 @@ import Button from "../../siswa/Button";
 import RekapItem from "./RekapItem";
 import { useParams } from "react-router-dom";
 import { usePresensi } from "../../gurug/crud-presensi/PresensiProvider";
-import RekapPresensiItem from "./RekapPresensiItem"
 
 const RekapKbm = () => {
     const { actionSetPageTitle } = useLayout();

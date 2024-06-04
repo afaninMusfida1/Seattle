@@ -16,10 +16,6 @@ const KelasGrouping = (props) => {
         handleFetch()
     }, []);
 
-    // function handleChangeAbsen() {
-    //     navigate('/rekap-absen');
-    // }
-
     function handleChangeJurnal() {
         navigate('/rekap-jurnal');
     }

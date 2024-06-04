@@ -26,4 +26,21 @@ body{
     transition: transform 0.3s ease, width 0.3s ease;
 }
 
+.btn-starting{
+    background:#078DCC;
+    width:15%;
+    padding:15px 0;
+    border-radius:10px;
+    color:#f8f8f8;
+    font-weight:bold;
+    font-size:20px;
+    text-align:center;
+}
 
+@media screen and (max-width: 767px){
+    .btn-starting{
+        width:40%;
+        padding:20px;
+        font-size:24px;
+    }
+}

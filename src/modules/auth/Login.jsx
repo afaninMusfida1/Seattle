@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Dashboard from "../Dashboard/Dashboard";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { doLoginAdmin, error, isLoggedIn, setIsLoggedIn } = useAuth();
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("admin123");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(null);
 

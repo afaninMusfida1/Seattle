@@ -133,17 +133,6 @@ const Jurnal = () => {
 
     };
 
-    // const handleConfirmPresensi = () => {
-    //     // navigate('/guru')
-    //     setIsChecking(true)
-    //     setTanggal("")
-    //     Swal.fire({
-    //         title: 'Selesai Presensi',
-    //         icon: 'success',
-    //         confirmButtonText: 'Lanjut'
-    //     })
-    // }
-
     const handleUpdatePresensi = async (siswa_id, keterangan) => {
         const idKbm = await handleGetKbmId(kelas_id, tanggal);
         try {

@@ -42,6 +42,7 @@ import { RekapProvider } from '../modules/admin/Rekap/RekapProvider';
 import RekapAdmin from '../modules/admin/Rekap/RekapAdmin';
 import ReAbSiswa from '../modules/siswa/RekapSiswa/ReAbSiswa';
 import { HalamanSiswaProvider } from '../modules/siswa/HalamanSiswa/HalamanSiswaProvider';
+import StartingLayout from '../modules/layout/StartingLayout';
 
 const AppRoutes = () => {
   const isLoggedIn = useAuth();
@@ -49,13 +50,14 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<Navigate to="/auth" />} />
+
+        <Route path='/' element={<StartingLayout/>}/>
+
         <Route path="/auth/admin" element={<Login />} />
-        {/* <Route path="/auth/guru" element={<LoginGuru/>} /> */}
         <Route path="/auth" element={<LoginGuruSiswa />} />
         <Route path="/guru" element={<LoginGuru />} />
         <Route path="/siswa/ortu" element={<LoginOrtuSiswa />} />
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route path="*" element={<Navigate to="/"/>} />
 
         {isLoggedIn && (
           <>
@@ -65,7 +67,6 @@ const AppRoutes = () => {
                   <GuruLayout />
                 </JurnalProvider>
               </KelasProvider>}>
-              {/* <Route path="/guru/kelas" element={<KelasSiswa />} /> */}
               <Route path="/guru/jurnal" element={<JurnalGuru />} />
               <Route path="/guru-presensi-siswa" element={<PresensiSiswa />} />
               <Route path="/guru/rekap" element={<RekapGuru />} />
@@ -79,10 +80,6 @@ const AppRoutes = () => {
               <Route path="/tambah-siswa" element={<TambahSiswa />} />
               <Route path="/daftar-siswa" element={<SiswaTerdaftar />} />
             </Route>
-
-            {/* <Route element={<RekapLayout />}>
-
-            </Route> */}
 
             <Route path="/siswa/*" element={<HalamanSiswaProvider><PresensiProvider><SiswaLayout /></PresensiProvider></HalamanSiswaProvider>}>
               <Route index element={<HalamanSiswa />} />
@@ -102,7 +99,6 @@ const AppRoutes = () => {
                 </JurnalProvider>
               </KelasProvider>}>
               <Route index element={<Dashboard />} />
-              {/* <Route path="" element={<Dashboard />} /> */}
               <Route path="tambah/kelas" element={<TambahKelas />} />
               <Route path="kelas" element={<ListKelas />} />
 
@@ -129,7 +125,6 @@ const AppRoutes = () => {
                 <Route path="tambah" element={<TambahGuru />} />
               </Route>
               <Route path="dashboard" element={<Dashboard />} />
-              {/* <Route path="/admin-tambah-siswa" element={<TambahSiswa />} /> */}
             </Route>
           </>
 

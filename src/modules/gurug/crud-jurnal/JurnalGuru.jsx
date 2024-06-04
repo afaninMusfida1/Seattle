@@ -1,23 +1,16 @@
-import { useNavigate, Outlet, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import KelasItem from '../../admin/crud-kelas/KelasItem';
 import { useLayout } from '../../layout/LayoutContext';
-import GuruLayout from '../../layout/GuruLayout';
 import { useJurnal } from './JurnalProvider';
-import KelasGrouping from '../../admin/crud-kelas/KelasGrouping';
-import { apiGetJurnalByKelas } from './requestsJurnal';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 
 
 const JurnalGuru = () => {
-    const navigate = useNavigate();
     const { actionSetPageTitle } = useLayout();
     const { daftarKelas, jurnalList, setJurnalList, handleFetchJurnal, location, setLocation, handleFetchKelas, handleGetJurnalByKelas } = useJurnal();
     const [filters, setFilters] = useState({});
     const [groupedKelas, setGroupedKelas] = useState({});
     const { id } = useParams();
-    // const { daftarKelas, setDaftarKelas, location, setLocation } = useKelas()
 
     useEffect(() => {
         actionSetPageTitle('Jurnal & Presensi');
@@ -25,33 +18,12 @@ const JurnalGuru = () => {
     }, []);
 
 
-    function handleChangeAbsen() {
-        navigate('/isi-jurnal');
-    }
-
-    // setLocation(`/guru/kelas/${kelas.id}/jurnal`)
-
     const handleFilterChange = (event, kategori) => {
         setFilters(prevFilters => ({
             ...prevFilters,
             [kategori]: event.target.value,
         }));
     };
-
-    // useEffect(() => {
-    //     // Mengambil data jurnal berdasarkan ID kelas
-    //     const fetchDataJurnal = async (id) => {
-    //         try {
-    //             const data = await handleGetJurnalByKelas(id);
-    //             setJurnalList(data);
-    //         } catch (error) {
-    //             console.error("Error fetching jurnal data:", error);
-    //         }
-    //     };
-
-    //     fetchDataJurnal();
-    // }, [id]);
-
 
     useEffect(() => {
         const grouped = daftarKelas.reduce((acc, curr) => {
@@ -67,20 +39,6 @@ const JurnalGuru = () => {
 
     return (
         <>
-            {/* <div className='flex justify-between gap-10 bg-sky-500 rounded-[30px] ml-[100px] mt-[50px] mr-[100px] p-8'>
-                <section>
-                    <div className="title text-white font-semibold text-2xl">
-                        PPDB Tahun 2025
-                    </div>
-                    <div className="content text-white opacity-90">
-                        pendaftaran siswa baru tahun ajaran 2025
-                    </div>
-                </section>
-                <span className='text-white opacity-70'>
-                    Pengumuman
-
-                </span>
-            </div> */}
             <div className="">
                 {Object.entries(groupedKelas).map(([kategori, kelasArray], index) => (
                     <div key={index} className="rekap-absen bg-white rounded-[30px] p-8 mr-[100px] ml-[100px] mt-[50px]">

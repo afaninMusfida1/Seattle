@@ -1,6 +1,5 @@
 // import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import RejulItem from "./RejulIten";
 
 const RejulSiswa = () => {
@@ -27,7 +26,7 @@ const RejulSiswa = () => {
             <Link to="/siswa/jurnal" className="grow py-[20px] rounded-[10px] bg-[#078DCC] font-poppins font-semibold text-left text-white px-[40px]">Rekap Jurnal</Link>
           </div>
   
-          <div className="bg-white rounded-[15px] mx-[50px] mt-[50px]">
+          <div className="bg-white rounded-[15px] mx-[50px] pb-20 mt-[50px]">
             <p className="font-poppins font-semibold text-xl text-[#078DCC] ml-[70px] pt-[50px]">Rekap Absen</p>
   
             <div className="flex pt-[50px] ml-[70px] ">
@@ -40,8 +39,6 @@ const RejulSiswa = () => {
                   </tr>
                 </thead>
                 <tbody>
-                    <RejulItem/>
-                    <RejulItem/>
                     <RejulItem/>
                 </tbody>
               </table>

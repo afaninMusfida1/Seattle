@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GuruItem from './GuruItem';
 import { useLayout } from '../../layout/LayoutContext';
 import { useGuru } from './GuruProvider';
-import { editGuru, tampilkan } from '../../config/Api';
 
 
 const DaftarGuru = () => {

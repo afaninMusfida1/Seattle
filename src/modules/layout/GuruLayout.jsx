@@ -14,13 +14,6 @@ export default function GuruLayout(){
   };
   
     return (
-      // <div>
-      //   <SidebarGuru />
-      //   <div>
-      //     <Navbar />
-      //     <Outlet />  
-      //   </div>
-      // </div>
       <div className="flex">
       <SidebarGuru isSidebarVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
       <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarVisible ? 'ml-[250px]' : 'ml-0'}`}>
